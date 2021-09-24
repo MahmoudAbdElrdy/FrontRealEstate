@@ -1,0 +1,10 @@
+.scroll-sidebar,
+.system-admin {
+    background: #363e52 !important;
+}
+.left-sidebar {
+    background: #363e52 !important;
+}
+.sidebar-nav ul .sidebar-item .sidebar-link {
+    border-bottom: 1px solid #dddddd73;
+}

@@ -29,6 +29,9 @@ import { CustomNgbDateParserFormatter } from './component/datepicker/custom-ngbD
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { CustomerServiceComponent } from './layouts/customer-service/customer-service.component';
+import { CustomerServiceNavigationComponent } from './shared/customer-service-navigation/customer-service-navigation.component';
+import { CustomerServiceSideBarComponent } from './shared/customer-service-side-bar/customer-service-side-bar.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -45,7 +48,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         BlankComponent,
         NavigationComponent,
         BreadcrumbComponent,
-        SidebarComponent
+        SidebarComponent,
+        CustomerServiceComponent,
+        CustomerServiceNavigationComponent,
+        CustomerServiceSideBarComponent
     ],
     imports: [
         CommonModule,
