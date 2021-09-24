@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="font-medium mb-0">3456</h2>
+                <h5 class="text-muted mb-0">Yearly Sales</h5>
+            </div>
+            <div class="col-6">
+                <div class="linearea linechart" style="height: 57px;">
+                    <x-chartist class="yearsale ct-charts" [data]="lineChart.data" [type]="lineChart.type"
+                        [options]="lineChart.options" [responsiveOptions]="lineChart.responsiveOptions"
+                        [events]="lineChart.events"> </x-chartist>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

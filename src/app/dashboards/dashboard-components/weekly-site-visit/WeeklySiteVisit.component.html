@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
+            <h5 class="card-title text-uppercase mb-0">Weekly Site Traffic</h5>
+            <div class="ml-auto">
+                <small class="text-danger"><i class="fas fa-sort-down"></i> 18% High then last month</small>
+            </div>
+        </div>
+        <div class="d-flex flex-row">
+            <div class="p-2 pl-0 border-right">
+                <h6 class="font-light">Overall Growth</h6><span class="font-medium">80.40%</span>
+            </div>
+            <div class="p-2 border-right">
+                <h6 class="font-light">Montly</h6><span class="font-medium">20.40%</span>
+            </div>
+            <div class="p-2">
+                <h6 class="font-light">Day</h6><span class="font-medium">5.40%</span>
+            </div>
+        </div>
+    </div>
+    <div class="mt-2">
+        <canvas baseChart height="50" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+            [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType">
+        </canvas>
+    </div>
+</div>

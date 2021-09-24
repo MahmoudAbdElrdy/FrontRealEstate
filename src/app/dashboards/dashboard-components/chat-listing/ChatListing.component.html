@@ -1,0 +1,29 @@
+<div class="card">
+    <h5 class="card-title text-uppercase p-3 bg-info text-white mb-0">
+        Chat Listing
+    </h5>
+    <div class="p-3">
+        <ul class="list-style-none chat-list">
+            <li class="mb-3" *ngFor="let d of data; let i = index">
+                <a href="javascript:void(0)">
+                    <div class="d-flex align-items-center">
+                        <img src="{{d.img}}" class="rounded-circle" width="40">
+                        <div class="ml-3">
+                            <h5 class="mb-0 text-dark">{{d.name}}</h5>
+                            <small class="text-success">{{d.status}}</small>
+                        </div>
+                        <div class="ml-auto chat-icon">
+                            <button type="button" class="btn btn-success btn-circle btn-circle text-white">
+                                <i class="fas fa-phone"></i>
+                            </button>
+                            <button type="button" class="btn btn-info btn-circle btn-circle ml-2">
+                                <i class="far fa-comments"></i>
+                            </button>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</div>

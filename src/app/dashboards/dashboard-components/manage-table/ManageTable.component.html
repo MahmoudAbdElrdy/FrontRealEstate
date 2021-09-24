@@ -1,0 +1,228 @@
+<div class="card">
+    <ngb-tabset class="manage-tabs nav-fill">
+        <ngb-tab>
+            <ng-template ngbTabTitle>
+                <span class="">
+                    <h4><i class="ti-user"></i></h4>
+                </span>
+                <span class="d-none d-md-block text-uppercase">Select Users</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <div class="row py-4 px-3 no-gutters mt-3">
+                    <div class="col-sm-12 col-md-6">
+                        <h3 class="font-light">Select Users to Manage</h3>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <ul class="list-inline dl mb-0 float-left float-md-right">
+                            <li class="list-inline-item text-info mr-3">
+                                <a href="javascript:void(0)" (click)="open(addUserModal)">
+                                    <button class="btn btn-circle btn-success text-white" (click)="open(addUserModal)">
+                                        <i class="ti-plus"></i>
+                                    </button>
+                                    <span class="ml-2 font-normal text-dark">Add User</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-light position-relative" style="height: 401px;" [perfectScrollbar]="config">
+                    <div class="table-responsive border-top manage-table px-4 py-3">
+                        <table class="table no-wrap">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="border-0 pl-3">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="all"
+                                                [(ngModel)]="selectedAll" (change)="selectAll();">
+                                            <label class="custom-control-label" for="all">&nbsp;</label>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="border-0 text-uppercase">Name</th>
+                                    <th scope="col" class="border-0 text-uppercase">Position</th>
+                                    <th scope="col" class="border-0 text-uppercase">Joined</th>
+                                    <th scope="col" class="border-0 text-uppercase">Location</th>
+                                    <th scope="col" class="border-0 text-uppercase">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="advanced-table" *ngFor="let d of data; let i = index"
+                                    [ngClass]="{'active': d.selected}">
+                                    <td class="pl-3">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="{{ i }}"
+                                                [(ngModel)]="d.selected" (change)="checkIfAllSelected();">
+                                            <label class="custom-control-label" for="{{ i }}">&nbsp;</label>
+                                        </div>
+                                    </td>
+                                    <td>{{d.name}}</td>
+                                    <td>{{d.position}}</td>
+                                    <td>{{d.joined}}</td>
+                                    <td>{{d.location}}</td>
+                                    <td class="text-center">
+                                        <a href="javascript: void(0);" class="link" (click)="data.splice(i, 1)"
+                                            placement="top" ngbTooltip="Delete">
+                                            <i class="mdi mdi-delete"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center p-4 mt-2">
+                    <h3 class="font-light">{{data.length}} members</h3>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+            <ng-template ngbTabTitle>
+                <span class="hidden-sm-up">
+                    <h4><i class="ti-lock"></i></h4>
+                </span>
+                <span class="d-none d-md-block text-uppercase">Set Permissions</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <div class="row py-4 px-3 no-gutters mt-3">
+                    <div class="col-sm-12 col-md-6">
+                        <h3 class="font-light">Set Users Role</h3>
+                    </div>
+                </div>
+                <div class="bg-light px-5 py-3 position-relative" style="height: 408px;" [perfectScrollbar]="config">
+                    <form>
+                        <div class="custom-control custom-radio py-3">
+                            <input type="radio" id="admin" name="role" class="custom-control-input">
+                            <label class="custom-control-label" for="admin">Admin</label>
+                        </div>
+                        <div class="custom-control custom-radio py-3">
+                            <input type="radio" id="subscriber" name="role" class="custom-control-input">
+                            <label class="custom-control-label" for="subscriber">Subscriber</label>
+                        </div>
+                        <div class="custom-control custom-radio py-3">
+                            <input type="radio" id="support" name="role" class="custom-control-input">
+                            <label class="custom-control-label" for="support">Support Manager</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="d-flex align-items-center p-4 mt-2">
+                    <h3 class="font-light">No roles assigned</h3>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+            <ng-template ngbTabTitle>
+                <span class="hidden-sm-up">
+                    <h4><i class="ti-receipt"></i></h4>
+                </span>
+                <span class="d-none d-md-block text-uppercase">Message Users</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <div class="border-top border-bottom pl-4 pr-3">
+                    <div class="chat-box pr-3 position-relative" #scrollMe [scrollTop]="scrollMe.scrollHeight"
+                        style="height: 509px;" [perfectScrollbar]="config">
+                        <!--chat Row -->
+                        <ul class="chat-list">
+                            <li class="chat-item" [ngClass]="[chat.chatClass]" *ngFor="let chat of chat">
+                                <div class="chat-img">
+                                    <img [src]="[chat.imagePath]" alt="avatar" />
+                                </div>
+
+                                <div class="chat-content" *ngFor="let message of chat.messages">
+                                    <div class="box bg-light-info">
+                                        {{ message }}
+                                    </div>
+                                </div>
+
+                                <div class="chat-time text-lowercase" *ngIf="chat.time !='' ">{{chat.time}}</div>
+                            </li>
+                            <li class="chat-item odd type-msg" *ngIf="messages.length > 0">
+                                <div class="chat-img" data-toggle="tooltip" data-placement="right" title=""
+                                    data-original-title="">
+                                    <img src="assets/images/users/8.jpg" alt="user-images" />
+                                </div>
+                                <div class="chat-messages">
+                                    <div class="chat-content" *ngFor="let message of messages">
+                                        <div class="box bg-light-info">{{ message }}</div>
+                                    </div>
+                                </div>
+                                <div class="chat-time">{{ now | date: 'hh.mm a' }}</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-3 border-top">
+                        <form class="chat-app-input row">
+                            <div class="col-9">
+                                <input type="text" class="form-control border-0" id="iconLeft4"
+                                    placeholder="Type your message and enter"
+                                    (keydown.enter)="onAddMessage();$event.preventDefault()" #messageInput>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn-circle btn-lg btn-cyan float-right text-white border-0"
+                                    (click)="onAddMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+            <ng-template ngbTabTitle>
+                <span class="hidden-sm-up">
+                    <h4><i class="ti-check-box"></i></h4>
+                </span>
+                <span class="d-none d-md-block text-uppercase">Save and Finish</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <div class="row py-4 px-3 no-gutters mt-3">
+                    <div class="col-sm-12 col-md-6">
+                        <h3 class="font-light">Save and you are done.</h3>
+                    </div>
+                </div>
+                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 323px;"
+                    [perfectScrollbar]="config">
+                    <button class="btn btn-lg btn-success btn-rounded waves-effect waves-light text-white">Save &
+                        Finish</button>
+                </div>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>
+
+<ng-template #addUserModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add User</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #userForm="ngForm">
+            <div class="form-group">
+                <label for="username">Name</label>
+                <input type="text" class="form-control" required id="username" name="username" [(ngModel)]="txtname"
+                    placeholder="name here">
+            </div>
+            <div class="form-group">
+                <label for="position">Position</label>
+                <input type="text" class="form-control" required id="position" name="position" [(ngModel)]="txtposition"
+                    placeholder="position here">
+            </div>
+            <div class="form-group">
+                <label for="date">Joined Date</label>
+                <input type="date" class="form-control" required id="date" name="date" [(ngModel)]="txtjoined"
+                    placeholder="joined date here">
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" class="form-control" required id="location" name="location" [(ngModel)]="txtlocation"
+                    placeholder="location here">
+            </div>
+            <div class="form-group">
+                <button type="submit" [disabled]="!userForm.form.valid"
+                    (click)="addUser(); modal.dismiss('Cross click');" class="btn btn-outline-dark">Add
+                    User</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

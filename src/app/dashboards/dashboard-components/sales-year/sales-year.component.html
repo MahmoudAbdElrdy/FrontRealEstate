@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title text-uppercase">Products Yearly Sales</h5>
+        <ul class="list-inline dl mb-0 float-right">
+            <li class="list-inline-item text-info"><i class="fa fa-circle"></i> Mac</li>
+            <li class="list-inline-item text-danger"><i class="fa fa-circle"></i> Windows</li>
+        </ul>
+        <div class="linearea linechart" style="height: 320px;">
+            <x-chartist class="yearly-sales ct-charts" [data]="lineChart.data" [type]="lineChart.type"
+                [options]="lineChart.options" [responsiveOptions]="lineChart.responsiveOptions"
+                [events]="lineChart.events"> </x-chartist>
+        </div>
+    </div>
+</div>
