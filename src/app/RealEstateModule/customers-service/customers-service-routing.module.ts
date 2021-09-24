@@ -10,10 +10,10 @@ const routes: Routes = [ {
           path: 'Customer',
           component: CustomersComponent,
           data: {
-              title: 'Customer',
+              title: '  العملاء',
               urls: [
-                  { title: 'Customer Services', url: '/Customer' },
-                  { title: 'Customer' }
+                  { title: 'العملاء', url: '/CustomerServices' },
+                  { title: ' خدمة العملاء', }
               ]
           }
       }

@@ -5,7 +5,7 @@ export const ROUTES: RouteInfo[] = [
 
 {
         path: '/CustomerServices/Customer',
-        title: 'Customer',
+        title: 'العملاء',
         icon: 'fas fa-user',
         class: '',
         extralink: false,
