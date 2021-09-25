@@ -4,11 +4,13 @@ import { CustomersServiceRoutingModule } from './customers-service-routing.modul
 import { CustomersComponent } from './customers/customers.component';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { PagerComponent } from 'src/app/shared/pager/pager.component';
+import { ProjectVisitComponent } from './project-visit/project-visit.component';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 
 @NgModule({
-  declarations: [CustomersComponent,PagerComponent],
+  declarations: [CustomersComponent,PagerComponent, ProjectVisitComponent],
   imports: [
-    CustomersServiceRoutingModule,  GridModule,
+    CustomersServiceRoutingModule,  GridModule,DropDownListModule
   ],schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA

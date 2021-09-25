@@ -16,7 +16,7 @@ export class CustomerServiceComponent implements OnInit {
     pageSize: 10,
     pageNumber: 1
   };
-  constructor(public router: Router) { }
+  constructor(public router: Router,) { }
 
   tabStatus = 'justified';
 

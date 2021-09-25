@@ -1,18 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { data } from './visit';
 import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
-import { data } from './customer';
-
 @Component({
-  selector: 'app-customers',
-  templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.scss'],
-  providers: [PageService,
-    SortService,
-    FilterService,
-    GroupService]
+  selector: 'app-project-visit',
+  templateUrl: './project-visit.component.html',
+  styleUrls: ['./project-visit.component.css'],
+  providers:[ PageService, SortService, FilterService, GroupService]
 })
-export class CustomersComponent implements OnInit {
+export class ProjectVisitComponent  implements OnInit {
   customAttributes:object;
   selectionsettings: object;
   pager: any = {
@@ -22,6 +18,7 @@ export class CustomersComponent implements OnInit {
     pageNumber: 1
   };
   @ViewChild('ModalId') modalId: ElementRef;
+  public dataDropDown = ['Snooker', 'Tennis', 'Cricket', 'Football', 'Rugby'];
   constructor( public modalService: NgbModal) { }
 
   public data: object[];
@@ -39,7 +36,7 @@ console.log(event)
   openModal() {
 
 
-      this.modalService.open(this.modalId, { size: 'md', backdrop: 'static' });
+      this.modalService.open(this.modalId, { size: 'lg', backdrop: 'static' });
       
   }
 }

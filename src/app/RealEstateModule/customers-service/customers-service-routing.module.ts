@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CustomersComponent } from './customers/customers.component';
+import { ProjectVisitComponent } from './project-visit/project-visit.component';
 
 
 const routes: Routes = [ {
@@ -16,7 +17,18 @@ const routes: Routes = [ {
                   { title: ' خدمة العملاء', }
               ]
           }
-      }
+      },
+      {
+        path: 'Visit',
+        component:ProjectVisitComponent ,
+        data: {
+            title: ' الزيارات',
+            urls: [
+                { title: 'الزيارات', url: '/CustomerServices' },
+                { title: ' خدمة العملاء', }
+            ]
+        }
+    }
   ]
 }];
 

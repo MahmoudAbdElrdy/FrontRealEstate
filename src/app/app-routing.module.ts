@@ -7,18 +7,18 @@ import { CustomersComponent } from './RealEstateModule/customers-service/custome
 import { CustomerServiceComponent } from './layouts/customer-service/customer-service.component';
 
 export const Approutes: Routes = [
-    // {
-    //     path: '',
-    //     component: FullComponent,
-    //     children: [
-    //         { path: '', redirectTo: '/dashboard/dashboard1', pathMatch: 'full' },
-    //         {
-    //             path: 'dashboard',
-    //             loadChildren: () => import('./dashboards/dashboard.module').then(m => m.DashboardModule)
-    //         },
-    //         { path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule) },
-    //     ]
-    // },
+    {
+        path: '',
+        component: FullComponent,
+        children: [
+            { path: '', redirectTo: '/dashboard/dashboard1', pathMatch: 'full' },
+            {
+                path: 'dashboard',
+                loadChildren: () => import('./dashboards/dashboard.module').then(m => m.DashboardModule)
+            },
+            { path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule) },
+        ]
+    },
     {
         path: 'CustomerServices',
       

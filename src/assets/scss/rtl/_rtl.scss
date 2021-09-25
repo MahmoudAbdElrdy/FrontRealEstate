@@ -47,7 +47,7 @@
     }
 
     .modal-header .close {
-        float: left;
+        float: right;
         margin: -1rem auto -1rem -1rem;
     }
 
@@ -55,7 +55,9 @@
         margin-left: 0.25rem;
         margin-right: 0;
     }
-
+.modal-body{
+  direction: rtl;
+}
     .ml-auto {
         margin-right: auto !important;
         margin-left: 0px !important;

@@ -33,7 +33,8 @@ import { CustomerServiceComponent } from './layouts/customer-service/customer-se
 import { CustomerServiceNavigationComponent } from './shared/customer-service-navigation/customer-service-navigation.component';
 import { CustomerServiceSideBarComponent } from './shared/customer-service-side-bar/customer-service-side-bar.component';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
-
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
     wheelSpeed: 1,
@@ -69,7 +70,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         PerfectScrollbarModule,
         NgMultiSelectDropDownModule.forRoot(),
         AgmCoreModule.forRoot({ apiKey: 'AIzaSyDoliAneRffQDyA7Ul9cDk3tLe7vaU4yP8' }),
-        GridModule
+        GridModule,DropDownListModule
     ],
     providers: [
         {

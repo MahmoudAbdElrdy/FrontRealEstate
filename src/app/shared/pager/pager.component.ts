@@ -23,7 +23,7 @@ export class PagerComponent implements OnInit {
    
   }
   ngOnChanges(change: any): void {
-    debugger
+    
    console.log(this.pager)
     if(this.pager.totalItems!=undefined)
     this.calculateInforPaggination(this.pager.currentPage,  this.pager.pageSize,this.pager.totalItems)
