@@ -1,0 +1,44 @@
+<div class="e-pagertemplate">
+  <!-- begin:paggination -->
+  <div class="row justify-content-center" style="margin-top: 10px;">
+    <div class="col-md-4 row">
+      <select class="form-control w-auto" [(ngModel)]="pageSize" (ngModelChange)="paggination(pageNumber,pageSize)">
+        <option [ngValue]="pager?.totalItems">الكل</option>
+        <option [ngValue]="10">10</option>
+        <option [ngValue]="20">20</option>
+        <option [ngValue]="25">25</option>
+        <option [ngValue]="30">30</option>
+      </select>
+      <span class="col-form-label mx-2">عرض {{fromPageSize}} - {{toPageSize}} من
+        &nbsp;{{pager?.totalItems}} الكل &nbsp; </span>
+    </div>
+    <div class="col-md-4">
+      <ul class="pagination">
+        <li class="paginate_button page-item first" [class.disabled]="pager?.currentPage === 1">
+          <a class="page-link" data-dt-idx="3" tabindex="0" (click)="paggination(pageNumber,pageSize)">
+           الاول</a>
+        </li>
+        <li class="paginate_button page-item previous" [class.disabled]="pager?.currentPage === 1">
+          <a class="page-link" data-dt-idx="3" tabindex="0"
+             (click)="paggination(pager?.currentPage - 1,pageSize)"> <i class="fas fa-chevron-left"></i></a>
+        </li>
+        <li class="paginate_button page-item " [class.active]="pager?.currentPage === page"
+            *ngFor="let page of pager?.pages">
+          <a class="page-link" data-dt-idx="3" tabindex="0" (click)="paggination(page,pageSize)">{{page}}</a>
+        </li>
+        <li class="paginate_button page-item next" [class.disabled]="pager?.currentPage === pager?.totalPages ">
+          <a class="page-link" data-dt-idx="3" tabindex="0"
+             (click)="paggination(pager?.currentPage + 1,pageSize)"><i class="fas fa-chevron-right"></i></a>
+        </li>
+        <li class="paginate_button page-item last" [class.disabled]="pager?.currentPage === pager?.totalPages ">
+          <a class="page-link" data-dt-idx="3" tabindex="0" (click)="paggination(pager?.totalPages,pageSize)">
+           الاخير</a>
+        </li>
+      </ul>
+
+    </div>
+    <div class="col-md-4 text-right col-form-label">
+      صفحة &nbsp; {{pager?.currentPage}} &nbsp; من &nbsp;{{pager?.totalPages}}
+    </div>
+  </div>
+</div>

@@ -10,7 +10,12 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 })
 export class CustomerServiceComponent implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
-
+  pager: any = {
+    totalPages: 0,
+    currentPage: 1,
+    pageSize: 10,
+    pageNumber: 1
+  };
   constructor(public router: Router) { }
 
   tabStatus = 'justified';

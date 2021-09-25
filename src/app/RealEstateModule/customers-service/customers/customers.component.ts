@@ -14,6 +14,13 @@ import { data } from './customer';
 export class CustomersComponent implements OnInit {
   customAttributes:object;
   selectionsettings: object;
+  pager: any = {
+    totalPages: 0,
+    currentPage: 1,
+    pageSize: 10,
+    pageNumber: 1
+  };
+  
   constructor() { }
 
   public data: object[];
@@ -22,6 +29,10 @@ export class CustomersComponent implements OnInit {
     this.customAttributes = { class: 'customcss' }; //use custom css
     this.data = data;
     this.selectionsettings = { checkboxOnly: true };
+    this.paggination(this.pager)
   }
-
+  paggination(event){
+    debugger
+console.log(event)
+  }
 }
