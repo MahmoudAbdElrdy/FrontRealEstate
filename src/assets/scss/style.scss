@@ -24,7 +24,7 @@ File: scss
 
 //This is for the responsive (Required file)
 @import 'responsive';
-
+@import "treegrid.scss";
 //In This scss you can write your scss
 @import 'custom'; 
 

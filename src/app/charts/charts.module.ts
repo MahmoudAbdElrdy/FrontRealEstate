@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChartistModule } from 'ng-chartist';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ChartsRoutes } from './charts.routing';
 import { ChartistjsComponent } from './chartist-js/chartistjs.component';
@@ -21,7 +20,6 @@ import { NgxChartComponent } from './ngx-charts/ngx-chart.component';
     ChartistModule,
     RouterModule.forChild(ChartsRoutes),
     FormsModule,
-    NgxChartsModule
   ],
   declarations: [
     ChartjsComponent,

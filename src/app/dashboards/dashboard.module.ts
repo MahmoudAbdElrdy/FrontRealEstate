@@ -8,7 +8,6 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts';
 import { ChartistModule } from 'ng-chartist';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -80,7 +79,7 @@ import {
             provide: DateAdapter,
             useFactory: adapterFactory
         }),
-        NgxChartsModule,
+      
         NgxDatatableModule
     ],
     declarations: [

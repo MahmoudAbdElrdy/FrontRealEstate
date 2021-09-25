@@ -1,3 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900);
+
+@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+@import '../node_modules//alertifyjs/build/css/themes/bootstrap.min.css';
+
+@import '../node_modules/@syncfusion/ej2-icons/styles/material.css';
+@import "../node_modules/@syncfusion/ej2/bootstrap4.css";
+

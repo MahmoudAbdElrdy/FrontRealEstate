@@ -1,0 +1,75 @@
+.e-treegrid .e-headercell.customcss , .e-grid .e-headercell.customcss{
+    background-color:#7d8388;
+    color: white;
+    font-family: 'Poppins';
+    font-size: '20px';
+}
+.e-treegrid .e-rowcell.customcss , .e-grid .e-rowcell.customcss{
+    font-family: 'Poppins';
+    font-size: 15px;
+}
+
+.e-grid .e-headercelldiv.customcss{
+    font-size: 15px;
+}
+
+//( Details Template Syncfusion ) in users component
+#Grid{
+    div{
+        .e-headercontent {
+            .e-table {
+                thead {
+                    .e-columnheader {
+                        .e-detailheadercell {
+                            background-color: #7d8388 ;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Change the header cell in collapse cards from left to auto (in user-structure-info)
+.e-grid .e-headercelldiv {
+    border: 0 none;
+    display: block;
+    font-weight: Bold;
+    height: 21px;
+    line-height: 21px;
+    margin: -5px;
+    overflow: hidden;
+    padding: 0 0.4em;
+    text-align: left;
+    text-align: start;
+    text-transform: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+
+//Goz mustafa tb3 el icons el mwgoda fel treegrid
+
+.e-treegrid .e-treegridcollapse::before {
+    content: "\f055" !important;
+    font-size: 13px;
+    color: #00bcd4;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+  
+.e-treegrid .e-treegridcollapse:hover::before {
+    color: #03a3b8 !important;
+}
+  
+.e-treegrid .e-treegridexpand::before {
+    content: "\f056" !important;
+    font-size: 13px;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+  
+.e-treegrid .e-treegridexpand {
+    transform: unset !important;
+}
+
