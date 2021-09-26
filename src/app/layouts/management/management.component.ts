@@ -1,14 +1,13 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-declare var $: any;
-
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+declare var $: any;
 @Component({
-  selector: 'app-customer-service',
-  templateUrl: './customer-service.component.html',
-  styleUrls: ['./customer-service.component.css']
+  selector: 'app-management',
+  templateUrl: './management.component.html',
+  styleUrls: ['./management.component.css']
 })
-export class CustomerServiceComponent implements OnInit {
+export class ManagementComponent implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
 
   constructor(public router: Router,) { }

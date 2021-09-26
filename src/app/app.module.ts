@@ -35,6 +35,9 @@ import { CustomerServiceSideBarComponent } from './shared/customer-service-side-
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
+import { ManagementNavigationComponent } from './shared/management-navigation/management-navigation.component';
+import { ManagementSideBarComponent } from './shared/management-side-bar/management-side-bar.component';
+import { ManagementComponent } from './layouts/management/management.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
     wheelSpeed: 1,
@@ -53,7 +56,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         SidebarComponent,
         CustomerServiceComponent,
         CustomerServiceNavigationComponent,
-        CustomerServiceSideBarComponent
+        CustomerServiceSideBarComponent,
+        ManagementNavigationComponent,
+        ManagementSideBarComponent,
+        ManagementComponent
     ],
     imports: [
         CommonModule,
