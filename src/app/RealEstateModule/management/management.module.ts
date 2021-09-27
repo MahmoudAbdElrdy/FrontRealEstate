@@ -4,16 +4,23 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ProjectComponent } from './project/project.component';
 import { SharedModule } from '../shared/shared.module';
+import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
+import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
+import { SalariesComponent } from './salaries/salaries.component';
 
 @NgModule({
-  declarations: [ ProjectComponent],
+  declarations: [ ProjectComponent, SalariesComponent],
   imports: [
-    ManagementRoutingModule,  GridModule,DropDownListModule,SharedModule
+    ManagementRoutingModule,  GridModule,DropDownListModule,SharedModule,ComboBoxModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA
   ],
-  exports:[]
+  exports:[],
+  providers: [PageService,
+    SortService,
+    FilterService,
+    GroupService]
 })
 export class ManagementModule { }
