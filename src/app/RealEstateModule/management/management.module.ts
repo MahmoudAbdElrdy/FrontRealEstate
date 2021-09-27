@@ -7,9 +7,10 @@ import { SharedModule } from '../shared/shared.module';
 import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
 import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
 import { SalariesComponent } from './salaries/salaries.component';
+import { EmployeesComponent } from './employees/employees.component';
 
 @NgModule({
-  declarations: [ ProjectComponent, SalariesComponent],
+  declarations: [ ProjectComponent, SalariesComponent, EmployeesComponent],
   imports: [
     ManagementRoutingModule,  GridModule,DropDownListModule,SharedModule,ComboBoxModule
   ],

@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { data } from './salaries';
+import { data } from './employees';
 
 @Component({
-  selector: 'app-salaries',
-  templateUrl: './salaries.component.html',
-  styleUrls: ['./salaries.component.css']
+  selector: 'app-employees',
+  templateUrl: './employees.component.html',
+  styleUrls: ['./employees.component.css']
 })
-export class SalariesComponent implements OnInit {
+export class EmployeesComponent implements OnInit {
   customAttributes:object;
   selectionsettings: object;
   pager: any = {
@@ -17,9 +17,8 @@ export class SalariesComponent implements OnInit {
     pageNumber: 1
   };
   @ViewChild('ModalId') modalId: ElementRef;
-  projectDDL = ['عقار1', 'عقار2', 'عقار3', 'عقار4', 'عقار5'];
-  unitDDL = ['بدروم', 'محل تجارى', 'محلات', 'محل تجاري', 'سكني'];
-  paymentTypeDDL= [  'دفعات ', 'تقسيط ', 'كاش '];
+  departmentDDL = ['عقار1', 'عقار2', 'عقار3', 'عقار4', 'عقار5'];
+ 
   constructor( public modalService: NgbModal) { }
 
   public data: object[];
