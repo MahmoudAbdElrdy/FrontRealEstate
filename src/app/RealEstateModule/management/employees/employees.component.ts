@@ -17,6 +17,7 @@ export class EmployeesComponent implements OnInit {
     pageNumber: 1
   };
   @ViewChild('ModalId') modalId: ElementRef;
+  @ViewChild('ModalSalaryId') modalSalaryId: ElementRef;
   departmentDDL = ['عقار1', 'عقار2', 'عقار3', 'عقار4', 'عقار5'];
  
   constructor( public modalService: NgbModal) { }
@@ -39,5 +40,10 @@ export class EmployeesComponent implements OnInit {
       this.modalService.open(this.modalId, { size: 'lg', backdrop: 'static' });
       
   }
- 
+  openModalSalary() {
+
+
+    this.modalService.open(this.modalSalaryId, { size: 'lg', backdrop: 'static' });
+    
+}
 }

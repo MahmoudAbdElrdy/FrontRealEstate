@@ -22,8 +22,8 @@
         <i class="fas fa-trash-alt"></i>
         حذف
       </button>
-      <button type="button" class="btn btn-outline-secondary mx-1">
-        <i class="fas fa-undo"></i>
+      <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalBuilding()">
+        <i class="fas fa-undo"  ></i>
         وصف الواحدات
       </button>
       <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalPayment()">
@@ -172,6 +172,46 @@
     </div>
     <div class="modal-footer px-2 py-2">
       <button type="button" (click)="modal2.close('Close click')" class="btn btn-outline-secondary mr-2">
+        <i class="fas fa-undo"></i>
+       اغلاق
+      </button>
+      <button type="button" class="btn btn-info mr-2">
+        <i class="far fa-save pr-1"></i>
+      حفظ
+      </button>
+    </div>
+  </ng-template>
+  <!--  -->
+  <ng-template #BuildingId let-modalBuilding> 
+    <div class="modal-header">
+    
+      <button type="button" class="close" aria-label="Close" (click)="modalBuilding.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="table-responsive col-6">
+            <table>
+              <tbody>
+                <tr *ngFor="let floor of buildingData.Floors.slice().reverse()">
+                  <td *ngFor="let flat of floor">
+                    <ul class="floor">
+                      <li class="header" [style.background-color]="flat.Color">
+                        <button class="button" [style.background-color]="flat.Color">
+                          {{flat.Number}}
+                          <i class="fa fa-building-o" aria-hidden="true"></i>
+                        </button>
+                      </li>
+                      <li class="grey">{{flat.Area}} <i class="fa fa-area-chart" aria-hidden="true"></i></li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+    <div class="modal-footer px-2 py-2">
+      <button type="button" (click)="modalBuilding.close('Close click')" class="btn btn-outline-secondary mr-2">
         <i class="fas fa-undo"></i>
        اغلاق
       </button>

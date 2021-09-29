@@ -76,7 +76,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         PerfectScrollbarModule,
         NgMultiSelectDropDownModule.forRoot(),
         AgmCoreModule.forRoot({ apiKey: 'AIzaSyDoliAneRffQDyA7Ul9cDk3tLe7vaU4yP8' }),
-        GridModule,DropDownListModule
+        GridModule,DropDownListModule,
     ],
     providers: [
         {

@@ -8,11 +8,12 @@ import { PageService, SortService, FilterService, GroupService } from '@syncfusi
 import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
 import { SalariesComponent } from './salaries/salaries.component';
 import { EmployeesComponent } from './employees/employees.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [ ProjectComponent, SalariesComponent, EmployeesComponent],
   imports: [
-    ManagementRoutingModule,  GridModule,DropDownListModule,SharedModule,ComboBoxModule
+    ManagementRoutingModule,  GridModule,DropDownListModule,SharedModule,ComboBoxModule,CommonModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

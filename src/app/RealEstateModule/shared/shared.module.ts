@@ -7,7 +7,7 @@ import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
 @NgModule({
   declarations: [PagerComponent],
   imports: [
-    CommonModule,ComboBoxModule 
+    CommonModule,ComboBoxModule ,
   ],schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA
