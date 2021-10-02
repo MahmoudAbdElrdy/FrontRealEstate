@@ -38,6 +38,9 @@ import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { ManagementNavigationComponent } from './shared/management-navigation/management-navigation.component';
 import { ManagementSideBarComponent } from './shared/management-side-bar/management-side-bar.component';
 import { ManagementComponent } from './layouts/management/management.component';
+import { SalesComponent } from './layouts/sales/sales.component';
+import { SalesNavigationComponent } from './shared/sales-navigation/sales-navigation.component';
+import { SalesSideBarComponent } from './shared/sales-side-bar/sales-side-bar.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
     wheelSpeed: 1,
@@ -59,7 +62,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         CustomerServiceSideBarComponent,
         ManagementNavigationComponent,
         ManagementSideBarComponent,
-        ManagementComponent
+        ManagementComponent,
+        SalesComponent,
+        SalesNavigationComponent,
+        SalesSideBarComponent
     ],
     imports: [
         CommonModule,

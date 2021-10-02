@@ -1,0 +1,132 @@
+<ng-container>
+
+    <div class="pt-3 clearfix">
+  
+      <!-- new -->
+  
+      <button type="button" class="btn btn-outline-info mx-1 " (click)="openModal()">
+        <i class="fas fa-plus"></i>
+        اضافة
+      </button>
+  
+      <!-- edit -->
+  
+      <button type="button" class="btn btn-outline-warning mx-1">
+        <i class="fas fa-plus"></i>
+        تعديل
+      </button>
+  
+      <!-- delete -->
+  
+      <button type="button" class="btn btn-outline-danger mx-1">
+        <i class="fas fa-trash-alt"></i>
+        حذف
+      </button>
+     
+    </div>
+    <br>
+    <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' [allowFiltering]='true'
+      [selectionSettings]='selectionsettings'>
+      <e-columns>
+        <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false' [customAttributes]='customAttributes'
+          width='60'></e-column>
+  
+     
+        
+        <e-column field='referrer' [customAttributes]='customAttributes' headerText=' مسئول المبيعات' textAlign='Right' width=120>
+        </e-column>
+        <e-column field='ShipAddress' [customAttributes]='customAttributes' headerText=' الاستعلام' textAlign='Right' width=120>
+        </e-column>
+       
+        <e-column field='OrderDate' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right' format='yMd'
+        width=90></e-column>
+        <e-column [allowFiltering]='false' [allowSorting]='false' width='70' [disabled]="true" headerText='العمليات'
+          [customAttributes]='customAttributes'>
+          <ng-template #template let-data>
+            <button class="btn btn-outline-info mx-1" data-toggle="tooltip" data-placement="bottom">
+              <i class="far fa-edit"></i>
+            </button>
+            <button class="btn btn-outline-danger" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+              title="Delete">
+              <i class="far fa-trash-alt"></i>
+            </button>
+           
+          </ng-template>
+        </e-column>
+  
+      </e-columns>
+    </ejs-grid>
+    <app-pager (pageChange)="paggination($event)" [pager]="pager"></app-pager>
+  </ng-container>
+  
+  
+  <ng-template #ModalId let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">اضافة</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+    
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label"> مسئول المبيعات</label>
+        <div class="col-sm-10">
+            <ejs-dropdownlist id='projectID' [dataSource]='dataDropDown' [fields]="filed"  placeholder = 'اختر   مسئول المبيعات'></ejs-dropdownlist>
+     
+        </div>
+      </div>
+
+    
+      <!-- New -->
+   
+        <div class="form-group row">
+          <label for="phone" class="col-sm-2 col-form-label">الاستعلام</label>
+          <div class="col-sm-10">
+            <textarea style="height: 90px;" class="form-control">
+    
+            </textarea>
+          
+          </div>
+        </div>
+    
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">المنطقة</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name">
+      
+            </div>
+          </div>
+        <div class="form-group row">
+          <label for="datetime" class="col-sm-2 col-form-label">التاريخ </label>
+        
+         
+            <div class="col-sm-10">
+              <input type="date" class="form-control"   id="date">
+           
+            </div>
+    
+        </div>
+        <div class="form-group row">
+            <label for="projectID" class="col-sm-2 col-form-label">نوع العميل</label>
+            <div class="col-sm-10">ٍ
+         
+              <ejs-dropdownlist id='projectID' [dataSource]='dataDropDown' [fields]="filed" #typeCustomer placeholder = 'اختر نوع العميل'></ejs-dropdownlist>
+            </div>
+          </div>
+    
+      <!--  -->
+    
+    </div>
+    <div class="modal-footer px-2 py-2">
+      <button type="button" (click)="modal.close('Close click')" class="btn btn-outline-secondary mr-2">
+        <i class="fas fa-undo"></i>
+       اغلاق
+      </button>
+      <button type="button" class="btn btn-info mr-2">
+        <i class="far fa-save pr-1"></i>
+      حفظ
+      </button>
+    </div>
+  </ng-template>
+  

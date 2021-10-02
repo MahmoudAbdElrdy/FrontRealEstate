@@ -77,17 +77,16 @@ export class ProjectComponent implements OnInit {
       let item = new FlatViewModel();
 
       let Floors = new Array<FlatViewModel>();
-      this.listArea.forEach(element => {
-        debugger
-
-        item.Area = element;
+      //this.counterNumber
+      for (var j = 1; j <= this.counterNumber; ++j) {
+       item.Area = 0;
         item.Number = ++this.count;
         item.ID = ++this.id;
         item.Booked = false;
         item.Color = '#04AA6D'
         let item2 = Object.assign({}, item)
         Floors.push(item2)
-      });
+      }
 
       this.buildingData.Floors[r] = Floors
     }

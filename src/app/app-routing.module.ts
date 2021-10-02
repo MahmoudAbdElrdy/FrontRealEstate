@@ -6,6 +6,7 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { CustomersComponent } from './RealEstateModule/customers-service/customers/customers.component';
 import { CustomerServiceComponent } from './layouts/customer-service/customer-service.component';
 import { ManagementComponent } from './layouts/management/management.component';
+import { SalesComponent } from './layouts/sales/sales.component';
 
 export const Approutes: Routes = [
     {
@@ -41,6 +42,18 @@ export const Approutes: Routes = [
             {
                 path: '',
                 loadChildren: () => import('./RealEstateModule/management/management.module').then(m => m.ManagementModule)
+            }
+        ]
+    },
+    {
+        path: 'Sales',
+      
+        component: SalesComponent,
+        children: [
+           { path: '', redirectTo: '/Sales/Customer', pathMatch: 'full' },
+            {
+                path: '',
+                loadChildren: () => import('./RealEstateModule/sales/sales.module').then(m => m.SalesModule)
             }
         ]
     },
