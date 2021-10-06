@@ -22,9 +22,13 @@
       <i class="fas fa-trash-alt"></i>
       حذف
     </button>
-    <button type="button" class="btn btn-outline-secondary mx-1">
+    <button [routerLink]="['/Sales/Qestions']" type="button" class="btn btn-outline-secondary mx-1">
       <i class="fas fa-undo"></i>
       الاستعلامات
+    </button>
+    <button (click)="openModalBuilding()" type="button" class="btn btn-outline-secondary mx-1">
+      <i class="fas fa-building-o"></i>
+      التعاقد
     </button>
   </div>
   <br>
@@ -61,7 +65,7 @@
   </ejs-grid>
   <app-pager (pageChange)="paggination($event)" [pager]="pager"></app-pager>
 </ng-container>
-
+<!--  -->
 
 <ng-template #ModalId let-modal>
   <div class="modal-header">
@@ -97,5 +101,117 @@
       <i class="far fa-save pr-1"></i>
     حفظ
     </button>
+  </div>
+</ng-template>
+<!--  -->
+<!-- details  -->
+<ng-template #ModalDetailsId let-modalDetails >
+  <div class="modal-header">
+    <h4 class="modal-title">تفاصيل الوحدة</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalDetails.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+   
+
+
+    <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label">نوع الوحدة</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" value="سكني" id="name"> 
+
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="name" class="col-sm-2 col-form-label">المساحة</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="name" value="200"> 
+
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="name" class="col-sm-2 col-form-label">عدد الحمام </label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="name" value="2"> 
+
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="address" class="col-sm-2 col-form-label">عدد المطبخ</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="address" value="1"> 
+
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="floors" class="col-sm-2 col-form-label">عدد الغرف</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="floors" value="3"> 
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer px-2 py-2">
+    <button type="button" (click)="modalDetails.close('Close click')" class="btn btn-outline-secondary mr-2">
+      <i class="fas fa-undo"></i>
+      اغلاق
+    </button>
+    <button type="button" class="btn btn-info mr-2">
+      <i class="far fa-save pr-1"></i>
+      احجز
+    </button>
+  </div>
+</ng-template>
+<!-- open Modal -->
+
+
+<ng-template #BuildingId let-modalBuilding>
+  <div class="modal-header">
+    <h4 class="modal-title"> الوحدة</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalBuilding.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+ 
+    <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label"> العقار</label>
+      <div class="col-sm-10">
+            <ejs-dropdownlist id='projectID' (change)="viewBulding()" [dataSource]='dataDropDownContract' [fields]="filed" #typeContract ></ejs-dropdownlist>
+
+      </div>
+
+    </div>
+
+    <br>
+   
+    <div *ngIf="typeContract.value" class="table-responsive col-6">
+      <table>
+        <tbody>
+          <tr *ngFor="let floor of buildingData?.Floors.slice().reverse()">
+            <td *ngFor="let flat of floor">
+              <ul class="floor">
+                <li class="header" [style.background-color]="flat?.Color">
+                  <button class="button" (click)="openModalDetails(flat.ID)" [style.background-color]="flat?.Color">
+                    {{flat?.Number}}
+                    <i class="fa fa-building-o" aria-hidden="true"></i>
+                  </button>
+                </li>
+                <!-- <li class="grey">{{flat?.Area}} <i class="fa fa-area-chart" aria-hidden="true"></i></li> -->
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer px-2 py-2">
+    <button type="button" (click)="modalBuilding.close('Close click')" class="btn btn-outline-secondary mr-2">
+      <i class="fas fa-undo"></i>
+      اغلاق
+    </button>
+   
   </div>
 </ng-template>
