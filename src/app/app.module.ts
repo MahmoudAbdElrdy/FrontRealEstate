@@ -34,7 +34,6 @@ import { CustomerServiceNavigationComponent } from './shared/customer-service-na
 import { CustomerServiceSideBarComponent } from './shared/customer-service-side-bar/customer-service-side-bar.component';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { ManagementNavigationComponent } from './shared/management-navigation/management-navigation.component';
 import { ManagementSideBarComponent } from './shared/management-side-bar/management-side-bar.component';
 import { ManagementComponent } from './layouts/management/management.component';

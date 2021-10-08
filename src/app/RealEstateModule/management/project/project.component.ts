@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { nextWednesday } from 'date-fns';
 import { de } from 'date-fns/locale';
 import { Observable } from 'rxjs';
 import { BuildingViewModel } from '../../shared/models/building.model';
