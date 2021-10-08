@@ -25,7 +25,6 @@ import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { CustomNgbDateParserFormatter } from './component/datepicker/custom-ngbDateParserFormatter'
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -94,8 +93,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
             provide: PERFECT_SCROLLBAR_CONFIG,
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
         },
-        {provide: NgbDateParserFormatter, useFactory: () => new CustomNgbDateParserFormatter('longDate')}
-    ],
+         ],
     bootstrap: [AppComponent],schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
         NO_ERRORS_SCHEMA

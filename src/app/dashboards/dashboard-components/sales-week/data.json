@@ -1,8 +1,0 @@
-{
-    "Bar": {
-        "labels": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-        "series": [
-            [5, 4, 3, 6, 5, 2, 3]
-        ]
-    }
-}
