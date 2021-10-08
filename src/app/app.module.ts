@@ -40,6 +40,9 @@ import { ManagementComponent } from './layouts/management/management.component';
 import { SalesComponent } from './layouts/sales/sales.component';
 import { SalesNavigationComponent } from './shared/sales-navigation/sales-navigation.component';
 import { SalesSideBarComponent } from './shared/sales-side-bar/sales-side-bar.component';
+import { ContractComponent } from './layouts/contract/contract.component';
+import { ContractNavigationComponent } from './shared/contract-navigation/contract-navigation.component';
+import { ContractSideBarComponent } from './shared/contract-side-bar/contract-side-bar.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
     wheelSpeed: 1,
@@ -64,7 +67,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         ManagementComponent,
         SalesComponent,
         SalesNavigationComponent,
-        SalesSideBarComponent
+        SalesSideBarComponent,
+        ContractComponent,
+        ContractNavigationComponent,
+        ContractSideBarComponent
     ],
     imports: [
         CommonModule,

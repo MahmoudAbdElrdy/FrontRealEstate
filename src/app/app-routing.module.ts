@@ -7,6 +7,7 @@ import { CustomersComponent } from './RealEstateModule/customers-service/custome
 import { CustomerServiceComponent } from './layouts/customer-service/customer-service.component';
 import { ManagementComponent } from './layouts/management/management.component';
 import { SalesComponent } from './layouts/sales/sales.component';
+import { ContractComponent } from './layouts/contract/contract.component';
 
 export const Approutes: Routes = [
     {
@@ -54,6 +55,19 @@ export const Approutes: Routes = [
             {
                 path: '',
                 loadChildren: () => import('./RealEstateModule/sales/sales.module').then(m => m.SalesModule)
+            }
+        ]
+    }
+    ,
+    {
+        path: 'Contracts',
+      
+        component: ContractComponent,
+        children: [
+           { path: '', redirectTo: '/Contracts/Contract', pathMatch: 'full' },
+            {
+                path: '',
+                loadChildren: () => import('./RealEstateModule/contracts/contracts.module').then(m => m.ContractsModule)
             }
         ]
     },
