@@ -21,17 +21,23 @@ export class ContractComponent implements OnInit {
     pageSize: 10,
     pageNumber: 1
   };
+  public dataDropDown = ['Snooker', 'Tennis', 'Cricket', 'Football', 'Rugby'];
   @ViewChild('ModalId') modalId: ElementRef;
-  constructor( public modalService: NgbModal) { }
-
+  radioItems = ['مساهمة', 'واحدات '];
+  model   = {option: 'واحدات'};
   public data: object[];
   public resizeSettings = { mode: "Auto" };
+  constructor( public modalService: NgbModal) { }
+ 
   ngOnInit(): void {
-    debugger
+    
     this.customAttributes = { class: 'customcss' }; //use custom css
     this.data = data;
     this.selectionsettings = { checkboxOnly: true };
-    this.paggination(this.pager)
+    this.paggination(this.pager);
+    this.values.push({value: ""});
+    this.valuesPhone.push({value: ""});
+    this.valuesNational.push({value: ""});
   }
   paggination(event){
     
@@ -40,7 +46,34 @@ console.log(event)
   openModal() {
 
 
-      this.modalService.open(this.modalId, { size: 'md', backdrop: 'static' });
+      this.modalService.open(this.modalId, { size: 'lg', backdrop: 'static' });
       
+  }
+  values = [];
+  removeCustomer(i){
+    this.values.splice(i,1);
+  }
+
+  addCustomer(){
+    this.values.push({value: ""});
+  }
+
+  //
+  valuesPhone = [];
+  removePhone(i){
+    this.valuesPhone.splice(i,1);
+  }
+
+  addPhone(){
+    this.valuesPhone.push({value: ""});
+  }
+  //
+  valuesNational=[];
+  removeNational(i){
+    this.valuesNational.splice(i,1);
+  }
+
+  addNational(){
+    this.valuesNational.push({value: ""});
   }
 }

@@ -1,123 +1,262 @@
 <ng-container>
 
     <div class="pt-3 clearfix">
-  
-      <!-- new -->
-  
-      <button type="button" class="btn btn-outline-info mx-1 " (click)="openModal()">
-        <i class="fas fa-plus"></i>
-        جديد
-      </button>
-  
-      <!-- edit -->
-  
-      <button type="button" class="btn btn-outline-warning mx-1">
-        <i class="fas fa-plus"></i>
-        تعديل
-      </button>
-  
-      <!-- delete -->
-  
-      <button type="button" class="btn btn-outline-danger mx-1">
-        <i class="fas fa-trash-alt"></i>
-        حذف
-      </button>
-      <button type="button" class="btn btn-outline-secondary mx-1">
-        <i class="fas fa-undo"></i>
-        الزيارات
-      </button>
+
+        <!-- new -->
+
+        <button type="button" class="btn btn-outline-info mx-1 " (click)="openModal()">
+            <i class="fas fa-plus"></i>
+            جديد
+        </button>
+
+        <!-- edit -->
+
+        <button type="button" class="btn btn-outline-warning mx-1">
+            <i class="fas fa-plus"></i>
+            تعديل
+        </button>
+
+        <!-- delete -->
+
+        <button type="button" class="btn btn-outline-danger mx-1">
+            <i class="fas fa-trash-alt"></i>
+            حذف
+        </button>
+        <button type="button" class="btn btn-outline-secondary mx-1">
+            <i class="fas fa-undo"></i>
+            الزيارات
+        </button>
     </div>
     <br>
     <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' [allowFiltering]='true'
-      [selectionSettings]='selectionsettings'
-      gridLines='Both'  [resizeSettings]="resizeSettings"
-      >
-      <e-columns>
-        <e-column type='checkbox'  [height]='315' [allowFiltering]='false' [allowSorting]='false' [customAttributes]='customAttributes'
-          width='60'></e-column>
-  
-        <e-column field='ProjectID' [customAttributes]='customAttributes' height=130 headerText='العقار ' textAlign='Right' width=120>
-        </e-column>
-        <e-column field='IsStock' [customAttributes]='customAttributes' headerText='نوع العقد ' textAlign='Right' width=120>
-        </e-column>
+        [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings">
+        <e-columns>
+            <e-column type='checkbox' [height]='315' [allowFiltering]='false' [allowSorting]='false'
+                [customAttributes]='customAttributes' width='60'></e-column>
 
-        <e-column field='Name' [customAttributes]='customAttributes' headerText='   العميل' textAlign='Right' width=120>
-        </e-column>
-        <e-column field='Program' [customAttributes]='customAttributes' headerText='   نظام الدفع' textAlign='Right' width=120>
-        </e-column>
+            <e-column field='ProjectID' [customAttributes]='customAttributes' height=130 headerText='العقار '
+                textAlign='Right' width=120>
+            </e-column>
+            <e-column field='IsStock' [customAttributes]='customAttributes' headerText='نوع العقد ' textAlign='Right'
+                width=120>
+            </e-column>
 
-        <e-column field='Phone' [customAttributes]='customAttributes' headerText=' التلفون' textAlign='Right' width=120>
-        </e-column>
+            <e-column field='Name' [customAttributes]='customAttributes' headerText='   العميل' textAlign='Right'
+                width=120>
+            </e-column>
+            <e-column field='Program' [customAttributes]='customAttributes' headerText='   نظام الدفع' textAlign='Right'
+                width=120>
+            </e-column>
 
-        <e-column field='Address' [customAttributes]='customAttributes' headerText=' العنوان' textAlign='Right' width=120>
-        </e-column>
+            <e-column field='Phone' [customAttributes]='customAttributes' headerText=' التلفون' textAlign='Right'
+                width=120>
+            </e-column>
 
-        <e-column field='NationalNumber' [customAttributes]='customAttributes' headerText=' الرقم القومي' textAlign='Right' width=120>
-        </e-column>
+            <e-column field='Address' [customAttributes]='customAttributes' headerText=' العنوان' textAlign='Right'
+                width=120>
+            </e-column>
 
-        <e-column field='date' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right' format='yMd'
-        width=90></e-column>
+            <e-column field='NationalNumber' [customAttributes]='customAttributes' headerText=' الرقم القومي'
+                textAlign='Right' width=120>
+            </e-column>
+
+            <e-column field='date' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right'
+                format='yMd' width=90></e-column>
 
 
-   <e-column field='Notes' [customAttributes]='customAttributes' height=400 headerText='  الملاحظات' textAlign='Right' width=120>
-        </e-column>
+            <e-column field='Notes' [customAttributes]='customAttributes' height=400 headerText='  الملاحظات'
+                textAlign='Right' width=120>
+            </e-column>
 
-        <e-column [allowFiltering]='false' [allowSorting]='false' width='170' [disabled]="true" headerText='العمليات'
-          [customAttributes]='customAttributes'>
-          <ng-template #template let-data>
-            <button class="btn btn-outline-info mx-1" data-toggle="tooltip" data-placement="bottom">
-              <i class="far fa-edit"></i>
-            </button>
-            <button class="btn btn-outline-danger" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
-              title="Delete">
-              <i class="far fa-trash-alt"></i>
-            </button>
-            <button class="btn btn-outline-secondary" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
-            title="Delete">
-            <i class="fas fa-undo"></i>
-          </button>
-          </ng-template>
-        </e-column>
-  
-      </e-columns>
+            <e-column [allowFiltering]='false' [allowSorting]='false' width='170' [disabled]="true"
+                headerText='العمليات' [customAttributes]='customAttributes'>
+                <ng-template #template let-data>
+                    <button class="btn btn-outline-info mx-1" data-toggle="tooltip" data-placement="bottom">
+                        <i class="far fa-edit"></i>
+                    </button>
+                    <button class="btn btn-outline-danger" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+                        title="Delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary" rel="tooltip" data-toggle="tooltip"
+                        data-placement="bottom" title="Delete">
+                        <i class="fas fa-undo"></i>
+                    </button>
+                </ng-template>
+            </e-column>
+
+        </e-columns>
     </ejs-grid>
     <app-pager (pageChange)="paggination($event)" [pager]="pager"></app-pager>
-  </ng-container>
-  
-  
-  <ng-template #ModalId let-modal>
+</ng-container>
+
+
+<ng-template #ModalId let-modal>
     <div class="modal-header">
-      <h4 class="modal-title">اضافة</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <h4 class="modal-title">اضافة</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
-      <div class="form-group row">
-        <label for="name" class="col-sm-2 col-form-label">اسم العميل</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control"  id="name">
-       
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="projectID" style="display: block;" class="col-sm-2 col-form-label">العقار</label>
+
+
+                    <ejs-dropdownlist id='projectID' class=" col-sm-10" [dataSource]='dataDropDown'
+                        placeholder='اختر العقار'></ejs-dropdownlist>
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label style="display: block;" class="col-sm-2 col-form-label" for="phone">التاريخ</label>
+
+                    <input type="date" class="form-control" id="date">
+
+
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="form-group row">
-        <label for="phone" class="col-sm-2 col-form-label">التلفون</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control"  id="phone">
-       
+        <div class="form-group row">
+            <label for="name" style="display: inline-block;" class="col-sm-2 col-form-label"
+                class="col-sm-2 col-form-label">اسم العميل</label>
+            <br>
+            <div *ngFor="let value of values; let i = index">
+
+                <input style="margin-right: 130px;width: 490px;" type="text" [(ngModel)]="value.value"
+                    name="value{{i}}">
+                &nbsp; &nbsp;
+                <button type="button" *ngIf="i>0" (click)="removeCustomer(i)">حذف</button>
+                &nbsp;
+                <br>
+            </div>
+            <button class="button1" style="margin-right: 90%;" type="button" (click)="addCustomer()">اضافة عميل
+            </button>
+
         </div>
-      </div>
-     
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">التليفون</label>
+            <br>
+            <div *ngFor="let value of valuesPhone; let i = index">
+
+                <input style="margin-right: 130px;width: 490px;" type="text" [(ngModel)]="value.value"
+                    name="value{{i}}">
+                &nbsp; &nbsp;
+                <button type="button" *ngIf="i>0" (click)="removePhone(i)">حذف</button>
+                &nbsp;
+                <br>
+            </div>
+            <button class="button1" style="margin-right: 90%;" type="button" (click)="addPhone()">اضافة رقم تلفيون
+            </button>
+
+        </div>
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">الرقم القومي</label>
+            <br>
+            <div *ngFor="let value of valuesNational; let i = index">
+
+                <input style="margin-right: 130px;width: 490px;" type="text" [(ngModel)]="valuesNational.value"
+                    name="value{{i}}">
+                &nbsp; &nbsp;
+                <button type="button" *ngIf="i>0" (click)="removeNational(i)">حذف</button>
+                &nbsp;
+
+            </div>
+            <br>
+            <button class="button1" style="margin-right: 90%;" type="button" (click)="addNational()">اضافة الرقم القومي
+            </button>
+
+        </div>
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">العنوان </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name">
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">نظام الدفع </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name">
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="name" style="display: block;" class="col-sm-2 col-form-label"> المتر </label>
+
+                    <input type="number" class="form-control" id="name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="name" style="display: block;" class="col-sm-2 col-form-label">الاجمالي </label>
+
+                    <input type="number" class="form-control" id="name">
+                </div>
+            </div>
+        </div>
+
+        <div style="border: groove;" class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label"> نوع العقد </label>
+
+            <label class="col-sm-2 col-form-label" *ngFor="let radiobutton of radioItems">
+                <input type="radio" name="options" (click)="model.option = radiobutton"
+                    [checked]="radiobutton === model.option">{{radiobutton}}
+            </label>
+
+        </div>
+        <!--  -->
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="name" style="display: block;" class="col-sm-2 col-form-label"> عدد الاسهم </label>
+
+                    <input type="number" class="form-control" id="name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="name" style="display: block;" class="col-sm-2 col-form-label">رقم الطابق </label>
+
+                    <input type="number" class="form-control" id="name">
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="name" style="display: block;" class="col-sm-2 col-form-label"> عدد الامتار </label>
+
+                    <input type="number" class="form-control" id="name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="name" style="display: block;" class="col-sm-2 col-form-label">رقم الوحدة </label>
+
+                    <input type="number" class="form-control" id="name">
+                </div>
+            </div>
+        </div>
+        <!--  -->
+        <div class="form-group row">
+            <label for="notes" class="col-sm-2 col-form-label">الملاحظات</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="notes">
+    </textarea>
+            </div>
+        </div>
     </div>
     <div class="modal-footer px-2 py-2">
-      <button type="button" (click)="modal.close('Close click')" class="btn btn-outline-secondary mr-2">
-        <i class="fas fa-undo"></i>
-       اغلاق
-      </button>
-      <button type="button" class="btn btn-info mr-2">
-        <i class="far fa-save pr-1"></i>
-      حفظ
-      </button>
+        <button type="button" (click)="modal.close('Close click')" class="btn btn-outline-secondary mr-2">
+            <i class="fas fa-undo"></i>
+            اغلاق
+        </button>
+        <button type="button" class="btn btn-info mr-2">
+            <i class="far fa-save pr-1"></i>
+            حفظ
+        </button>
     </div>
-  </ng-template>
-  
+</ng-template>
