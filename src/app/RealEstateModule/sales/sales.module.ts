@@ -8,11 +8,9 @@ import { SalesRoutingModule } from './sales-routing.module';
 import { CustomersComponent } from './customers/customers.component';
 import { CommonModule } from '@angular/common';
 import { QestionsComponent } from './qestions/qestions.component';
-import { ContractComponent } from './contract/contract.component';
-
 
 @NgModule({
-  declarations: [CustomersComponent, QestionsComponent, ContractComponent],
+  declarations: [CustomersComponent, QestionsComponent],
   imports: [CommonModule,
     SalesRoutingModule ,  GridModule,DropDownListModule,SharedModule
   ],schemas: [
