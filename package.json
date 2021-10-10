@@ -27,6 +27,7 @@
     "@ng-bootstrap/ng-bootstrap": "^5.3.0",
     "@swimlane/ngx-datatable": "^16.0.3",
     "@syncfusion/ej2": "^19.3.44",
+    "@syncfusion/ej2-angular-buttons": "^19.3.44",
     "@syncfusion/ej2-angular-dropdowns": "^19.3.44",
     "@syncfusion/ej2-angular-grids": "^19.3.44",
     "@syncfusion/ej2-bootstrap-theme": "^19.3.44",

@@ -7,12 +7,12 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
-
+import { CheckBoxModule } from '@syncfusion/ej2-angular-buttons';
 
 @NgModule({
   declarations: [ContractComponent],
   imports: [
-    ContractsRoutingModule,  GridModule,DropDownListModule,SharedModule,CommonModule,FormsModule
+    ContractsRoutingModule,  GridModule,DropDownListModule,SharedModule,CommonModule,FormsModule,CheckBoxModule
   ],schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA
