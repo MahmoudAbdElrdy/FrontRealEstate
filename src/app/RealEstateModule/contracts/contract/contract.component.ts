@@ -166,5 +166,12 @@ export class ContractComponent implements OnInit {
     this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
 
   }
+  ///
+  data3=[{type:"اساسي",installment:"قسط 1",installmentDate:"23/4/2021",value1:"5000",numberBill:"4",payDate:"23/5/2021",value2:"6000"}]
 
+  @ViewChild('InstallmentPay') installmentPay: ElementRef;
+  openModalInstallmentPay() {
+    this.modalService.open(this.installmentPay, { size: 'lg', backdrop: 'static' });
+
+  }
 }

@@ -34,7 +34,7 @@
             تاريخ الاقساط
         </button>
 
-        <button type="button" class="btn btn-outline-secondary mx-1">
+        <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalInstallmentPay()">
             <i class="far fa-address-card"></i>
             سداد الاقساط
         </button>
@@ -463,3 +463,55 @@
       </button>
     </div>
   </ng-template>
+
+    <!-- سداد الاقساط  -->
+    <ng-template #InstallmentPay let-installmentPay>
+      <div class="modal-header">
+    
+        <button type="button" class="close" aria-label="Close" (click)="installmentPay.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <ng-container>
+         
+              <br>
+              <ejs-grid #grid [dataSource]='data3'  [enableRtl]='true' [allowFiltering]='false'
+                [selectionSettings]='selectionsettings'  gridLines='Both'>
+                <e-columns>
+                
+                  <e-column field='type' [customAttributes]='customAttributes'  headerText=' النوع' textAlign='Right' width=120>
+                  </e-column>
+                  <e-column field='installment' [customAttributes]='customAttributes'  headerText=' القسط' textAlign='Right' width=120>
+                  </e-column>
+                  <e-column field='installmentDate' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right'
+                  format='d/M/y' width=90></e-column>
+  
+                  <e-column field='value1' [customAttributes]='customAttributes' headerText=' القيمة' textAlign='Right'
+                    width=120>
+                  </e-column>
+                  <e-column field='numberBill' [customAttributes]='customAttributes' headerText=' رقم الايصال' textAlign='Right'
+                  width=120>
+                </e-column>
+            
+
+                <e-column field='payDate' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right'
+                format='d/M/y' width=90></e-column>
+
+                <e-column field='value2' [customAttributes]='customAttributes' headerText=' القيمة' textAlign='Right'
+                width=120>
+              </e-column>
+                </e-columns>
+              </ejs-grid>
+           
+            </ng-container>
+            
+      </div>
+      <div class="modal-footer px-2 py-2">
+        <button type="button" (click)="installmentPay.close('Close click')" class="btn btn-outline-secondary mr-2">
+          <i class="fas fa-undo"></i>
+          اغلاق
+        </button>
+     
+      </div>
+    </ng-template>
