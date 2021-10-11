@@ -174,4 +174,20 @@ export class ContractComponent implements OnInit {
     this.modalService.open(this.installmentPay, { size: 'lg', backdrop: 'static' });
 
   }
+  //Safe
+  dataSafe=[{safeDate:"23/4/2021",value1:"5000",numberBill:"4"}]
+
+  @ViewChild('Safe') safe: ElementRef;
+  openModalSafe() {
+    this.modalService.open(this.safe, { size: 'lg', backdrop: 'static' });
+
+  }
+  //
+  //Safe
+
+  @ViewChild('SafeAddEdit') safeAddEdit: ElementRef;
+  openModalSafeAddEdit() {
+    this.modalService.open(this.safeAddEdit, { size: 'lg', backdrop: 'static' });
+
+  }
 }

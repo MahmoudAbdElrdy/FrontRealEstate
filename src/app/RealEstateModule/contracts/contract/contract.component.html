@@ -38,6 +38,22 @@
             <i class="far fa-address-card"></i>
             سداد الاقساط
         </button>
+        <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalSafe()">
+          <i class="far fa-address-card"></i>
+        الخزنة
+      </button>
+      <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalInstallmentPay()">
+        <i class="far fa-address-card"></i>
+        منبه الاقساط
+    </button>
+    <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalInstallmentPay()">
+      <i class="far fa-address-card"></i>
+      الاقساط  المتاخرة 
+  </button>
+  <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalInstallmentPay()">
+    <i class="far fa-address-card"></i>
+   التعاقدات الملغاة
+</button>
     </div>
     <br>
     <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' [allowFiltering]='true'
@@ -288,7 +304,7 @@
 <!-- open modal تاريخ الاقساط تفاصيل بنود العقد -->
 <ng-template #InstallmentdateId let-installmentdate>
     <div class="modal-header">
-  
+      <h4 class="modal-title"> اضافة</h4>
       <button type="button" class="close" aria-label="Close" (click)="installmentdate.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -328,13 +344,16 @@
         <i class="fas fa-undo"></i>
         اغلاق
       </button>
-   
+      <button type="button" class="btn btn-info mr-2">
+        <i class="far fa-save pr-1"></i>
+        حفظ
+    </button>
     </div>
   </ng-template>
   <!-- التفاصيل  -->
   <ng-template #InstallmentdateList let-installmentdateList>
     <div class="modal-header">
-  
+      <h4 class="modal-title"> التفاصيل</h4>
       <button type="button" class="close" aria-label="Close" (click)="installmentdateList.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -424,7 +443,7 @@
   <!-- توليد اقساط شهرية -->
   <ng-template #InstallmentGenerate let-installmentGenerate>
     <div class="modal-header">
-  
+      <h4 class="modal-title">توليد اقساط شهرية  </h4>
       <button type="button" class="close" aria-label="Close" (click)="installmentGenerate.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -467,7 +486,7 @@
     <!-- سداد الاقساط  -->
     <ng-template #InstallmentPay let-installmentPay>
       <div class="modal-header">
-    
+        <h4 class="modal-title">سداد الاقساط</h4>
         <button type="button" class="close" aria-label="Close" (click)="installmentPay.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -515,3 +534,129 @@
      
       </div>
     </ng-template>
+       <!-- الخزنة  -->
+       <ng-template #Safe let-safe>
+        <div class="modal-header">
+          <h4 class="modal-title">الخزنة </h4>
+          <button type="button" class="close" aria-label="Close" (click)="safe.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <ng-container>
+           
+                <br>
+                <ejs-grid #grid [dataSource]='data3'  [enableRtl]='true' [allowFiltering]='false'
+                  [selectionSettings]='selectionsettings'  gridLines='Both'>
+                  <e-columns>
+                  
+                   
+                    <e-column field='installment' [customAttributes]='customAttributes'  headerText=' القسط' textAlign='Right' width=120>
+                    </e-column>
+                    <e-column field='installmentDate' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right'
+                    format='d/M/y' width=90></e-column>
+    
+                    <e-column field='value1' [customAttributes]='customAttributes' headerText=' القيمة' textAlign='Right'
+                      width=120>
+                    </e-column>
+                   
+                  </e-columns>
+                </ejs-grid>
+                <br>
+                <div class="pt-3 clearfix">
+          
+                  <!-- new -->
+              
+                  <button type="button" class="btn btn-outline-info mx-1 " (click)="openModalSafeAddEdit()">
+                    <i class="fas fa-plus"></i>
+                    جديد
+                  </button>
+                
+                  <!-- edit -->
+              
+                  <button type="button" class="btn btn-outline-warning mx-1">
+                    <i class="fas fa-plus"></i>
+                    تعديل
+                  </button>
+              
+                  <!-- delete -->
+              
+                  <button type="button" class="btn btn-outline-danger mx-1">
+                    <i class="fas fa-trash-alt"></i>
+                    حذف
+                  </button>
+                 
+                </div>
+                <br>
+                <ejs-grid #grid [dataSource]='dataSafe'  [enableRtl]='true' [allowFiltering]='false'
+                  [selectionSettings]='selectionsettings'  gridLines='Both'>
+                  <e-columns>
+                  
+                   
+                    <e-column field='numberBill' [customAttributes]='customAttributes'  headerText=' رقم الفاتورة' textAlign='Right' width=120>
+                    </e-column>
+                    <e-column field='safeDate' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right'
+                    format='d/M/y' width=90></e-column>
+    
+                    <e-column field='value1' [customAttributes]='customAttributes' headerText=' الدفع' textAlign='Right'
+                      width=120>
+                    </e-column>
+                   
+                  </e-columns>
+                </ejs-grid>
+              </ng-container>
+              
+        </div>
+        <div class="modal-footer px-2 py-2">
+          <button type="button" (click)="safe.close('Close click')" class="btn btn-outline-secondary mr-2">
+            <i class="fas fa-undo"></i>
+            اغلاق
+          </button>
+       
+        </div>
+      </ng-template>
+
+      <!-- open modal اافة خزنة -->
+<ng-template #SafeAddEdit let-safeAddEdit>
+  <div class="modal-header">
+    <h4 class="modal-title">ايصالات دفع</h4>
+    <button type="button" class="close" aria-label="Close" (click)="safeAddEdit.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+   
+
+    <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label"> رقم الفاتورة</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label"> التاريخ</label>
+      <div class="col-sm-10">
+        <input type="date" class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label"> الدفع</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer px-2 py-2">
+    <button type="button" (click)="safeAddEdit.close('Close click')" class="btn btn-outline-secondary mr-2">
+      <i class="fas fa-undo"></i>
+      اغلاق
+    </button>
+    <button type="button" class="btn btn-info mr-2">
+      <i class="far fa-save pr-1"></i>
+      حفظ
+  </button>
+  </div>
+</ng-template>
