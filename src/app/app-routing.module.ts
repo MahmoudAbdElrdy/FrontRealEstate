@@ -8,6 +8,7 @@ import { CustomerServiceComponent } from './layouts/customer-service/customer-se
 import { ManagementComponent } from './layouts/management/management.component';
 import { SalesComponent } from './layouts/sales/sales.component';
 import { ContractComponent } from './layouts/contract/contract.component';
+import { LoginComponent } from './authentication/login/login.component';
 
 export const Approutes: Routes = [
   
@@ -62,7 +63,7 @@ export const Approutes: Routes = [
     },
     {
         path: '',
-        component: BlankComponent,
+        component: LoginComponent,
         children: [
             {
                 path: 'authentication',
