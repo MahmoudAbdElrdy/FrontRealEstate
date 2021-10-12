@@ -34,7 +34,8 @@ export class QestionsComponent implements OnInit {
   ngOnInit(): void {
     this.customAttributes = { class: 'customcss' }; //use custom css
     this.data = data;
-    this.selectionsettings = { checkboxOnly: true };
+   // this.selectionsettings = { checkboxOnly: true };
+   this.selectionsettings = { type: 'Single' };
     this.paggination(this.pager)
   }
   paggination(event){

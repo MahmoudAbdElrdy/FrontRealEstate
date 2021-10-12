@@ -59,8 +59,8 @@
     <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' [allowFiltering]='true'
         [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings">
         <e-columns>
-            <e-column type='checkbox' [height]='315' [allowFiltering]='false' [allowSorting]='false'
-                [customAttributes]='customAttributes' width='60'></e-column>
+            <!-- <e-column type='checkbox' [height]='315' [allowFiltering]='false' [allowSorting]='false'
+                [customAttributes]='customAttributes' width='60'></e-column> -->
 
             <e-column field='ProjectID' [customAttributes]='customAttributes' height=130 headerText='العقار '
                 textAlign='Right' width=120>
@@ -405,8 +405,8 @@
             <ejs-grid #grid [dataSource]='data2'  [enableRtl]='true' [allowFiltering]='false'
               [selectionSettings]='selectionsettings'  gridLines='Both'>
               <e-columns>
-                <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false' [customAttributes]='customAttributes'
-                  width='60'></e-column>
+                <!-- <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false' [customAttributes]='customAttributes'
+                  width='60'></e-column> -->
                
 
                   <e-column [customAttributes]='customAttributes' headerText='بند الملحق ' [customAttributes]='customAttributes' width=90>

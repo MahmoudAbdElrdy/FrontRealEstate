@@ -39,7 +39,7 @@ export class ContractComponent implements OnInit {
     this.data2 = [
     
     ];
-    this.selectionsettings = { checkboxOnly: true };
+    this.selectionsettings = { type: 'Single' };
     this.paggination(this.pager);
     this.values.push({ value: "" });
     this.valuesPhone.push({ value: "" });

@@ -20,6 +20,15 @@ export const ROUTES: RouteInfo[] = [
         extralink: false,
         submenu: []
 },
+
+{
+        path: '/Management/Contract',
+        title: 'التعاقدات',
+        icon: 'fas',
+        class: '',
+        extralink: false,
+        submenu: []
+},
 {
        
         title: 'خدمة العملاء',
