@@ -14,7 +14,7 @@ import { data } from './customer';
     FilterService,
     GroupService]
 })
-export class CustomersComponent implements OnInit {
+export class CustomersSalesComponent implements OnInit {
   customAttributes:object;
   selectionsettings: object;
   pager: any = {

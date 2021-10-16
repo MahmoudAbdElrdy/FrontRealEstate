@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ContractComponent } from '../contracts/contract/contract.component';
 import { CustomersComponent } from '../customers-service/customers/customers.component';
 import { ProjectVisitComponent } from '../customers-service/project-visit/project-visit.component';
+import { CustomersSalesComponent } from '../sales/customers/customers.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { ProjectComponent } from './project/project.component';
 
@@ -78,6 +79,17 @@ const routes: Routes = [ {
       ]
   }
   
+},
+{
+    path: 'CustomerSales',
+    component: CustomersSalesComponent,
+    data: {
+        title: ' المبيعات',
+        urls: [
+            { title: 'المبيعات', url: '/Management' },
+            { title: '  المبيعات', }
+        ]
+    }
 } 
     
   ]

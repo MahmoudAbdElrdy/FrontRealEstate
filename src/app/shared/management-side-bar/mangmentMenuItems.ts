@@ -45,15 +45,33 @@ export const ROUTES: RouteInfo[] = [
                         extralink: false,
                         submenu: []
                 },
+                // {
+                //         path: '/Management/Visit',
+                //         title: 'الزيارات',
+                //         icon: 'fas fa-user',
+                //         class: '',
+                //         extralink: false,
+                //         submenu: []
+                // },
+        ]
+},
+{
+       
+        title: 'المبيعات',
+        path: '',
+        icon: 'mdi mdi-format-color-fill',
+        class: 'has-arrow',
+        extralink: false,
+        submenu: [
                 {
-                        path: '/Management/Visit',
-                        title: 'الزيارات',
+                        path: '/Management/CustomerSales',
+                        title: 'العملاء',
                         icon: 'fas fa-user',
                         class: '',
                         extralink: false,
                         submenu: []
                 },
+               
         ]
 },
-
 ];

@@ -2,7 +2,7 @@ import { RouteInfo } from "../sidebar/sidebar.metadata";
 export const ROUTES: RouteInfo[] = [
 
         {
-                path: '/Sales/Customer',
+                path: '/Sales/CustomerSales',
                 title: 'العملاء',
                 icon: 'fas fa-user',
                 class: '',
