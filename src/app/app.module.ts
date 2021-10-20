@@ -17,9 +17,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { FullComponent } from './layouts/full/full.component';
 import { BlankComponent } from './layouts/blank/blank.component';
 
-import { NavigationComponent } from './shared/header-navigation/navigation.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
+import { NavigationComponent } from './shared/components/header-navigation/navigation.component';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
 
 import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,19 +29,19 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { CustomerServiceComponent } from './layouts/customer-service/customer-service.component';
-import { CustomerServiceNavigationComponent } from './shared/customer-service-navigation/customer-service-navigation.component';
-import { CustomerServiceSideBarComponent } from './shared/customer-service-side-bar/customer-service-side-bar.component';
+import { CustomerServiceNavigationComponent } from './shared/components/customer-service-navigation/customer-service-navigation.component';
+import { CustomerServiceSideBarComponent } from './shared/components/customer-service-side-bar/customer-service-side-bar.component';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-import { ManagementNavigationComponent } from './shared/management-navigation/management-navigation.component';
-import { ManagementSideBarComponent } from './shared/management-side-bar/management-side-bar.component';
+import { ManagementNavigationComponent } from './shared/components/management-navigation/management-navigation.component';
+import { ManagementSideBarComponent } from './shared/components/management-side-bar/management-side-bar.component';
 import { ManagementComponent } from './layouts/management/management.component';
 import { SalesComponent } from './layouts/sales/sales.component';
-import { SalesNavigationComponent } from './shared/sales-navigation/sales-navigation.component';
-import { SalesSideBarComponent } from './shared/sales-side-bar/sales-side-bar.component';
+import { SalesNavigationComponent } from './shared/components/sales-navigation/sales-navigation.component';
+import { SalesSideBarComponent } from './shared/components/sales-side-bar/sales-side-bar.component';
 import { ContractComponent } from './layouts/contract/contract.component';
-import { ContractNavigationComponent } from './shared/contract-navigation/contract-navigation.component';
-import { ContractSideBarComponent } from './shared/contract-side-bar/contract-side-bar.component';
+import { ContractNavigationComponent } from './shared/components/contract-navigation/contract-navigation.component';
+import { ContractSideBarComponent } from './shared/components/contract-side-bar/contract-side-bar.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
     wheelSpeed: 1,
