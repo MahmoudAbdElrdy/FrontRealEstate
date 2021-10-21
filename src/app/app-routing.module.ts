@@ -9,6 +9,7 @@ import { ManagementComponent } from './layouts/management/management.component';
 import { SalesComponent } from './layouts/sales/sales.component';
 import { ContractComponent } from './layouts/contract/contract.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { AuthGuard } from './shared/helper/auth-guard';
 
 export const Approutes: Routes = [
   
@@ -26,7 +27,8 @@ export const Approutes: Routes = [
     },
     {
         path: 'Management',
-      
+        canActivate: [AuthGuard],
+        data:{department:["الادارة"]},
         component: ManagementComponent,
         children: [
            { path: '', redirectTo: '/Management/Project', pathMatch: 'full' },

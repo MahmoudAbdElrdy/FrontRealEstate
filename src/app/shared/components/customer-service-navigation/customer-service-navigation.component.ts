@@ -14,7 +14,7 @@ export class CustomerServiceNavigationComponent implements AfterViewInit ,OnInit
   //@Output() toggleSidebar = new EventEmitter<void>();
   public time: Observable<Date> = timer(0, 1000).pipe(map(() => new Date()));
   dateObj:any=Date.now();
-  companyName:any;
+  department:any;
   public config: PerfectScrollbarConfigInterface = {};
 
   public showSearch = false;
@@ -22,7 +22,7 @@ export class CustomerServiceNavigationComponent implements AfterViewInit ,OnInit
   constructor(private modalService: NgbModal,
     private router: Router) { }
   ngOnInit(): void {
-  this.companyName=  localStorage.getItem("companyName");
+  this.department=  localStorage.getItem("department");
   }
 
   ngAfterViewInit() { }

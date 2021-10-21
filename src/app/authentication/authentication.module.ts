@@ -12,13 +12,16 @@ import { SignupComponent } from './signup/signup.component';
 import { Signup2Component } from './signup2/signup2.component';
 
 import { AuthenticationRoutes } from './authentication.routing';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {ToastModule} from 'primeng/toast';
 @NgModule({
   imports: [
+    ToastModule, NgxSpinnerModule,
     CommonModule,
     RouterModule.forChild(AuthenticationRoutes),
-    NgbModule
-  ],
+    NgbModule,FormsModule,ReactiveFormsModule 
+  ], 
   declarations: [
     NotfoundComponent,
     LoginComponent,

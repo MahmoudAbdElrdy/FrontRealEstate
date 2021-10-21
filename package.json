@@ -72,6 +72,8 @@
     "rxjs": "^6.6.7",
     "rxjs-compat": "^6.6.7",
     "sass": "^1.42.1",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.1.9",
     "tslib": "^1.14.1",
     "xlsx": "^0.17.2",
     "zone.js": "~0.10.2"

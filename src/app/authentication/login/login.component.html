@@ -1,41 +1,149 @@
-<div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(assets/images/background/login-register.jpg) no-repeat center center;">
+
+
+<div
+    class="
+        auth-wrapper
+        d-flex
+        no-block
+        justify-content-center
+        align-items-center
+    "
+    style="
+        background: url(assets/images/background/BACKGROUND.png) no-repeat
+            center center;
+        width: 100%;
+        background-size: cover;
+    "
+>
     <div class="auth-box m-3 m-md-0">
-        <div id="loginform" [ngClass]="{'d-none': recoverform}">
-          
+        <div id="loginform">
+            <!-- <div class="logo">
+                <span class="db"><img src="assets/images/logo-icon.png" alt="logo" /></span>
+                <h5 class="font-medium m-b-20">Sign In to Admin</h5>
+            </div> -->
             <!-- Form -->
             <div class="row">
                 <div class="col-12">
-                    <form class="form-horizontal m-t-20" id="loginform">
+                    <form
+                        class="form-horizontal m-t-20"
+                        id="loginform"
+                        (ngSubmit)="frmRef.form.valid && onSubmit()"
+                        #frmRef="ngForm"
+                        novalidate
+                    >
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
+                                <span class="input-group-text" id="basic-addon1"
+                                    ><i class="ti-user"></i
+                                ></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+
+                            <!-- <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"> -->
+                            <input
+                                #LoginUserName="ngModel"
+                                class="form-control"
+                                type="text"
+                                required=""
+                                [(ngModel)]="UserName"
+                                name="UserName"
+                                placeholder="اسم الموظف"
+                                required
+                            />
                         </div>
+                        <br />
+                        <div class="row">
+                            <div
+                                *ngIf="
+                                    frmRef.submitted && LoginUserName.invalid
+                                "
+                                class="row invalid-feedback"
+                            >
+                                <div *ngIf="LoginUserName.errors.required">
+                                    يجب إدخال إسم المستخدم
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon2"><i class="ti-pencil"></i></span>
+                                <span class="input-group-text" id="basic-addon2"
+                                    ><i class="ti-pencil"></i
+                                ></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                            <!-- <input type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1"> -->
+                            <input
+                                class="form-control"
+                                name="password"
+                                minlength="4"
+                                #LoginPassword="ngModel"
+                                [(ngModel)]="password"
+                                type="password"
+                                required=""
+                                placeholder="كلمة السر"
+                                required
+                            />
+                        </div>
+                        <div
+                            *ngIf="frmRef.submitted && LoginPassword.invalid"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="LoginPassword.errors.required">
+                                يجب إدخال كلمة المرور
+                            </div>
+                            <div *ngIf="LoginPassword.errors.minlength">
+                                كلمة المرور يجب ألا تقل عن أربعة حروف
+                            </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <!-- <div class="custom-control custom-checkbox d-flex">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label font-14" for="customCheck1">Remember me</label>
-                                    <a (click)="showRecoverForm()" href="javascript:void(0)" id="to-recover" class="text-dark font-14 ml-auto"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a>
-                                </div> -->
+                                <div
+                                    class="
+                                        custom-control custom-checkbox
+                                        d-flex
+                                    "
+                                >
+                                    <input
+                                        type="checkbox"
+                                        [(ngModel)]="rememberme"
+                                        name="rememberme"
+                                        class="custom-control-input"
+                                        id="customCheck1"
+                                    />
+                                    <!-- <input id="checkbox-signup" [(ngModel)]="rememberme" name="rememberme" type="checkbox">
+  -->
+                                    <!-- <label class="custom-control-label font-14" for="customCheck1">Remember me</label>  -->
+                                    <!-- <a  href="javascript:void(0)" id="to-recover" class="text-dark font-14 ml-auto"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a> -->
+                                </div>
                             </div>
                         </div>
                         <div class="form-group text-center">
                             <div class="col-xs-12 p-b-20">
-                                <a class="btn btn-block btn-lg btn-info" href="/Management/Project">تسجيل الدخول</a>
+                                <button
+                                    class="
+                                        btn
+                                        btn-info
+                                        btn-lg
+                                        btn-block
+                                        btn-rounded
+                                        text-uppercase
+                                        waves-effect waves-light
+                                    "
+                                >
+                                    تسجيل دخول
+                                </button>
                             </div>
                         </div>
-                      
                     </form>
                 </div>
             </div>
         </div>
-         </div>
+        <div></div>
+    </div>
 </div>
+<ngx-spinner
+    bdColor="rgba(51, 51, 51, 0.8)"
+    size="default"
+    type="ball-spin-clockwise"
+>
+    <p style="color: white">Please Wait ...</p>
+</ngx-spinner>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PagerService } from 'src/app/real-estate-services/pagerService';
+import { PagerService } from 'src/app/shared/services/pagerService';
 
 
 @Component({

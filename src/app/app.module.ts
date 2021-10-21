@@ -5,7 +5,7 @@ import {
 } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -42,6 +42,8 @@ import { SalesSideBarComponent } from './shared/components/sales-side-bar/sales-
 import { ContractComponent } from './layouts/contract/contract.component';
 import { ContractNavigationComponent } from './shared/components/contract-navigation/contract-navigation.component';
 import { ContractSideBarComponent } from './shared/components/contract-side-bar/contract-side-bar.component';
+import { AuthGuard } from './shared/helper/auth-guard';
+import { AuthInterceptor } from './shared/helper/auth-interceptor';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
     wheelSpeed: 1,
@@ -88,12 +90,23 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         AgmCoreModule.forRoot({ apiKey: 'AIzaSyDoliAneRffQDyA7Ul9cDk3tLe7vaU4yP8' }),
         GridModule,DropDownListModule,
     ],
-    providers: [
+    providers: [AuthGuard,{
+        provide : HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi   : true,
+      },
         {
             provide: PERFECT_SCROLLBAR_CONFIG,
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
         },
-         ],
+       
+    ],
+    // providers: [
+    //     {
+    //         provide: PERFECT_SCROLLBAR_CONFIG,
+    //         useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    //     },
+    //      ],
     bootstrap: [AppComponent],schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
         NO_ERRORS_SCHEMA
