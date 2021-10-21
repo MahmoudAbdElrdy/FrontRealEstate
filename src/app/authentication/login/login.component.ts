@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.AdminDto.passWord=this.password;
   
   
-   this.IdentityServ.Authenticate(this.AdminDto).subscribe(
+   this.IdentityServ.authenticate(this.AdminDto).subscribe(
     next => { 
       
       debugger; console.log(next);

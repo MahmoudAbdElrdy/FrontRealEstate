@@ -59,7 +59,9 @@
 
     </e-columns>
   </ejs-grid>
-  <app-pager (pageChange)="paggination($event)" [pager]="pager"></app-pager>
+  <!-- <app-pager (pageChange)="paggination($event)" [pager]="pager"></app-pager> -->
+  <ejs-pager #pager [enableRtl]='true' [pageSize]='pageSize' [pageCount]='pageCount' [totalRecordsCount]='totalRecordsCount' (click)="changePage($event)"></ejs-pager>
+
 </ng-container>
 
 

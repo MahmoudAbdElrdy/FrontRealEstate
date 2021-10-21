@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
       var payLoad = JSON.parse(
         window.atob(localStorage.getItem("userToken").split(".")[1])
       );
-debugger
+
       var userRole = payLoad.Department;
       localStorage.setItem("CurrentRole", userRole);
       console.log("CurrentRole",userRole);

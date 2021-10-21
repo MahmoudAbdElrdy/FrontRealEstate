@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
+import { EmployeeService } from 'src/app/shared/services/employee-service';
+import Swal from 'sweetalert2';
 import { data } from './customer';
 
 @Component({
@@ -15,27 +17,47 @@ import { data } from './customer';
 export class CustomersComponent implements OnInit {
   customAttributes:object;
   selectionsettings: object;
-  pager: any = {
-    totalPages: 0,
-    currentPage: 1,
-    pageSize: 10,
-    pageNumber: 1
-  };
+ 
+    //pager
+    pageSize: number;
+    currentPage: number;
+    totalRecordsCount: number;
+    pageCount: number;
   @ViewChild('ModalId') modalId: ElementRef;
-  constructor( public modalService: NgbModal) { }
+ 
+  filter: LooseObject = {pageNumber:1,pageSize:15,name:null,departmentId:1,workSince:null,phone:null};
+  constructor( public modalService: NgbModal, private _service: EmployeeService) { }
 
   public data: object[];
 
   ngOnInit(): void {
     this.customAttributes = { class: 'customcss' }; //use custom css
-    this.data = data;
+   // this.data = data;
    // this.selectionsettings = { checkboxOnly: true };
     this.selectionsettings = { type: 'Single' };
-    this.paggination(this.pager)
+  this.getData();
   }
   paggination(event){
     
-console.log(event)
+
+  }
+  changePage(event) {
+    if (event.currentPage) {
+      this.filter.pageNumber = event.currentPage;
+      this.getData();
+    }
+  }
+  getData() {
+    debugger
+    this._service.getAll(this.filter)
+      .subscribe(res => {
+        if (res.isSuccess) {
+        
+         this.data=res.data;
+        } else {
+          Swal.fire("حدث مشكلة", null, "error");
+        }
+      })
   }
   openModal() {
 
@@ -43,4 +65,7 @@ console.log(event)
       this.modalService.open(this.modalId, { size: 'md', backdrop: 'static' });
       
   }
+}
+interface LooseObject {
+  [key: string]: any
 }

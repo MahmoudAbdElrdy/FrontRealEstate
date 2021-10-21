@@ -12,38 +12,38 @@ import { ResponseData } from '../models/ResponseData';
 export class EmployeeService {
   constructor(private _httpClient: HttpClient) { }
   
-  Authenticate(AuthenticateRequest: any):Observable<any>{
+  authenticate(AuthenticateRequest: any):Observable<any>{
    
     return this._httpClient.post<any>(environment.apiUrl + "/Employee/login", AuthenticateRequest);
   } 
 
 
   
-  Register(Employee: any):Observable<ResponseData>{
+  register(Employee: any):Observable<ResponseData>{
    
     return this._httpClient.post<any>(environment.apiUrl + "/Employee/CreateUpdateemployee", Employee);
   } 
 
-  UpdateEmployee(Employee: any):Observable<ResponseData>{
+  createUpdate(Employee: any):Observable<ResponseData>{
     return this._httpClient.post<any>(environment.apiUrl + "/Employee/CreateUpdateemployee", Employee);
   } 
 
-  GetEmployees():Observable<ResponseData>{
-    return this._httpClient.get<any>(environment.apiUrl + "Employee/GetEmployees");
+  getAll(filter):Observable<ResponseData>{
+    return this._httpClient.post<any>(environment.apiUrl + "/Employee/GetAll",filter);
   } 
 
-  GetEmployee(id:any):Observable<any>{
+  getById(id:any):Observable<any>{
     let params = new HttpParams();
     params = params.append('id', id);
-    return this._httpClient.get<any>(environment.apiUrl + "Employee/GetEmployee", { params: params});
+    return this._httpClient.get<any>(environment.apiUrl + "/Employee/GetById", { params: params});
   } 
 
-  DeleteEmployee(Employee: any):Observable<any>{
-    return this._httpClient.post<any>(environment.apiUrl + "Employee/DeleteEmployee",Employee);
+  delete(Employee: any):Observable<any>{
+    return this._httpClient.post<any>(environment.apiUrl + "/Employee/Delete",Employee);
   } 
 
-  GetRoles():Observable<ResponseData>{
-    return this._httpClient.get<any>(environment.apiUrl + "Employee/GetRoles");
+  getAlldepartments():Observable<ResponseData>{
+    return this._httpClient.get<any>(environment.apiUrl + "/Employee/GetAlldepartments");
   } 
 
  

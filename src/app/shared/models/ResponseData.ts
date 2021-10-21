@@ -4,10 +4,10 @@ export class ResponseData  {
     message:any;
     errors:any;
     data: any;
-    totalItems: any;
+    totalRecordsCount: any;
     currentPage:any;
     pageSize:any;
-    totalPages:any
+    pageCount:any
 }
 
 export enum EResponse
