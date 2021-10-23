@@ -8,6 +8,10 @@ import { data } from './employees';
 import { L10n, setCulture } from '@syncfusion/ej2-base';
 import { Locales } from 'src/app/shared/helper/constants';
 import { ResponseData } from 'src/app/shared/models/ResponseData';
+import { PublicService } from 'src/app/shared/services/public.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from 'src/app/shared/services/alert.service';
+import { AlertifyService } from 'src/app/shared/services/alertify.service';
 setCulture('ar-AE');
 L10n.load(Locales.getLocaleObjects())
 Pager.Inject(PagerDropDown); 
@@ -29,13 +33,15 @@ export class EmployeesComponent implements OnInit {
   @ViewChild("pager") pager: PagerComponent;
   @ViewChild('ModalId') modalId: ElementRef;
   @ViewChild('ModalSalaryId') modalSalaryId: ElementRef;
-  departmentDDL = ['عقار1', 'عقار2', 'عقار3', 'عقار4', 'عقار5'];
- 
+  departmentDDL = [];
+  //FieldsDDL:Object;
+  FieldsDDL: Object ={text: 'text', value: 'value'};
   filter: looseObject = {pageNumber:1,pageSize:10,name:null,departmentId:null,workSince:null,phone:null};
   selectedRowIndexes: any;
   id: any;
   model: any;
-  constructor( public modalService: NgbModal, private _service: EmployeeService) { }
+  form: FormGroup;
+  constructor(private alert:AlertifyService ,private formBuilder: FormBuilder, public modalService: NgbModal, private _service: EmployeeService,private _publicService: PublicService) { }
 
   public data: object[];
 
@@ -44,6 +50,16 @@ export class EmployeesComponent implements OnInit {
   //  this.selectionsettings = { checkboxOnly: true };
   this.selectionsettings = { type: 'Single' };
   this.getData(this.filter);
+  this.getDropDownList();
+  
+ this.form = this.formBuilder.group({
+    id: [0],
+    departmentId:[0],
+    name: ['', [Validators.required]],
+    phone: [''],
+    workSince: [Date.now()],
+    passWord: ['']
+  });
   }
  
   changePage(event) {
@@ -63,6 +79,7 @@ export class EmployeesComponent implements OnInit {
          this.totalRecordsCount=res.totalRecordsCount;
          this.pageCount=res.pageCount
          this.pageSize=res.pageSize;
+        
         } else {
           Swal.fire("حدث مشكلة", null, "error");
         }
@@ -101,13 +118,14 @@ export class EmployeesComponent implements OnInit {
 
     }
   }
-  dropDownChanged(args: any) { 
-    //this.grid.pageSettings.pageSize = parseInt(args.pageSize);
-  } 
+ 
   openModal() {
-   debugger
+   
       this.modalService.open(this.modalId, { size: 'lg', backdrop: 'static' });
-      
+      if(this.id!=undefined||this.id>0){
+        this.getById();
+      }
+     
   }
   openModalSalary() {
 
@@ -128,16 +146,64 @@ getById() {
   this._service.getById(this.id)
     .subscribe((res: ResponseData) => {
       if (res.isSuccess == true) {
-
+        
 
         //Mapp data what are you want
         this.model = res.data;
-     //   this.userEdit.createdOn = this.datePipe.transform(this.userEdit.createdOn, 'dd/MM/yyyy, h:mm a')
-      //  this.bindingEdit(this.userEdit);
+        this.form.patchValue({
+          id: res.data.id,
+          departmentId: res.data.departmentId,
+          name: res.data.name,
+          workSince:this.formatDate(Date.parse(res.data.workSince)),
+          passWord: res.data.passWord,
+          phone: res.data.phone,
+        });
      
       }
+     
     });
  
 }
+private formatDate(date) {
+  const d = new Date(date);
+  let month = '' + (d.getMonth() + 1);
+  let day = '' + d.getDate();
+  const year = d.getFullYear();
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+  return [year, month, day].join('-');
+}
 
+getDropDownList() {
+  
+  this._publicService.get("Employee/GetAllDepartments")
+    .subscribe((res: ResponseData) => {
+      if (res.isSuccess == true) {
+       
+        this.departmentDDL = res.data;
+
+      }
+    });
+}
+addEitFrom(){
+  if (this.form.valid) {
+    this._service.createUpdate(this.form.getRawValue())
+      .subscribe((res: ResponseData) => {
+       debugger
+        if (res.isSuccess == true) {
+          this.model = res.data;
+          this.gridObj.refresh();
+          this.alert.success(res.message);
+
+        }
+        else {
+          this.alert.error(res.message)
+        }
+      },
+        (err) => {
+          console.log(err)
+          this.alert.error("DatabaseServerError")
+        });
+  }
+}
 }

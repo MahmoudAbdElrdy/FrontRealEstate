@@ -21,11 +21,11 @@ export class EmployeeService {
   
   register(Employee: any):Observable<ResponseData>{
    
-    return this._httpClient.post<any>(environment.apiUrl + "/Employee/CreateUpdateemployee", Employee);
+    return this._httpClient.post<any>(environment.apiUrl + "/Employee/CreateUpdatEemployee", Employee);
   } 
 
   createUpdate(Employee: any):Observable<ResponseData>{
-    return this._httpClient.post<any>(environment.apiUrl + "/Employee/CreateUpdateemployee", Employee);
+    return this._httpClient.post<any>(environment.apiUrl + "/Employee/CreateUpdatEemployee", Employee);
   } 
 
   getAll(filter):Observable<ResponseData>{

@@ -11,7 +11,7 @@
 
         <!-- edit -->
 
-        <button type="button" class="btn btn-outline-warning mx-1">
+        <button type="button" class="btn btn-outline-warning mx-1"  (click)="openModal()">
             <i class="fas fa-plus"></i>
             تعديل
         </button>
@@ -29,7 +29,7 @@
 
     </div>
     <br>
-    <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' [allowFiltering]='true' 
+    <ejs-grid [dataSource]='data' id='grid' [enableRtl]='true' [allowFiltering]='true' 
         [selectionSettings]='selectionsettings'  gridLines='Both' (rowSelected)='rowSelected($event)'>
         <e-columns>
             <!-- <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false'
@@ -65,7 +65,7 @@
 
         </e-columns>
     </ejs-grid>
-    <ejs-pager #pager [enableRtl]='true' [pageSize]='pageSize' [pageCount]='pageCount' [totalRecordsCount]='totalRecordsCount' (dropDownChanged)="dropDownChanged($event)" (click)="changePage($event)"></ejs-pager>
+    <ejs-pager #pager [enableRtl]='true' [pageSize]='pageSize' [pageCount]='pageCount' [totalRecordsCount]='totalRecordsCount'  (click)="changePage($event)"></ejs-pager>
 
 </ng-container>
 
@@ -77,50 +77,58 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+  
     <div class="modal-body">
+        <form [formGroup]="form" >
         <div class="form-group row">
 
             <label for="" class="col-sm-2 col-form-label">اسم القسم</label>
             <div class="col-sm-10">
-                <ejs-combobox id='comboelement' id="department" [dataSource]='departmentDDL'></ejs-combobox>
+                <ejs-dropdownlist id="department" [dataSource]='departmentDDL'
+                [allowFiltering]='true' [autofill]='true' [enableRtl]='true'
+                        placeholder="اختار" [fields]='FieldsDDL' formControlName="departmentId"
+                >
+            </ejs-dropdownlist>
 
             </div>
         </div>
         <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">اسم </label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="name">
+                <input type="text" class="form-control" id="name" formControlName="name">
 
             </div>
         </div>
         <div class="form-group row">
-            <label for="address" class="col-sm-2 col-form-label">التليفون</label>
+            <label for="phone" class="col-sm-2 col-form-label">التليفون</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="address">
+                <input type="text" class="form-control" id="phone" formControlName="phone">
 
             </div>
         </div>
         <div class="form-group row">
             <label for="workSince" class="col-sm-2 col-form-label">تاريخ العمل</label>
             <div class="col-sm-10">
-                <input type="date" class="form-control" id="workSince">
+                <input type="date" class="form-control" id="workSince" formControlName="workSince">
 
             </div>
         </div>
         <div class="form-group row">
             <label for="floors" class="col-sm-2 col-form-label">كلمة السر</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="password">
+                <input type="password" class="form-control" id="password" formControlName="passWord">
 
             </div>
         </div>
+    </form>
     </div>
+   
     <div class="modal-footer px-2 py-2">
         <button type="button" (click)="modal.close('Close click')" class="btn btn-outline-secondary mr-2">
             <i class="fas fa-undo"></i>
             اغلاق
         </button>
-        <button type="button" class="btn btn-info mr-2">
+        <button type="button" class="btn btn-info mr-2" (click)="addEitFrom()">
             <i class="far fa-save pr-1"></i>
             حفظ
         </button>
