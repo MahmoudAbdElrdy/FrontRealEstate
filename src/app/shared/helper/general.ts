@@ -11,59 +11,57 @@ export class General {
   //#region Declartions
   [key: string]: any;
   //#endregion
-  isLoading: boolean;
 
-  onSave() {
-   
-  
+    addEitFromGeneral() {
       if (this.form.valid) {
-        this.service.create(this.form.getRawValue())
+        this._service.createUpdate(this.form.getRawValue())
           .subscribe((res: ResponseData) => {
-            console.log("result=>", res)
-
+            debugger
             if (res.isSuccess == true) {
-              this.primarykey = res.data;
-
-              this.alert.showSuccess(res.message);
-
+            
+              this.getData(this.filter);
+              this.alert.success(res.message);
+              this.modalService.dismissAll();
             }
             else {
-              this.alert.showError(res.message)
+              this.alert.error(res.message)
             }
           },
             (err) => {
               console.log(err)
-              this.alert.showError("DatabaseServerError")
+              this.alert.error("مشكلة في الداتا بيز")
             });
       }
     }
-   
   
-
-  onDelete() {
-
+    removeGeneral(id) {
+      if (id == 0) return;
+      Swal.fire({
+        title: 'الحذف',
+        text: "هل متاكد من الحذف؟",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'نعم!'
+      }).then((result) => {
+        if (result.value) {
   
-    if (!this.complete)
-      return;
-    if (this.primarykey == 0) return;
-
-    Swal.fire({
-    
-    }).then((result) => {
-      if (result.value) {
-
-        this.service.delete(this.primarykey).subscribe(res => {
-          if (res.isSuccess) {
-            this.alert.showSuccess(res.message)
-            this.router.navigateByUrl(this.url);
-          }
-          else {
-            this.alert.showError(res.message);
-          }
-        });
-      }
-    })
-  }
+          this._service.delete(id).subscribe(res => {
+            if (res.isSuccess) {
+              this.getData(this.filter);
+              this.alert.success(res.message);
+  
+            
+            }
+            else {
+              this.alert.showError(res.message);
+            }
+          });
+        }
+  
+      })
+    }
 
   removeItemFromArray<T>(arr: Array<T>, value: T): Array<T> {
     const index = arr.indexOf(value);

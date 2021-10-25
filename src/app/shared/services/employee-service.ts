@@ -38,8 +38,10 @@ export class EmployeeService {
     return this._httpClient.get<any>(environment.apiUrl + "/Employee/GetById", { params: params});
   } 
 
-  delete(Employee: any):Observable<any>{
-    return this._httpClient.post<any>(environment.apiUrl + "/Employee/Delete",Employee);
+  delete(id: any):Observable<any>{
+    let params = new HttpParams();
+    params = params.append('id', id);
+    return this._httpClient.get<any>(environment.apiUrl + "/Employee/Delete", { params: params});
   } 
 
   getAlldepartments():Observable<ResponseData>{
