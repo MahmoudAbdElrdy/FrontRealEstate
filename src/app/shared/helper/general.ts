@@ -43,7 +43,8 @@ export class General {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'نعم!'
+        confirmButtonText: 'نعم',
+        cancelButtonText:"لا"
       }).then((result) => {
         if (result.value) {
   
