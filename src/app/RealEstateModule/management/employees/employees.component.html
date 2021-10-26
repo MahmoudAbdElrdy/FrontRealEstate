@@ -29,7 +29,7 @@
 
     </div>
     <br>
-    <ejs-grid [dataSource]='data'  #grid   [enableRtl]='true' [allowFiltering]='true' (dataBound)='dataBound()'
+   <ejs-grid [dataSource]='data'  #grid   [enableRtl]='true' [allowFiltering]='true'  
         [selectionSettings]='selectionsettings'  gridLines='Both' (rowSelected)='rowSelected($event)' (actionBegin)='begin($event)'>
         <e-columns>
             <!-- <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false'
@@ -39,11 +39,24 @@
             </e-column>
             <e-column field='department' [customAttributes]='customAttributes' [allowFiltering]='true' headerText='القسم ' textAlign='Right'
                 width=120>
+                <ng-template #filterTemplate>
+                   
+                    <ejs-dropdownlist id="department" [dataSource]='departmentDDL' [changeOnBlur]='false'
+                    [allowFiltering]='true' [autofill]='true' [enableRtl]='true'
+                            placeholder="اختار" [fields]='FieldsDDL' 
+                            (change)='onChangeDepartment($event)'    [showClearButton]="true"   >
+                </ejs-dropdownlist>
+                  </ng-template>
             </e-column>
             <e-column field='phone' [customAttributes]='customAttributes' [allowFiltering]='true' headerText='التليفون' textAlign='Right'
                 format='C2' width=90></e-column>
             <e-column field='workSince' format='dd/MM/yyyy'  type='date' [customAttributes]='customAttributes' headerText='تاريخ العمل'
                 textAlign='Right' width=120>
+
+                <ng-template #filterTemplate>
+                  
+                    <input type="date" #date class="form-control" (change)=onChangeDateTime(date.value) format='dd/MM/yyyy' id="workSince">
+                  </ng-template>
             </e-column>
             <e-column [allowFiltering]='false' [allowSorting]='false' width='90' [disabled]="true" headerText='العمليات'
                 [customAttributes]='customAttributes'>
@@ -143,11 +156,12 @@
         </button>
     </div>
     <div class="modal-body">
+        <form [formGroup]="formSalary" >
         <div class="form-group row">
 
             <label for="" class="col-sm-2 col-form-label">ثابت</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="fixed">
+                <input type="number" class="form-control" id="fixed" formControlName="fixed">
 
             </div>
         </div>
@@ -156,7 +170,7 @@
 
         <label for="" class="col-sm-2 col-form-label">حافز الانتاج</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control" id="productionincentive">
+            <input type="number" class="form-control" id="productionIncentive" formControlName="productionIncentive">
 
         </div>
     </div>
@@ -165,7 +179,7 @@
 
         <label for="" class="col-sm-2 col-form-label">مكافئات</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control" id="Rewards">
+            <input type="number" class="form-control" id="Rewards" formControlName="rewards">
 
         </div>
     </div>
@@ -174,7 +188,7 @@
 
         <label for="" class="col-sm-2 col-form-label">سلفة</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control" id="Advancepayment">
+            <input type="number" class="form-control" id="Advancepayment" formControlName="advancePayment">
 
         </div>
     </div>
@@ -183,7 +197,7 @@
 
         <label for="" class="col-sm-2 col-form-label">جزاءات</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control" id="Sanctions">
+            <input type="number" class="form-control" id="Sanctions" formControlName="sanctions">
 
         </div>
     </div>
@@ -192,7 +206,7 @@
 
         <label for="" class="col-sm-2 col-form-label">تأخيرات</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control" id="delays">
+            <input type="number" class="form-control" id="delays" formControlName="delays">
 
         </div>
     </div>
@@ -201,7 +215,7 @@
 
         <label for="" class="col-sm-2 col-form-label">تأمينات اجتماعية</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control" id="Socialinsurance">
+            <input type="number" class="form-control" id="SocialInsurance" formControlName="socialInsurance">
 
         </div>
     </div>
@@ -210,7 +224,7 @@
 
         <label for="" class="col-sm-2 col-form-label">ْْاجازات</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control" id="holidays">
+            <input type="number" class="form-control" id="holidays" formControlName="holidays">
 
         </div>
     </div>
@@ -219,7 +233,7 @@
 
         <label for="" class="col-sm-2 col-form-label">بوفيه</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control" id="buffet">
+            <input type="number" class="form-control" id="buffet" formControlName="buffet">
 
         </div>
     </div>
@@ -232,6 +246,7 @@
 
         </div>
     </div>
+        </form>
     </div>
     <div class="modal-footer px-2 py-2">
         <button type="button" (click)="modalSalary.close('Close click')" class="btn btn-outline-secondary mr-2">

@@ -40,6 +40,7 @@ export class EmployeesComponent extends General implements OnInit {
   id: any;
   model: any;
   form: FormGroup;
+  formSalary: FormGroup;
   constructor(private alert: AlertifyService, private formBuilder: FormBuilder, public modalService: NgbModal, private _service: EmployeeService, private _publicService: PublicService) {
     super();
   }
@@ -61,12 +62,24 @@ export class EmployeesComponent extends General implements OnInit {
       workSince: [Date.now()],
       passWord: ['']
     });
+    this.formSalary = this.formBuilder.group({
+      id: [0],
+      EmployeeId:[0],
+      fixed: [null],
+      productionIncentive: [null],
+      rewards: [null],
+      advancePayment: [null],
+      sanctions: [null],
+      delays: [null],
+      socialInsurance: [null],
+      holidays: [null],
+      buffet: [null],
+    });
   }
 
   changePage(event) {
-    debugger
-  
-    if(this.change){
+
+    if (this.change) {
       if (event.currentPage) {
 
         this.filter.pageNumber = event.currentPage;
@@ -74,7 +87,7 @@ export class EmployeesComponent extends General implements OnInit {
         return;
       }
     }
-    this.change=event.pointerType;
+    this.change = event.pointerType;
   }
   getData(filter) {
 
@@ -95,16 +108,25 @@ export class EmployeesComponent extends General implements OnInit {
   // dataBound() {
   //   Object.assign((this.gridObj.filterModule as any).filterOperators, { startsWith: 'contains' });
   // }
+  onChangeDateTime(args: any): void {
+
+    this.filter.workSince = args
+    this.getData(this.filter);
+  }
+  onChangeDepartment(e) {
+
+    console.log(e)
+    this.filter.departmentId = e.value
+    this.getData(this.filter);
+  }
   begin(args): any {
-    debugger
+
     if (args.requestType === "filtering" && args.action === "filter") {
       if (args.currentFilterObject.field === "name") {
         this.filter.name = args.currentFilterObject.value;
       }
-      else if (args.currentFilterObject.field === "department") {
-
-        this.filter.department = args.currentFilterObject.value;
-
+      if (args.currentFilterObject.field === "phone") {
+        this.filter.phone = args.currentFilterObject.value;
       }
       this.filter.pageNumber = 1;
       this.getData(this.filter);
@@ -117,10 +139,8 @@ export class EmployeesComponent extends General implements OnInit {
           this.filter.name = null;
 
         }
-        else if (clearFilter.field === "department") {
-
-          this.filter.department = null;
-
+        if (clearFilter.field === "phone") {
+          this.filter.phone = null;
         }
 
         this.filter.pageNumber = 1;
@@ -150,7 +170,7 @@ export class EmployeesComponent extends General implements OnInit {
 
     if (id != undefined || id > 0) {
       this.modalService.open(this.modalId, { size: 'lg', backdrop: 'static' });
-      this.id=id;
+      this.id = id;
       this.getById();
     }
 
@@ -161,7 +181,31 @@ export class EmployeesComponent extends General implements OnInit {
     this.modalService.open(this.modalSalaryId, { size: 'lg', backdrop: 'static' });
 
   }
+  getByIdSalary() {
 
+
+    this._service.getById(this.id)
+      .subscribe((res: ResponseData) => {
+        if (res.isSuccess == true) {
+          this.model = res.data;
+          this.formSalary.patchValue({
+            id: res.data.id,
+            fixed: res.data.id,
+            productionIncentive: res.data.id,
+            rewards:  res.data.id,
+            advancePayment:  res.data.id,
+            sanctions:  res.data.id,
+            delays:  res.data.id,
+            socialInsurance:  res.data.id,
+            holidays: res.data.id,
+            buffet:  res.data.id,
+          });
+
+        }
+
+      });
+
+  }
   rowSelected(args: RowSelectEventArgs) {
 
     var data = args.data as any;
@@ -174,9 +218,6 @@ export class EmployeesComponent extends General implements OnInit {
     this._service.getById(this.id)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-
-
-          //Mapp data what are you want
           this.model = res.data;
           this.form.patchValue({
             id: res.data.id,
@@ -192,7 +233,7 @@ export class EmployeesComponent extends General implements OnInit {
       });
 
   }
-  private formatDate(date) {
+  formatDate(date) {
     const d = new Date(date);
     let month = '' + (d.getMonth() + 1);
     let day = '' + d.getDate();
@@ -216,12 +257,12 @@ export class EmployeesComponent extends General implements OnInit {
   addEitFrom() {
     this.addEitFromGeneral();
   }
-  remove(id){
-    if(id!=undefined)
-    this.removeGeneral(id)
+  remove(id) {
+    if (id != undefined)
+      this.removeGeneral(id)
   }
-  removeSlect(){
-    if(this.id!=undefined)
-    this.removeGeneral(this.id)
+  removeSlect() {
+    if (this.id != undefined)
+      this.removeGeneral(this.id)
   }
 }

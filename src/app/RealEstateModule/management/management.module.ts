@@ -9,11 +9,12 @@ import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
 import { EmployeesComponent } from './employees/employees.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 @NgModule({
   declarations: [ ProjectComponent, EmployeesComponent],
   imports: [ ReactiveFormsModule, FormsModule,
-    ManagementRoutingModule,  GridModule,DropDownListModule,SharedModule,ComboBoxModule,CommonModule,PagerModule
+    ManagementRoutingModule,  GridModule,DropDownListModule,SharedModule,ComboBoxModule,CommonModule,PagerModule,DateTimePickerModule,DatePickerModule,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
