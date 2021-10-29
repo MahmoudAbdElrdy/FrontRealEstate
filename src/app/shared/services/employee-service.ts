@@ -10,8 +10,9 @@ import { ResponseData } from '../models/ResponseData';
     providedIn: 'root',
   })
 export class EmployeeService {
+  public employeeName:string;
   constructor(private _httpClient: HttpClient) { }
-  
+ 
   authenticate(AuthenticateRequest: any):Observable<any>{
    
     return this._httpClient.post<any>(environment.apiUrl + "/Employee/login", AuthenticateRequest);

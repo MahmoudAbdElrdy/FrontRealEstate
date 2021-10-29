@@ -28,6 +28,7 @@ export class ContractNavigationComponent implements AfterViewInit ,OnInit{
   Logout(){
     localStorage.removeItem("userToken");
     localStorage.setItem('isLoggedin', 'true');
+    localStorage.clear()
     // this.router.navigate(['/authentication/login']);
     window.location.replace("/authentication/login");
 

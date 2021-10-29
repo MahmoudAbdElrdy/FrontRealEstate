@@ -22,22 +22,22 @@
             <i class="fas fa-trash-alt"></i>
             حذف
         </button>
-        <button type="button" (click)="openModalSalary()" class="btn btn-outline-secondary mx-1" >
+        <button type="button" (click)="openSalary()" class="btn btn-outline-secondary mx-1" >
             <i class="fas fa-undo"></i>
             المرتبات
         </button>
 
     </div>
     <br>
-   <ejs-grid [dataSource]='data'  #grid   [enableRtl]='true' [allowFiltering]='true'  
+   <ejs-grid [dataSource]='data'  #grid   [enableRtl]='true' [allowFiltering]='true' [allowResizing]='true'   [isResponsive]="true" [enableResponsiveRow]="true"
         [selectionSettings]='selectionsettings'  gridLines='Both' (rowSelected)='rowSelected($event)' (actionBegin)='begin($event)'>
         <e-columns>
             <!-- <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false'
                 [customAttributes]='customAttributes' width='60'></e-column> -->
 
-            <e-column field='name' [customAttributes]='customAttributes' [allowFiltering]='true' headerText='اسم ' textAlign='Right' width=120>
+            <e-column field='name' [customAttributes]='customAttributes'  headerText='اسم ' textAlign='Right' width=120>
             </e-column>
-            <e-column field='department' [customAttributes]='customAttributes' [allowFiltering]='true' headerText='القسم ' textAlign='Right'
+            <e-column field='department' [customAttributes]='customAttributes'  headerText='القسم ' textAlign='Right'
                 width=120>
                 <ng-template #filterTemplate>
                    
@@ -48,8 +48,8 @@
                 </ejs-dropdownlist>
                   </ng-template>
             </e-column>
-            <e-column field='phone' [customAttributes]='customAttributes' [allowFiltering]='true' headerText='التليفون' textAlign='Right'
-                format='C2' width=90></e-column>
+            <e-column field='phone' [customAttributes]='customAttributes'  headerText='التليفون' textAlign='Right'
+                width=90></e-column>
             <e-column field='workSince' format='dd/MM/yyyy'  type='date' [customAttributes]='customAttributes' headerText='تاريخ العمل'
                 textAlign='Right' width=120>
 
@@ -68,7 +68,7 @@
                        >
                         <i class="far fa-trash-alt"></i>
                     </button>
-                    <button class="btn btn-outline-secondary" rel="tooltip" data-toggle="tooltip" 
+                    <button class="btn btn-outline-secondary" rel="tooltip" data-toggle="tooltip"  (click)="openModalSalary(data.id,data.name)"
                         data-placement="bottom">
                         <i class="fas fa-undo"></i>
                     </button>
@@ -148,114 +148,3 @@
     </div>
 </ng-template>
 <!-- salary -->
-<ng-template #ModalSalaryId let-modalSalary>
-    <div class="modal-header">
-        <h4 class="modal-title">اضافة</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modalSalary.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="formSalary" >
-        <div class="form-group row">
-
-            <label for="" class="col-sm-2 col-form-label">ثابت</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" id="fixed" formControlName="fixed">
-
-            </div>
-        </div>
-      <!--  -->
-      <div class="form-group row">
-
-        <label for="" class="col-sm-2 col-form-label">حافز الانتاج</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" id="productionIncentive" formControlName="productionIncentive">
-
-        </div>
-    </div>
-    <!--  -->
-    <div class="form-group row">
-
-        <label for="" class="col-sm-2 col-form-label">مكافئات</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" id="Rewards" formControlName="rewards">
-
-        </div>
-    </div>
-    <!--  -->
-    <div class="form-group row">
-
-        <label for="" class="col-sm-2 col-form-label">سلفة</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" id="Advancepayment" formControlName="advancePayment">
-
-        </div>
-    </div>
-    <!--  -->
-    <div class="form-group row">
-
-        <label for="" class="col-sm-2 col-form-label">جزاءات</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" id="Sanctions" formControlName="sanctions">
-
-        </div>
-    </div>
-    <!--  -->
-    <div class="form-group row">
-
-        <label for="" class="col-sm-2 col-form-label">تأخيرات</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" id="delays" formControlName="delays">
-
-        </div>
-    </div>
-    <!--  -->
-    <div class="form-group row">
-
-        <label for="" class="col-sm-2 col-form-label">تأمينات اجتماعية</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" id="SocialInsurance" formControlName="socialInsurance">
-
-        </div>
-    </div>
-    <!--  -->
-    <div class="form-group row">
-
-        <label for="" class="col-sm-2 col-form-label">ْْاجازات</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" id="holidays" formControlName="holidays">
-
-        </div>
-    </div>
-      <!--  -->
-      <div class="form-group row">
-
-        <label for="" class="col-sm-2 col-form-label">بوفيه</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" id="buffet" formControlName="buffet">
-
-        </div>
-    </div>
-       <!--  -->
-       <div class="form-group row">
-
-        <label for="" class="col-sm-2 col-form-label">العمولة</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" id="buffet">
-
-        </div>
-    </div>
-        </form>
-    </div>
-    <div class="modal-footer px-2 py-2">
-        <button type="button" (click)="modalSalary.close('Close click')" class="btn btn-outline-secondary mr-2">
-            <i class="fas fa-undo"></i>
-            اغلاق
-        </button>
-        <button type="button" class="btn btn-info mr-2">
-            <i class="far fa-save pr-1"></i>
-            حفظ
-        </button>
-    </div>
-</ng-template>

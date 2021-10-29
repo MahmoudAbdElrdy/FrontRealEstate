@@ -5,12 +5,13 @@ import { looseObject } from 'src/app/shared/models/looseObject';
 import { EmployeeService } from 'src/app/shared/services/employee-service';
 import Swal from 'sweetalert2';
 import { L10n, setCulture } from '@syncfusion/ej2-base';
-import { Locales } from 'src/app/shared/helper/constants';
+import { Globals, Locales } from 'src/app/shared/helper/constants';
 import { ResponseData } from 'src/app/shared/models/ResponseData';
 import { PublicService } from 'src/app/shared/services/public.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertifyService } from 'src/app/shared/services/alertify.service';
 import { General } from 'src/app/shared/helper/general';
+import { ActivatedRoute, Router } from '@angular/router';
 setCulture('ar-AE');
 L10n.load(Locales.getLocaleObjects())
 Pager.Inject(PagerDropDown);
@@ -41,7 +42,9 @@ export class EmployeesComponent extends General implements OnInit {
   model: any;
   form: FormGroup;
   formSalary: FormGroup;
-  constructor(private alert: AlertifyService, private formBuilder: FormBuilder, public modalService: NgbModal, private _service: EmployeeService, private _publicService: PublicService) {
+  constructor(private alert: AlertifyService, private formBuilder: FormBuilder, private router: Router,
+    private activeRoute: ActivatedRoute,
+    public modalService: NgbModal, private _service: EmployeeService, private _publicService: PublicService) {
     super();
   }
 
@@ -62,19 +65,7 @@ export class EmployeesComponent extends General implements OnInit {
       workSince: [Date.now()],
       passWord: ['']
     });
-    this.formSalary = this.formBuilder.group({
-      id: [0],
-      EmployeeId:[0],
-      fixed: [null],
-      productionIncentive: [null],
-      rewards: [null],
-      advancePayment: [null],
-      sanctions: [null],
-      delays: [null],
-      socialInsurance: [null],
-      holidays: [null],
-      buffet: [null],
-    });
+
   }
 
   changePage(event) {
@@ -103,6 +94,7 @@ export class EmployeesComponent extends General implements OnInit {
         } else {
           Swal.fire("حدث مشكلة", null, "error");
         }
+        this.form.reset();
       })
   }
   // dataBound() {
@@ -175,42 +167,31 @@ export class EmployeesComponent extends General implements OnInit {
     }
 
   }
-  openModalSalary() {
-
-
-    this.modalService.open(this.modalSalaryId, { size: 'lg', backdrop: 'static' });
-
-  }
-  getByIdSalary() {
-
-
-    this._service.getById(this.id)
-      .subscribe((res: ResponseData) => {
-        if (res.isSuccess == true) {
-          this.model = res.data;
-          this.formSalary.patchValue({
-            id: res.data.id,
-            fixed: res.data.id,
-            productionIncentive: res.data.id,
-            rewards:  res.data.id,
-            advancePayment:  res.data.id,
-            sanctions:  res.data.id,
-            delays:  res.data.id,
-            socialInsurance:  res.data.id,
-            holidays: res.data.id,
-            buffet:  res.data.id,
-          });
-
-        }
-
-      });
+  openModalSalary(employeeId, employeeName) {
+    
+    localStorage.setItem("employeeName",employeeName);
+   
+    this.router.navigateByUrl('/Management/EmployeeSalary?employeeId=' + employeeId)
 
   }
+  openSalary() {
+
+    if (this.id != undefined) {
+
+      this.router.navigateByUrl('/Management/EmployeeSalary?employeeId=' + this.id )
+
+    }
+
+
+  }
+
   rowSelected(args: RowSelectEventArgs) {
-
+    
     var data = args.data as any;
     this.id = data.id;
     this.model = data;
+
+    localStorage.setItem("employeeName",data.name);
   }
   getById() {
 
@@ -223,7 +204,7 @@ export class EmployeesComponent extends General implements OnInit {
             id: res.data.id,
             departmentId: res.data.departmentId,
             name: res.data.name,
-            workSince: this.formatDate(Date.parse(res.data.workSince)),
+            workSince: Globals.formatDate(Date.parse(res.data.workSince)),
             passWord: res.data.passWord,
             phone: res.data.phone,
           });
@@ -233,15 +214,7 @@ export class EmployeesComponent extends General implements OnInit {
       });
 
   }
-  formatDate(date) {
-    const d = new Date(date);
-    let month = '' + (d.getMonth() + 1);
-    let day = '' + d.getDate();
-    const year = d.getFullYear();
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-    return [year, month, day].join('-');
-  }
+
 
   getDropDownList() {
 
