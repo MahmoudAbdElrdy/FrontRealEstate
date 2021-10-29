@@ -97,7 +97,7 @@ export class EmployeeSalaryComponent extends General implements OnInit {
 
           this.data = res.data;
           this.totalRecordsCount = res.totalRecordsCount;
-          this.pageCount = res.pageCount
+          this.pageCount = res.pageCount>5?5: res.pageCount;
           this.pageSize = res.pageSize;
 
         } else {

@@ -32,7 +32,6 @@ export class EmployeesComponent extends General implements OnInit {
   @ViewChild('grid') gridObj: GridComponent;
   @ViewChild("pager") pager: PagerComponent;
   @ViewChild('ModalId') modalId: ElementRef;
-  @ViewChild('ModalSalaryId') modalSalaryId: ElementRef;
   departmentDDL = [];
   //FieldsDDL:Object;
   FieldsDDL: Object = { text: 'text', value: 'value' };
@@ -41,14 +40,13 @@ export class EmployeesComponent extends General implements OnInit {
   id: any;
   model: any;
   form: FormGroup;
-  formSalary: FormGroup;
   constructor(private alert: AlertifyService, private formBuilder: FormBuilder, private router: Router,
     private activeRoute: ActivatedRoute,
     public modalService: NgbModal, private _service: EmployeeService, private _publicService: PublicService) {
     super();
   }
 
-  public data: object[];
+ data: object[];
 
   ngOnInit(): void {
     this.customAttributes = { class: 'customcss' }; //use custom cs
@@ -88,7 +86,7 @@ export class EmployeesComponent extends General implements OnInit {
 
           this.data = res.data;
           this.totalRecordsCount = res.totalRecordsCount;
-          this.pageCount = res.pageCount
+          this.pageCount = res.pageCount>5?5: res.pageCount;
           this.pageSize = res.pageSize;
 
         } else {
@@ -97,9 +95,9 @@ export class EmployeesComponent extends General implements OnInit {
         this.form.reset();
       })
   }
-  // dataBound() {
-  //   Object.assign((this.gridObj.filterModule as any).filterOperators, { startsWith: 'contains' });
-  // }
+  dataBound() {
+    Object.assign((this.gridObj.filterModule as any).filterOperators, { startsWith: 'contains' });
+  }
   onChangeDateTime(args: any): void {
 
     this.filter.workSince = args
