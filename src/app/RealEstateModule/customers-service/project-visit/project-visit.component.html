@@ -1,61 +1,82 @@
 <ng-container>
+  <div>
+    <b> اسم العميل : {{customerName}}</b>
+    <br/>
 
-    <div class="pt-3 clearfix">
+   
+</div>
+
+     <!-- <div class="form-group row">
+    <label for="date" class="col-sm-2 col-form-label"> البحث بالتاريخ </label>
+    <div class="col-sm-6">
+        <input type="date" #date class="form-control" (change)=onChangeDateTime(date.value) format='dd/MM/yyyy' id="date">
+
+    </div> 
+</div>-->
+  <div class="pt-3 clearfix">
+
+    <!-- new -->
+
+    <button type="button" class="btn btn-outline-info mx-1 " (click)="openModal()">
+      <i class="fas fa-plus"></i>
+      جديد
+    </button>
+
+    <!-- edit -->
+
+    <button type="button"  class="btn btn-outline-warning mx-1" (click)="openEditModal()">
+      <i class="fas fa-plus"></i>
+      تعديل
+    </button>
+
+    <!-- delete -->
+
+    <button type="button" class="btn btn-outline-danger mx-1" (click)="removeSlect()">
+      <i class="fas fa-trash-alt"></i>
+      حذف
+    </button>
   
-      <!-- new -->
-  
-      <button type="button" class="btn btn-outline-info mx-1 " (click)="openModal()">
-        <i class="fas fa-plus"></i>
-        جديد
-      </button>
-  
-      <!-- edit -->
-  
-      <button type="button" class="btn btn-outline-warning mx-1">
-        <i class="fas fa-plus"></i>
-        تعديل
-      </button>
-  
-      <!-- delete -->
-  
-      <button type="button" class="btn btn-outline-danger mx-1">
-        <i class="fas fa-trash-alt"></i>
-        حذف
-      </button>
-     
-    </div>
+  </div>
     <br>
-    <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' [allowFiltering]='true'
-      [selectionSettings]='selectionsettings'  gridLines='Both'>
+    <ejs-grid [dataSource]='data'  #grid   [enableRtl]='true' [allowFiltering]='false' [allowResizing]='true'   [isResponsive]="true" [enableResponsiveRow]="true"
+  [selectionSettings]='selectionsettings'  gridLines='Both' (rowSelected)='rowSelected($event)'>
+
       <e-columns>
         <!-- <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false' [customAttributes]='customAttributes'
           width='60'></e-column> -->
   
         <e-column field='projectName' [customAttributes]='customAttributes' headerText='العقار' textAlign='Right' width=120>
         </e-column>
-        <e-column field='date' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right' format='yMd'
+        <e-column field='date' [customAttributes]='customAttributes' type='date' headerText='التاريخ' textAlign='Right' format='yMd'
           width=90></e-column>
         <e-column field='visited' [customAttributes]='customAttributes' headerText='تمت الزيارة' textAlign='Right' width=120>
+          <ng-template #template let-data>
+            <span class="badge badge-light-success mr-2 ml-2" *ngIf="data.visited">تم الزيارة</span>
+            <span class="badge badge-light-danger" *ngIf="!data.visited"> لم يتم زيارة</span>
+          </ng-template>
+      
         </e-column>
         <e-column field='notes' [customAttributes]='customAttributes' headerText='الملاحظات' textAlign='Right' width=120>
         </e-column>
-        <e-column [allowFiltering]='false' [allowSorting]='false' width='70' [disabled]="true" headerText='العمليات'
-          [customAttributes]='customAttributes'>
-          <ng-template #template let-data>
-            <button class="btn btn-outline-info mx-1" data-toggle="tooltip" data-placement="bottom">
-              <i class="far fa-edit"></i>
+        <e-column [allowFiltering]='false' [allowSorting]='false' width='90' [disabled]="true" headerText='العمليات'
+        [customAttributes]='customAttributes'>
+        <ng-template #template let-data>
+            <button class="btn btn-outline-info mx-1" data-toggle="tooltip" data-placement="bottom" (click)="openEdit(data.id)">
+                <i class="far fa-edit"></i>
             </button>
-            <button class="btn btn-outline-danger" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
-              title="Delete">
-              <i class="far fa-trash-alt"></i>
+            <button class="btn btn-outline-danger" rel="tooltip" data-toggle="tooltip" data-placement="bottom" (click)="remove(data.id)"
+               >
+                <i class="far fa-trash-alt"></i>
             </button>
-           
-          </ng-template>
-        </e-column>
-  
-      </e-columns>
-    </ejs-grid>
-    <app-pager (pageChange)="paggination($event)" [pager]="pager"></app-pager>
+            
+
+        </ng-template>
+    </e-column>
+
+</e-columns>
+</ejs-grid>
+<ejs-pager #pager [enableRtl]='true' [pageSize]='pageSize' [pageCount]='pageCount' [totalRecordsCount]='totalRecordsCount'  (click)="changePage($event)"></ejs-pager>
+
   </ng-container>
   
   
@@ -67,41 +88,45 @@
       </button>
     </div>
     <div class="modal-body">
+      <form [formGroup]="form" >
       <div class="form-group row">
         <label for="projectID" class="col-sm-2 col-form-label">العقار</label>
         <div class="col-sm-10">
-     
-          <ejs-dropdownlist id='projectID' [dataSource]='dataDropDown' placeholder = 'اختر العقار'></ejs-dropdownlist>
-        </div>
+          <ejs-dropdownlist id="department" [dataSource]='dataDropDown'
+          [allowFiltering]='true' [autofill]='true' [enableRtl]='true'
+                  placeholder="اختار" [fields]='FieldsDDL' formControlName="projectId"
+          >
+      </ejs-dropdownlist> </div>
       </div>
       <div class="form-group row">
         <label for="phone" class="col-sm-2 col-form-label">التاريخ</label>
         <div class="col-sm-10" dir="rtl">
-          <input type="date" class="form-control"  id="date">
+          <input type="date" class="form-control"  id="date" formControlName="date">
        
         </div>
       </div>
       <div class="form-group row">
         <label for="visited" class="col-sm-2 col-form-label">تمت الزيارة</label>
         <div class="col-sm-2">
-          <input type="checkbox" class="form-control"  id="visited">
+          <input type="checkbox" class="form-control"  id="visited" formControlName="visited">
        
         </div>
       </div>
       <div class="form-group row">
         <label for="notes" class="col-sm-2 col-form-label">الملاحظات</label>
         <div class="col-sm-10">
-          <textarea class="form-control"  id="notes">
+          <textarea class="form-control"  id="notes" formControlName="notes">
         </textarea>
         </div>
       </div>
+      </form>
     </div>
     <div class="modal-footer px-2 py-2">
       <button type="button" (click)="modal.close('Close click')" class="btn btn-outline-secondary mr-2">
         <i class="fas fa-undo"></i>
        اغلاق
       </button>
-      <button type="button" class="btn btn-info mr-2">
+      <button type="button" class="btn btn-info mr-2" (click)="addEitFrom()">
         <i class="far fa-save pr-1"></i>
       حفظ
       </button>

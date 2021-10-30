@@ -44,7 +44,9 @@ export class EmployeeSalaryComponent extends General implements OnInit {
     private _service: EmployeeSalaryService,
     private _empService: EmployeeService,
     private router: Router,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private alert:AlertifyService
+
   ) {
     super();
   }
@@ -185,6 +187,9 @@ export class EmployeeSalaryComponent extends General implements OnInit {
 
 
   addEitFrom() {
+    this.form.patchValue({
+      employeeId: this.filter.employeeId,
+    });
     this.addEitFromGeneral();
   }
   remove(id) {
