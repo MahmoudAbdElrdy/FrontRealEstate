@@ -8,10 +8,11 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { SharedModule } from '../shared/shared.module';
 import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [CustomersComponent, ProjectVisitComponent],
-  imports: [
+  imports: [CommonModule ,
     CustomersServiceRoutingModule,  GridModule,DropDownListModule,SharedModule,PagerModule, ReactiveFormsModule, FormsModule,
   ],schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

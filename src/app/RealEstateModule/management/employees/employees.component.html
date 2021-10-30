@@ -111,6 +111,10 @@
                 <input type="text" class="form-control" id="name" formControlName="name">
 
             </div>
+            <small *ngIf="(form.get('name').errors?.required)&&(form.get('name').touched)"
+            class="w-100 text-danger mt-1">
+          مطلوب  
+          </small>
         </div>
         <div class="form-group row">
             <label for="phone" class="col-sm-2 col-form-label">التليفون</label>
@@ -132,6 +136,10 @@
                 <input type="password" class="form-control" id="password" formControlName="passWord">
 
             </div>
+            <small *ngIf="(form.get('passWord').errors?.required)&&(form.get('passWord').touched)"
+            class="w-100 text-danger mt-1">
+          مطلوب  
+          </small>
         </div>
     </form>
     </div>

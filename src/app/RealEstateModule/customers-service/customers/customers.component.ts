@@ -210,8 +210,9 @@ export class CustomersComponent extends General implements OnInit {
       });
 
   }
-
+  get f() { return this.form.controls; }
   addEitFrom() {
+    this.form.markAllAsTouched();
     this.addEitFromGeneral();
   }
   remove(id) {

@@ -13,6 +13,7 @@ export class General {
   //#endregion
 
     addEitFromGeneral() {
+      this.form.markAllAsTouched();
       if (this.form.valid) {
         this._service.createUpdate(this.form.getRawValue())
           .subscribe((res: ResponseData) => {

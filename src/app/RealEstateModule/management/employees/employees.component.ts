@@ -57,11 +57,11 @@ export class EmployeesComponent extends General implements OnInit {
 
     this.form = this.formBuilder.group({
       id: [0],
-      departmentId: [0],
+      departmentId: [0,],
       name: ['', [Validators.required]],
       phone: [''],
       workSince: [Date.now()],
-      passWord: ['']
+      passWord: ['', [Validators.required]],
     });
 
   }
