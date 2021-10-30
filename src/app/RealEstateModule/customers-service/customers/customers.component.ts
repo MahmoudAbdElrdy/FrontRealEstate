@@ -93,9 +93,7 @@ export class CustomersComponent extends General implements OnInit {
         this.form.reset();
       })
   }
-  // dataBound() {
-  //   Object.assign((this.gridObj.filterModule as any).filterOperators, { startsWith: 'contains' });
-  // }
+ 
   onChangeDateTime(args: any): void {
 
     this.filter.workSince = args

@@ -4,6 +4,7 @@ import { ContractComponent } from '../contracts/contract/contract.component';
 import { CustomersComponent } from '../customers-service/customers/customers.component';
 import { ProjectVisitComponent } from '../customers-service/project-visit/project-visit.component';
 import { CustomersSalesComponent } from '../sales/customers/customers.component';
+import { QestionsComponent } from '../sales/qestions/qestions.component';
 import { EmployeeSalaryComponent } from './employee-salary/employee-salary.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { ProjectComponent } from './project/project.component';
@@ -93,6 +94,17 @@ const routes: Routes = [ {
     }
     
   },
+  {
+    path: 'Qestions',
+    component: QestionsComponent,
+    data: {
+        title: ' الاستعلامات',
+        urls: [
+            { title: 'الاستعلامات', url: '/Management' },
+            { title: 'الاستعلامات', }
+        ]
+    }
+},
 {
     path: 'CustomerSales',
     component: CustomersSalesComponent,
