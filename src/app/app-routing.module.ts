@@ -15,7 +15,8 @@ export const Approutes: Routes = [
   
     {
         path: 'CustomerServices',
-      
+        canActivate: [AuthGuard],
+        data:{department:["CustomersService"]},
         component: CustomerServiceComponent,
         children: [
            { path: '', redirectTo: '/CustomerServices/Customer', pathMatch: 'full' },
@@ -28,7 +29,7 @@ export const Approutes: Routes = [
     {
         path: 'Management',
         canActivate: [AuthGuard],
-        data:{department:["الادارة"]},
+        data:{department:["Administration"]},
         component: ManagementComponent,
         children: [
            { path: '', redirectTo: '/Management/Project', pathMatch: 'full' },
@@ -40,10 +41,11 @@ export const Approutes: Routes = [
     },
     {
         path: 'Sales',
-      
+        canActivate: [AuthGuard],
+        data:{department:["Sales"]},
         component: SalesComponent,
         children: [
-           { path: '', redirectTo: '/Sales/Customer', pathMatch: 'full' },
+           { path: '', redirectTo: '/Sales/CustomerSales', pathMatch: 'full' },
             {
                 path: '',
                 loadChildren: () => import('./RealEstateModule/sales/sales.module').then(m => m.SalesModule)

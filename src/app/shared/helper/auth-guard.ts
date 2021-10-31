@@ -23,9 +23,9 @@ export class AuthGuard implements CanActivate, CanActivateChild {
       );
 
       var userRole = payLoad.Department;
-      localStorage.setItem("CurrentRole", userRole);
-      console.log("CurrentRole",userRole);
-      let roles = next.data["Department"] as Array<string>;
+      localStorage.setItem("department", userRole);
+      
+      let roles = next.data["department"] as Array<string>;
       if (roles) {
         if (this.roleMatch(roles)) return true;
         else {
@@ -50,8 +50,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         window.atob(localStorage.getItem("userToken").split(".")[1])
       );
       var userRole = payLoad.Department;
-      localStorage.setItem("CurrentRole", userRole);
-      let roles = next.data["Department"] as Array<string>;
+      localStorage.setItem("department", userRole);
+      let roles = next.data["department"] as Array<string>;
       if (roles) {
         if (this.roleMatch(roles)) return true;
         else {
@@ -74,7 +74,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     //change to Array Of Roles
     var userRole = payLoad.Department;
     allowedRoles.forEach((element) => {
-      debugger;
+      ;
       if(Array.isArray(userRole)){
         if (userRole.find(x=>x==element) != null ) {
           isMatch = true;

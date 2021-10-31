@@ -81,7 +81,7 @@ export class CustomersComponent extends General implements OnInit {
     this._service.getAll(filter)
       .subscribe(res => {
         if (res.isSuccess) {
-          
+
           this.data = res.data;
           this.totalRecordsCount = res.totalRecordsCount;
           this.pageCount = res.pageCount > 5 ? 5 : res.pageCount;
@@ -93,7 +93,7 @@ export class CustomersComponent extends General implements OnInit {
         this.form.reset();
       })
   }
- 
+
   onChangeDateTime(args: any): void {
 
     this.filter.workSince = args
@@ -101,7 +101,7 @@ export class CustomersComponent extends General implements OnInit {
   }
 
   begin(args): any {
-    
+
     if (args.requestType === "filtering" && args.action === "filter") {
       if (args.currentFilterObject.field === "name") {
         this.filter.name = args.currentFilterObject.value;
@@ -152,7 +152,7 @@ export class CustomersComponent extends General implements OnInit {
 
   }
   dataBound() {
-    
+
     Object.assign((this.gridObj.filterModule as any).filterOperators, { startsWith: 'contains' });
   }
   openEdit(id) {
@@ -168,15 +168,22 @@ export class CustomersComponent extends General implements OnInit {
   openModalVisit(customerId, customerName) {
 
     localStorage.setItem("customerName", customerName);
-
-    this.router.navigateByUrl('/Management/Visit?customerId=' + customerId)
-
+    let department = localStorage.getItem("department");
+    if (department == "Administration")
+      this.router.navigateByUrl('/Management/Visit?customerId=' + customerId);
+    if (department == "CustomersService")
+      this.router.navigateByUrl('/CustomerServices/Visit?customerId=' + customerId);
   }
   openVisit() {
 
     if (this.id != undefined) {
 
-      this.router.navigateByUrl('/Management/Visit?customerId=' + this.id)
+    
+      let department = localStorage.getItem("department");
+      if (department == "Administration")
+        this.router.navigateByUrl('/Management/Visit?customerId=' + this.id);
+      if (department == "CustomersService")
+        this.router.navigateByUrl('/CustomerServices/Visit?customerId=' + this.id);
 
     }
 
@@ -200,7 +207,7 @@ export class CustomersComponent extends General implements OnInit {
           this.form.patchValue({
             id: res.data.id,
             name: res.data.name,
-            phone: res.data.phone.replace("\r\n","   "),
+            phone: res.data.phone.replace("\r\n", "   "),
           });
 
         }

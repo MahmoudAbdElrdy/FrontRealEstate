@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
  
   onSubmit(){
-    debugger;
+    ;
    
     this.spinner.show();
     this.AdminDto.name=this.UserName;
@@ -47,10 +47,10 @@ export class LoginComponent implements OnInit {
    this.IdentityServ.authenticate(this.AdminDto).subscribe(
     next => { 
       
-      debugger; console.log(next);
+      ; console.log(next);
       this.Model=next;
       if(next){
-    debugger;
+    ;
     let jwt = next.token;
     let jwtData = jwt.split('.')[1]
     let decodedJwtJsonData = window.atob(jwtData)
@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
    
    
     let department = decodedJwtData.Department;
+    
     if(department=="Administration"){
       this.alertify.toastSuccess("تم الدخول بنجاح");
       localStorage.setItem("userToken",next.token);
@@ -72,15 +73,15 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('isLoggedin', 'true');
       localStorage.setItem("UserName",this.UserName);
       localStorage.setItem("department",department);
-      this.router.navigate(['/Sales/CustomerSales'])
+      this.router.navigate(['/CustomerServices/Customer'])
     }
-    else if(department=="HR"){
+    else if(department=="Sales"){
       this.alertify.toastSuccess("تم الدخول بنجاح");
       localStorage.setItem("userToken",next.token);
       localStorage.setItem('isLoggedin', 'true');
       localStorage.setItem("UserName",this.UserName);
       localStorage.setItem("department",department);
-      this.router.navigate(['/HR/Employee'])
+      this.router.navigate(['/Sales/CustomerSales'])
     } else if(department=="EM"){
       this.alertify.toastSuccess("تم الدخول بنجاح");
       localStorage.setItem("userToken",next.token);

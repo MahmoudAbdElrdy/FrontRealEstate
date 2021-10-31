@@ -158,7 +158,7 @@ export class QestionsComponent extends General implements OnInit {
     this._service.getById(this.id)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-          debugger
+          
           this.model = res.data;
           this.form.patchValue({
             id: res.data.id,
@@ -176,7 +176,7 @@ export class QestionsComponent extends General implements OnInit {
   }
   get f() { return this.form.controls; }
   addEitFrom() {
-    debugger
+    
     this.form.markAllAsTouched();
 
     this.addEitFromGeneral();

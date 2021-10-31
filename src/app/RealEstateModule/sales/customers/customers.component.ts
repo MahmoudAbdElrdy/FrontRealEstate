@@ -13,7 +13,7 @@ import { ResponseData } from 'src/app/shared/models/ResponseData';
 import { AlertifyService } from 'src/app/shared/services/alertify.service';
 import { CustomerService } from 'src/app/shared/services/Customer-service';
 import Swal from 'sweetalert2';
-import { data } from './customer';
+
 
 @Component({
   selector: 'app-customers',
@@ -191,15 +191,20 @@ export class CustomersSalesComponent extends General implements OnInit {
   openModalQestion(customerId, customerName) {
 
     localStorage.setItem("customerName", customerName);
-
+    let department = localStorage.getItem("department");
+    if (department == "Administration")
     this.router.navigateByUrl('/Management/Qestions?customerId=' + customerId)
-
+    if (department == "Sales")
+    this.router.navigateByUrl('/Sales/Qestions?customerId=' + customerId)
   }
   openQestion() {
 
     if (this.id != undefined) {
-
+      let department = localStorage.getItem("department");
+      if (department == "Administration")
       this.router.navigateByUrl('/Management/Qestions?customerId=' + this.id)
+      if (department == "Sales")
+      this.router.navigateByUrl('/Sales/Qestions?customerId=' + this.id)
 
     }
 
@@ -218,7 +223,7 @@ export class CustomersSalesComponent extends General implements OnInit {
     this._service.getById(this.id)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-          debugger
+          
           this.model = res.data;
           this.form.patchValue({
             id: res.data.id,
