@@ -1,0 +1,123 @@
+<ng-container>
+
+    <div class="pt-3 clearfix">
+
+        <!-- new -->
+
+        <button type="button" class="btn btn-outline-info mx-1 " (click)="openModal()">
+            <i class="fas fa-plus"></i>
+            جديد
+        </button>
+
+        <!-- edit -->
+
+        <button type="button" class="btn btn-outline-warning mx-1"  (click)="openEditModal()">
+            <i class="fas fa-plus"></i>
+            تعديل
+        </button>
+
+        <!-- delete -->
+
+        <button type="button" class="btn btn-outline-danger mx-1" (click)="removeSlect()">
+            <i class="fas fa-trash-alt"></i>
+            حذف
+        </button>
+      
+
+    </div>
+    <br>
+   <ejs-grid [dataSource]='data'  #grid   [enableRtl]='true' [allowFiltering]='true' [allowResizing]='true'   [isResponsive]="true" [enableResponsiveRow]="true"
+        [selectionSettings]='selectionsettings' (dataBound)='dataBound()' (actionBegin)='begin($event)'  gridLines='Both' (rowSelected)='rowSelected($event)'>
+
+      <e-columns>
+        <!-- <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false' [customAttributes]='customAttributes'
+          width='60'></e-column> -->
+  
+        <e-column field='name' [customAttributes]='customAttributes' headerText='اسم ' textAlign='Right' width=120>
+        </e-column>
+        <e-column field='address' [customAttributes]='customAttributes' headerText='العنوان' textAlign='Right' format='C2'
+          width=90></e-column>
+        <e-column field='floors' [customAttributes]='customAttributes' headerText='عدد الطوابق' textAlign='Right'
+          width=120>
+        </e-column>
+        <e-column [allowFiltering]='false' [allowSorting]='false' width='90' [disabled]="true" headerText='العمليات'
+          [customAttributes]='customAttributes'>
+          <ng-template #template let-data>
+            <button class="btn btn-outline-info mx-1" data-toggle="tooltip" data-placement="bottom" (click)="openEdit(data.id)">
+                <i class="far fa-edit"></i>
+            </button>
+            <button class="btn btn-outline-danger" rel="tooltip" data-toggle="tooltip" data-placement="bottom" (click)="remove(data.id)"
+               >
+                <i class="far fa-trash-alt"></i>
+            </button>
+            
+            <button class="btn btn-outline-secondary" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+              title="Delete">
+              <i class="fas fa-undo"></i>
+            </button>
+            <button class="btn btn-outline-secondary" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+              title="Delete">
+              <i class="fas fa-save"></i>
+            </button>
+          </ng-template>
+        </e-column>
+  
+      </e-columns>
+    </ejs-grid>
+    <ejs-pager #pager [enableRtl]='true' [pageSize]='pageSize' [pageCount]='pageCount' [totalRecordsCount]='totalRecordsCount'  (click)="changePage($event)"></ejs-pager>
+
+    
+  </ng-container>
+  
+  
+  <ng-template #ModalId let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">اضافة</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form" >
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">اسم </label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" formControlName="name">
+
+        </div>
+        <small *ngIf="(form.get('name').errors?.required)&&(form.get('name').touched)"
+        class="w-100 text-danger mt-1">
+      مطلوب  
+      </small>
+      </div>
+      <div class="form-group row">
+        <label for="address" class="col-sm-2 col-form-label">العنوان</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="address" formControlName="address">
+  
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="floors" class="col-sm-2 col-form-label">عدد الطوابق</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="floors" formControlName="floors">
+  
+        </div>
+        <small *ngIf="(form.get('floors').errors?.required)&&(form.get('floors').touched)"
+        class="w-100 text-danger mt-1">
+      مطلوب  
+      </small>
+      </div>
+        </form>
+    </div>
+    <div class="modal-footer px-2 py-2">
+        <button type="button" (click)="modal.close('Close click')" class="btn btn-outline-secondary mr-2">
+            <i class="fas fa-undo"></i>
+            اغلاق
+        </button>
+        <button type="button" class="btn btn-info mr-2" (click)="addEitFrom()">
+            <i class="far fa-save pr-1"></i>
+            حفظ
+        </button>
+    </div>
+  </ng-template>

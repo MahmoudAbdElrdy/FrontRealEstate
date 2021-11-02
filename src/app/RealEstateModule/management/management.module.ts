@@ -12,8 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { EmployeeSalaryComponent } from './employee-salary/employee-salary.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 @NgModule({
-  declarations: [ ProjectComponent, EmployeesComponent, EmployeeSalaryComponent],
+  declarations: [ ProjectComponent, EmployeesComponent, EmployeeSalaryComponent, ProjectListComponent],
   imports: [ ReactiveFormsModule, FormsModule,
     ManagementRoutingModule,  GridModule,DropDownListModule,SharedModule,ComboBoxModule,CommonModule,PagerModule,DateTimePickerModule,DatePickerModule,
   ],

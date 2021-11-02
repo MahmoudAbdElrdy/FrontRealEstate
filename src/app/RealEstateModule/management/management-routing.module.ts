@@ -7,6 +7,7 @@ import { CustomersSalesComponent } from '../sales/customers/customers.component'
 import { QestionsComponent } from '../sales/qestions/qestions.component';
 import { EmployeeSalaryComponent } from './employee-salary/employee-salary.component';
 import { EmployeesComponent } from './employees/employees.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectComponent } from './project/project.component';
 
 
@@ -15,7 +16,7 @@ const routes: Routes = [ {
   children: [
       {
           path: 'Project',
-          component: ProjectComponent,
+          component: ProjectListComponent,
           data: {
               title: ' العقارات',
               urls: [
@@ -26,7 +27,7 @@ const routes: Routes = [ {
       },
      {
           path: 'Project',
-          component: ProjectComponent,
+          component: ProjectListComponent,
           data: {
               title: ' العقارات',
               urls: [
