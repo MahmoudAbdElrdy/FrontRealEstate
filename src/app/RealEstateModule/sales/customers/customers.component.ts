@@ -58,10 +58,10 @@ export class CustomersSalesComponent extends General implements OnInit {
   FlatViewModel = new Array<FlatViewModel>();
   buildingData: BuildingViewModel = {
     Floors: [//4 عدد الادوار*3 شقق
-      [{ ID: 1, Number: 101, Color: 'red', Area: 65, Booked: true },{ ID: 1, Number: 101, Color: 'red', Area: 65, Booked: true }, { ID: 2, Number: 102, Color: '#04AA6D', Area: 70, Booked: false }],
-      [{ ID: 3, Number: 201, Color: '#04AA6D', Area: 65, Booked: false }, { ID: 4, Number: 202, Color: '#04AA6D', Area: 70, Booked: false }, { ID: 2, Number: 203, Color: '#04AA6D', Area: 80, Booked: false }],
-      [{ ID: 5, Number: 301, Color: '#04AA6D', Area: 65, Booked: false }, { ID: 6, Number: 302, Color: 'red', Area: 70, Booked: false }, { ID: 3, Number: 303, Color: '#04AA6D', Area: 80, Booked: false }],
-      [{ ID: 7, Number: 401, Color: '#04AA6D', Area: 65, Booked: false }, { ID: 8, Number: 402, Color: '#04AA6D', Area: 70, Booked: false }, { ID: 4, Number: 403, Color: '#04AA6D', Area: 80, Booked: false }]
+      [{ ID: 1, Number: 101, Color: 'red', Area: 65, IsBooked: true },{ ID: 1, Number: 101, Color: 'red', Area: 65, IsBooked: true }, { ID: 2, Number: 102, Color: '#04AA6D', Area: 70, IsBooked: false }],
+      [{ ID: 3, Number: 201, Color: '#04AA6D', Area: 65, IsBooked: false }, { ID: 4, Number: 202, Color: '#04AA6D', Area: 70, IsBooked: false }, { ID: 2, Number: 203, Color: '#04AA6D', Area: 80, IsBooked: false }],
+      [{ ID: 5, Number: 301, Color: '#04AA6D', Area: 65, IsBooked: false }, { ID: 6, Number: 302, Color: 'red', Area: 70, IsBooked: false }, { ID: 3, Number: 303, Color: '#04AA6D', Area: 80, IsBooked: false }],
+      [{ ID: 7, Number: 401, Color: '#04AA6D', Area: 65, IsBooked: false }, { ID: 8, Number: 402, Color: '#04AA6D', Area: 70, IsBooked: false }, { ID: 4, Number: 403, Color: '#04AA6D', Area: 80, IsBooked: false }]
     ]
   };
   count: number;

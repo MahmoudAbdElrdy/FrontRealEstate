@@ -61,7 +61,7 @@ export class ProjectComponent implements OnInit {
   count = 1000;
   id = 1;
   pushArea(i) {
-    debugger
+    
     if (i != undefined && i != 0) {
       this.listArea.push(Number(i))
     }
@@ -82,7 +82,7 @@ export class ProjectComponent implements OnInit {
        item.Area = 0;
         item.Number = ++this.count;
         item.ID = ++this.id;
-        item.Booked = false;
+        item.IsBooked = false;
         item.Color = '#04AA6D'
         let item2 = Object.assign({}, item)
         Floors.push(item2)
@@ -112,7 +112,7 @@ export class ProjectComponent implements OnInit {
 
   }
   openModalDetails(id) {
-    debugger
+    
     this.modalService.open(this.modalDetailsId, { size: 'lg', backdrop: 'static' });
 
   }
