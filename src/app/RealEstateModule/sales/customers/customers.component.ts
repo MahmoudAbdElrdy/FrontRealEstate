@@ -13,6 +13,9 @@ import { ResponseData } from 'src/app/shared/models/ResponseData';
 import { AlertifyService } from 'src/app/shared/services/alertify.service';
 import { CustomerService } from 'src/app/shared/services/Customer-service';
 import Swal from 'sweetalert2';
+import { ThrowStmt } from '@angular/compiler';
+import { PublicService } from 'src/app/shared/services/public.service';
+import { ProjectService } from 'src/app/shared/services/peoject-service';
 
 
 @Component({
@@ -43,34 +46,31 @@ export class CustomersSalesComponent extends General implements OnInit {
   selectedRowIndexes: any;
   id: any;
   form: FormGroup;
-  dataDropDown = [ { id: 1, name: 'عميل جديد' }, { id: 2, name: 'تعاقد جديد' },{ id: 2, name: 'عميل انتظار' },{ id: 2, name: 'عميل جديد' }];
-  filed={value:"id",text:"name"}
-  dataDropDownContract = [ { id: 1, name: 'عقار 1' }, { id: 2, name: 'عقار 2' },{ id: 2, name: 'عقار31' },{ id: 2, name: 'عقار1 1'}];
+  formDetails: FormGroup;
+  dataDropDown = [{ id: 1, name: 'عميل جديد' }, { id: 2, name: 'تعاقد جديد' }, { id: 2, name: 'عميل انتظار' }, { id: 2, name: 'عميل جديد' }];
+  filed = { value: "id", text: "name" }
+  dataDropDownContract = [];
 
-   radioItems = ['متاح', 'غير متاح'];
-   model   = {option: 'متاح'};
-   @ViewChild('ModalDetailsId')  modalDetailsId: ElementRef;
-   @ViewChild('PaymentId') paymentId: ElementRef;
-   @ViewChild('BuildingId') buildingId: ElementRef;
-   numberApartments = 0;
+  radioItems = ['متاح', 'غير متاح'];
+  model = { option: 'متاح' };
+  @ViewChild('ModalDetailsId') modalDetailsId: ElementRef;
+  @ViewChild('PaymentId') paymentId: ElementRef;
+  @ViewChild('BuildingId') buildingId: ElementRef;
+  numberApartments = 0;
   Arr = Array;
   public data: object[];
   FlatViewModel = new Array<FlatViewModel>();
   buildingData: BuildingViewModel = {
     Floors: [//4 عدد الادوار*3 شقق
-      [{ ID: 1, Number: 101, Color: 'red', Area: 65, IsBooked: true },{ ID: 1, Number: 101, Color: 'red', Area: 65, IsBooked: true }, { ID: 2, Number: 102, Color: '#04AA6D', Area: 70, IsBooked: false }],
-      [{ ID: 3, Number: 201, Color: '#04AA6D', Area: 65, IsBooked: false }, { ID: 4, Number: 202, Color: '#04AA6D', Area: 70, IsBooked: false }, { ID: 2, Number: 203, Color: '#04AA6D', Area: 80, IsBooked: false }],
-      [{ ID: 5, Number: 301, Color: '#04AA6D', Area: 65, IsBooked: false }, { ID: 6, Number: 302, Color: 'red', Area: 70, IsBooked: false }, { ID: 3, Number: 303, Color: '#04AA6D', Area: 80, IsBooked: false }],
-      [{ ID: 7, Number: 401, Color: '#04AA6D', Area: 65, IsBooked: false }, { ID: 8, Number: 402, Color: '#04AA6D', Area: 70, IsBooked: false }, { ID: 4, Number: 403, Color: '#04AA6D', Area: 80, IsBooked: false }]
     ]
   };
   count: number;
- 
 
-  constructor( private alert: AlertifyService,
+
+  constructor(private alert: AlertifyService,
     private formBuilder: FormBuilder, private router: Router,
-    private activeRoute: ActivatedRoute,
-    public modalService: NgbModal, private _service: CustomerService) {
+    private activeRoute: ActivatedRoute, private _publicService: PublicService,
+    public modalService: NgbModal, private _service: CustomerService, private _serviceProject: ProjectService) {
     super();
   }
 
@@ -80,11 +80,22 @@ export class CustomersSalesComponent extends General implements OnInit {
     //  this.selectionsettings = { checkboxOnly: true };
     this.selectionsettings = { type: 'Single' };
     this.getData(this.filter);
-
+    this.getDropDownList();
     this.form = this.formBuilder.group({
       id: [0],
       name: ['', [Validators.required]],
       phone: [''],
+    });
+    this.formDetails = this.formBuilder.group({
+      id: [0],
+      name: [null],
+      area: [null],
+      bath: [null],
+      kitchen: [null],
+      room: [null],
+      projectId: [null],
+      isBooked: false,
+      flatId: [null]
     });
   }
   changePage(event) {
@@ -104,7 +115,7 @@ export class CustomersSalesComponent extends General implements OnInit {
     this._service.getAll(filter)
       .subscribe(res => {
         if (res.isSuccess) {
-          
+
           this.data = res.data;
           this.totalRecordsCount = res.totalRecordsCount;
           this.pageCount = res.pageCount > 5 ? 5 : res.pageCount;
@@ -116,7 +127,7 @@ export class CustomersSalesComponent extends General implements OnInit {
         this.form.reset();
       })
   }
- 
+
   onChangeDateTime(args: any): void {
 
     this.filter.workSince = args
@@ -124,7 +135,7 @@ export class CustomersSalesComponent extends General implements OnInit {
   }
 
   begin(args): any {
-    
+
     if (args.requestType === "filtering" && args.action === "filter") {
       if (args.currentFilterObject.field === "name") {
         this.filter.name = args.currentFilterObject.value;
@@ -175,7 +186,7 @@ export class CustomersSalesComponent extends General implements OnInit {
 
   }
   dataBound() {
-    
+
     Object.assign((this.gridObj.filterModule as any).filterOperators, { startsWith: 'contains' });
   }
   openEdit(id) {
@@ -193,18 +204,18 @@ export class CustomersSalesComponent extends General implements OnInit {
     localStorage.setItem("customerName", customerName);
     let department = localStorage.getItem("department");
     if (department == "Administration")
-    this.router.navigateByUrl('/Management/Qestions?customerId=' + customerId)
+      this.router.navigateByUrl('/Management/Qestions?customerId=' + customerId)
     if (department == "Sales")
-    this.router.navigateByUrl('/Sales/Qestions?customerId=' + customerId)
+      this.router.navigateByUrl('/Sales/Qestions?customerId=' + customerId)
   }
   openQestion() {
 
     if (this.id != undefined) {
       let department = localStorage.getItem("department");
       if (department == "Administration")
-      this.router.navigateByUrl('/Management/Qestions?customerId=' + this.id)
+        this.router.navigateByUrl('/Management/Qestions?customerId=' + this.id)
       if (department == "Sales")
-      this.router.navigateByUrl('/Sales/Qestions?customerId=' + this.id)
+        this.router.navigateByUrl('/Sales/Qestions?customerId=' + this.id)
 
     }
 
@@ -223,12 +234,12 @@ export class CustomersSalesComponent extends General implements OnInit {
     this._service.getById(this.id)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-          
+
           this.model = res.data;
           this.form.patchValue({
             id: res.data.id,
             name: res.data.name,
-            phone: res.data.phone.replace("\r\n","   "),
+            phone: res.data.phone.replace("\r\n", "   "),
           });
 
         }
@@ -250,15 +261,136 @@ export class CustomersSalesComponent extends General implements OnInit {
       this.removeGeneral(this.id)
   }
 
-  openModalDetails(id) {
-    
-    this.modalService.open(this.modalDetailsId, { size: 'lg', backdrop: 'static' });
 
-  }
   openModalBuilding() {
-    this.modalService.open(this.buildingId, { size: 'lg', backdrop: 'static' });
+    if (this.id != undefined)
+      this.modalService.open(this.buildingId, { size: 'lg', backdrop: 'static' });
 
   }
+  //
+  getDropDownList() {
 
- 
+    this._publicService.get("Project/GetDropDownList")
+      .subscribe((res: ResponseData) => {
+        if (res.isSuccess == true) {
+
+          this.dataDropDownContract = res.data;
+
+        }
+      });
+  }
+  getProjectUnitList(floors, apartmentNumber) {
+
+    this._serviceProject.getProjectUnitList(this.projectId)
+      .subscribe((res: ResponseData) => {
+        if (res.isSuccess == true) {
+
+          this.reservationList = res.data;
+          for (var r = 1; r <= floors; ++r) {
+            let item = new FlatViewModel();
+
+            let Floors = new Array<FlatViewModel>();
+            //this.counterNumber
+
+            for (var j = 1; j <= apartmentNumber; ++j) {
+              item.Number = ++this.count;
+              item.ID = ++this.idFlat;
+              var findItem = res.data.find(x => x.flatID == item.ID);
+              
+              //  item.Area = 0;
+              if (findItem) {
+                item.IsBooked = findItem.isBooked;
+                if (findItem.isBooked) {
+                  item.Color = '#FF0000'
+                }
+                else {
+                  //#FF0000
+                  item.Color = '#04AA6D'
+                }
+                item.IsDisabled=false;
+
+                let item2 = Object.assign({}, item)
+                Floors.push(item2)
+              }
+              else{
+                item.IsDisabled=true;
+                item.IsBooked=false;
+                item.Color = '#B2BABB'
+                let item2 = Object.assign({}, item)
+                Floors.push(item2)
+              }
+
+            }
+
+            this.buildingData.Floors[r] = Floors
+          }
+        }
+      });
+  }
+  viewBulding(event) {
+
+    this.count = 0;
+    this.idFlat = 0;
+    this.projectId = event?.itemData?.id;
+    this.getProjectUnitList(event?.itemData?.floors, event?.itemData?.apartmentNumber);
+
+    console.log(this.buildingData)
+
+  }
+  saveReservation() {
+
+    let objectData: any = {}
+    objectData.customerId = this.id
+    objectData.projectUnitDescriptionId = this.projectUnitDescriptionId
+    this._serviceProject.saveReservation(objectData)
+      .subscribe((res: ResponseData) => {
+
+        if (res.isSuccess == true) {
+
+          //  this.getData(this.filter);
+          this.alert.success("تم الحجز");
+          this.modalService.dismissAll();
+        }
+        else {
+          this.alert.error(res.message)
+        }
+      },
+        (err) => {
+          console.log(err)
+          this.alert.error("مشكلة في الداتا بيز")
+        });
+
+  }
+  getProjectUnitById(id) {
+
+    this.formDetails.reset();
+    this._serviceProject.getProjectUnitDescriptionById(id, this.projectId)
+      .subscribe((res: ResponseData) => {
+        if (res.isSuccess == true) {
+
+          this.formDetails.patchValue({
+            id: res.data?.id,
+            name: res.data?.name,
+            area: res.data?.area,
+            bath: res.data?.bath,
+            kitchen: res.data?.kitchen,
+            room: res.data?.room,
+            projectId: res.data?.projectId,
+            isBooked: res.data?.isBooked,
+            flatId: res.data?.flatId
+          });
+          this.projectUnitDescriptionId = res.data?.id;
+        }
+        this.formDetails.disable();
+      });
+
+  }
+  openModalDetails(id) {
+
+    this.FlatID = id;
+    this.modalService.open(this.modalDetailsId, { size: 'lg', backdrop: 'static' });
+    if (id != undefined) {
+      this.getProjectUnitById(id)
+    }
+  }
 }

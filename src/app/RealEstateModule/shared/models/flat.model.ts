@@ -4,4 +4,5 @@ export class FlatViewModel {
     Color: string; //to know if reserved or not 
     Area: number;
     IsBooked:boolean;
+    IsDisabled:boolean;
 }

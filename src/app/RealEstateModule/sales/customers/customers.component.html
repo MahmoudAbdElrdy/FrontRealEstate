@@ -122,51 +122,70 @@
     </button>
   </div>
   <div class="modal-body">
-   
-
-
+    <form [formGroup]="formDetails" >
     <div class="form-group row">
       <label for="" class="col-sm-2 col-form-label">نوع الوحدة</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" value="سكني" id="name"> 
-
-      </div>
+        <input type="text" class="form-control" id="name" formControlName="name">
+  
+    </div>
+    <small *ngIf="(formDetails.get('name').errors?.required)&&(formDetails.get('name').touched)"
+    class="w-100 text-danger mt-1">
+  مطلوب  
+  </small>
     </div>
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label">المساحة</label>
       <div class="col-sm-10">
-        <input type="number" class="form-control" id="name" value="200"> 
-
-      </div>
+        <input type="number" class="form-control" id="area" formControlName="area">
+  
+    </div>
+    <small *ngIf="(formDetails.get('area').errors?.required)&&(formDetails.get('area').touched)"
+    class="w-100 text-danger mt-1">
+  مطلوب  
+  </small>
     </div>
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label">عدد الحمام </label>
       <div class="col-sm-10">
-        <input type="number" class="form-control" id="name" value="2"> 
-
-      </div>
+        <input type="number" class="form-control" id="bath" formControlName="bath">
+  
+    </div>
+    <small *ngIf="(formDetails.get('bath').errors?.required)&&(formDetails.get('bath').touched)"
+    class="w-100 text-danger mt-1">
+  مطلوب  
+  </small>
     </div>
     <div class="form-group row">
       <label for="address" class="col-sm-2 col-form-label">عدد المطبخ</label>
       <div class="col-sm-10">
-        <input type="number" class="form-control" id="address" value="1"> 
-
-      </div>
+        <input type="number" class="form-control" id="Kitchen" formControlName="kitchen">
+  
+    </div>
+    <small *ngIf="(formDetails.get('kitchen').errors?.required)&&(formDetails.get('kitchen').touched)"
+    class="w-100 text-danger mt-1">
+  مطلوب  
+  </small>
     </div>
     <div class="form-group row">
       <label for="floors" class="col-sm-2 col-form-label">عدد الغرف</label>
       <div class="col-sm-10">
-        <input type="number" class="form-control" id="floors" value="3"> 
-
-      </div>
+        <input type="number" class="form-control" id="room" formControlName="room">
+  
     </div>
+    <small *ngIf="(formDetails.get('room').errors?.required)&&(formDetails.get('room').touched)"
+    class="w-100 text-danger mt-1">
+  مطلوب  
+  </small>
+    </div>
+    </form>
   </div>
   <div class="modal-footer px-2 py-2">
     <button type="button" (click)="modalDetails.close('Close click')" class="btn btn-outline-secondary mr-2">
       <i class="fas fa-undo"></i>
       اغلاق
     </button>
-    <button type="button" class="btn btn-info mr-2">
+    <button type="button" class="btn btn-info mr-2" (click)="saveReservation()">
       <i class="far fa-save pr-1"></i>
       احجز
     </button>
@@ -188,7 +207,7 @@
     <div class="form-group row">
       <label for="" class="col-sm-2 col-form-label"> العقار</label>
       <div class="col-sm-10">
-            <ejs-dropdownlist id='projectID' (change)="viewBulding()" [dataSource]='dataDropDownContract' [fields]="filed" #typeContract ></ejs-dropdownlist>
+            <ejs-dropdownlist id='projectID'[dataSource]='dataDropDownContract' (change)="viewBulding($event)"  [fields]="filed" #typeContract ></ejs-dropdownlist>
 
       </div>
 
@@ -203,7 +222,7 @@
             <td *ngFor="let flat of floor">
               <ul class="floor">
                 <li class="header" [style.background-color]="flat?.Color">
-                  <button class="button" (click)="openModalDetails(flat.ID)" [style.background-color]="flat?.Color">
+                  <button class="button" [disabled]="flat?.IsDisabled" (click)="openModalDetails(flat.ID)" [style.background-color]="flat?.Color">
                     {{flat?.Number}}
                     <i class="fa fa-building-o" aria-hidden="true"></i>
                   </button>
