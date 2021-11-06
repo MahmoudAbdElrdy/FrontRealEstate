@@ -185,7 +185,7 @@
       <i class="fas fa-undo"></i>
       اغلاق
     </button>
-    <button type="button" class="btn btn-info mr-2" (click)="saveReservation()">
+    <button type="button" class="btn btn-info mr-2"  (click)="openModalPayment()">
       <i class="far fa-save pr-1"></i>
       احجز
     </button>
@@ -241,5 +241,67 @@
       اغلاق
     </button>
    
+  </div>
+</ng-template>
+
+<ng-template #PaymentId let-paymentId>
+  <div class="modal-header">
+    <h4 class="modal-title">نظام الدفع </h4>
+    <button type="button" class="close" aria-label="Close" (click)="paymentId.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="program" >
+    <div>
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">نوع السداد</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="name" formControlName="name">
+    
+      </div>
+      <small *ngIf="(program.get('name').errors?.required)&&(program.get('name').touched)"
+      class="w-100 text-danger mt-1">
+    مطلوب  
+    </small>
+      </div>
+
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label"> سعر الاجمالي</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="totalCost" formControlName="totalCost">
+    
+      </div>
+      <small *ngIf="(program.get('totalCost').errors?.required)&&(program.get('totalCost').touched)"
+      class="w-100 text-danger mt-1">
+    مطلوب  
+    </small>
+      </div>
+
+
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label"> سعر المتر</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="meterCost" formControlName="meterCost">
+    
+      </div>
+      <small *ngIf="(program.get('meterCost').errors?.required)&&(program.get('meterCost').touched)"
+      class="w-100 text-danger mt-1">
+    مطلوب  
+    </small>
+      </div>
+
+    </div>
+    </form>
+  </div>
+  <div class="modal-footer px-2 py-2">
+    <button type="button" (click)="paymentId.close('Close click')" class="btn btn-outline-secondary mr-2">
+      <i class="fas fa-undo"></i>
+      اغلاق
+    </button>
+    <button type="button" class="btn btn-info mr-2" (click)="saveReservation()">
+      <i class="far fa-save pr-1"></i>
+      حفظ
+    </button>
   </div>
 </ng-template>

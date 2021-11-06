@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { ThrowStmt } from '@angular/compiler';
 import { PublicService } from 'src/app/shared/services/public.service';
 import { ProjectService } from 'src/app/shared/services/peoject-service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -54,7 +55,7 @@ export class CustomersSalesComponent extends General implements OnInit {
   radioItems = ['متاح', 'غير متاح'];
   model = { option: 'متاح' };
   @ViewChild('ModalDetailsId') modalDetailsId: ElementRef;
-  @ViewChild('PaymentId') paymentId: ElementRef;
+
   @ViewChild('BuildingId') buildingId: ElementRef;
   numberApartments = 0;
   Arr = Array;
@@ -65,7 +66,7 @@ export class CustomersSalesComponent extends General implements OnInit {
     ]
   };
   count: number;
-
+  program: FormGroup;
 
   constructor(private alert: AlertifyService,
     private formBuilder: FormBuilder, private router: Router,
@@ -96,6 +97,13 @@ export class CustomersSalesComponent extends General implements OnInit {
       projectId: [null],
       isBooked: false,
       flatId: [null]
+    });
+    this.program = this.formBuilder.group({
+      id: [0],
+      name: ['', [Validators.required]],
+      meterCost: [null, [Validators.required]],
+      totalCost: [null, [Validators.required]],
+      projectUnitDescriptionId: [null]
     });
   }
   changePage(event) {
@@ -296,25 +304,28 @@ export class CustomersSalesComponent extends General implements OnInit {
               item.Number = ++this.count;
               item.ID = ++this.idFlat;
               var findItem = res.data.find(x => x.flatID == item.ID);
-              
+
               //  item.Area = 0;
               if (findItem) {
                 item.IsBooked = findItem.isBooked;
                 if (findItem.isBooked) {
                   item.Color = '#FF0000'
+                  item.IsDisabled = true;
+
                 }
                 else {
                   //#FF0000
                   item.Color = '#04AA6D'
-                }
-                item.IsDisabled=false;
+                  item.IsDisabled = false;
 
+                }
+              
                 let item2 = Object.assign({}, item)
                 Floors.push(item2)
               }
-              else{
-                item.IsDisabled=true;
-                item.IsBooked=false;
+              else {
+                item.IsDisabled = true;
+                item.IsBooked = false;
                 item.Color = '#B2BABB'
                 let item2 = Object.assign({}, item)
                 Floors.push(item2)
@@ -337,28 +348,36 @@ export class CustomersSalesComponent extends General implements OnInit {
     console.log(this.buildingData)
 
   }
-  saveReservation() {
 
+  saveReservation() {
+    this.program.markAllAsTouched();
     let objectData: any = {}
     objectData.customerId = this.id
     objectData.projectUnitDescriptionId = this.projectUnitDescriptionId
-    this._serviceProject.saveReservation(objectData)
-      .subscribe((res: ResponseData) => {
+    this.program.patchValue({
+      projectUnitDescriptionId: this.projectUnitDescriptionId
+    });
+    if (this.program.valid) {
+      objectData.program = this.program.value;
+      this._serviceProject.saveReservation(objectData)
+        .subscribe((res: ResponseData) => {
 
-        if (res.isSuccess == true) {
+          if (res.isSuccess == true) {
 
-          //  this.getData(this.filter);
-          this.alert.success("تم الحجز");
-          this.modalService.dismissAll();
-        }
-        else {
-          this.alert.error(res.message)
-        }
-      },
-        (err) => {
-          console.log(err)
-          this.alert.error("مشكلة في الداتا بيز")
-        });
+            //  this.getData(this.filter);
+            this.alert.success("تم الحجز");
+            this.modalService.dismissAll();
+          }
+          else {
+            this.alert.error(res.message)
+          }
+        },
+          (err) => {
+            console.log(err)
+            this.alert.error("مشكلة في الداتا بيز")
+          });
+    }
+
 
   }
   getProjectUnitById(id) {
@@ -392,5 +411,11 @@ export class CustomersSalesComponent extends General implements OnInit {
     if (id != undefined) {
       this.getProjectUnitById(id)
     }
+  }
+  //
+  @ViewChild('PaymentId') paymentId: ElementRef;
+  openModalPayment() {
+    this.modalService.open(this.paymentId, { size: 'lg', backdrop: 'static' });
+
   }
 }
