@@ -2,7 +2,6 @@ import { ManagementRoutingModule } from './management-routing.module';
 import { GridModule, PagerModule } from '@syncfusion/ej2-angular-grids';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ProjectComponent } from './project/project.component';
 import { SharedModule } from '../shared/shared.module';
 import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
 import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
@@ -14,7 +13,7 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { EmployeeSalaryComponent } from './employee-salary/employee-salary.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 @NgModule({
-  declarations: [ ProjectComponent, EmployeesComponent, EmployeeSalaryComponent, ProjectListComponent],
+  declarations: [ EmployeesComponent, EmployeeSalaryComponent, ProjectListComponent],
   imports: [ ReactiveFormsModule, FormsModule,
     ManagementRoutingModule,  GridModule,DropDownListModule,SharedModule,ComboBoxModule,CommonModule,PagerModule,DateTimePickerModule,DatePickerModule,
   ],

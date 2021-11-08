@@ -30,7 +30,7 @@
     </div>
     <br>
    <ejs-grid [dataSource]='data'  #grid   [enableRtl]='true' [allowFiltering]='true' [allowResizing]='true'   [isResponsive]="true" [enableResponsiveRow]="true"
-        [selectionSettings]='selectionsettings' (dataBound)='dataBound()' (actionBegin)='begin($event)'  gridLines='Both' (rowSelected)='rowSelected($event)'>
+        [selectionSettings]='selectionsettings'  allowTextWrap='true' [textWrapSettings]='wrapSettings' (dataBound)='dataBound()' (actionBegin)='begin($event)'  gridLines='Both' (rowSelected)='rowSelected($event)'>
 
       <e-columns>
         <!-- <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false' [customAttributes]='customAttributes'

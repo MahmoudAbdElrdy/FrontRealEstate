@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractComponent } from './contract/contract.component';
 
 
@@ -9,7 +10,7 @@ const routes: Routes = [ {
   children: [
       {
           path: 'Contract',
-          component: ContractComponent,
+          component: ContractListComponent,
           data: {
               title: ' التعاقدات',
               urls: [

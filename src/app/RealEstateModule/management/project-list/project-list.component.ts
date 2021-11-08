@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FilterService, GridComponent, PagerComponent, PageService, RowSelectEventArgs, SortService, ToolbarService } from '@syncfusion/ej2-angular-grids';
+import { FilterService, GridComponent, PagerComponent, PageService, RowSelectEventArgs, SortService, TextWrapSettingsModel, ToolbarService } from '@syncfusion/ej2-angular-grids';
 import { looseObject } from 'src/app/shared/models/looseObject';
 import Swal from 'sweetalert2';
 import { ResponseData } from 'src/app/shared/models/ResponseData';
@@ -51,7 +51,7 @@ export class ProjectListComponent extends General implements OnInit {
   }
 
   public data: object[];
-
+  wrapSettings: TextWrapSettingsModel= { wrapMode: 'Content' };
   ngOnInit(): void {
 
     this.customAttributes = { class: 'customcss' }; //use custom cs

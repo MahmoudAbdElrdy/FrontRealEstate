@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ContractListComponent } from '../contracts/contract-list/contract-list.component';
 import { ContractComponent } from '../contracts/contract/contract.component';
 import { CustomersComponent } from '../customers-service/customers/customers.component';
 import { ProjectVisitComponent } from '../customers-service/project-visit/project-visit.component';
@@ -8,7 +9,6 @@ import { QestionsComponent } from '../sales/qestions/qestions.component';
 import { EmployeeSalaryComponent } from './employee-salary/employee-salary.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { ProjectListComponent } from './project-list/project-list.component';
-import { ProjectComponent } from './project/project.component';
 
 
 const routes: Routes = [ {
@@ -61,7 +61,7 @@ const routes: Routes = [ {
 ,
 {
     path: 'Contract',
-    component: ContractComponent,
+    component: ContractListComponent,
     data: {
         title: ' التعاقدات',
         urls: [
