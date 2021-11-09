@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from 'src/app/shared/services/contract-service';
 import { FlatViewModel } from '../../shared/models/flat.model';
 import { BuildingViewModel } from '../../shared/models/building.model';
+import { PublicService } from 'src/app/shared/services/public.service';
 @Component({
   selector: 'app-contract-list',
   templateUrl: './contract-list.component.html',
@@ -33,6 +34,7 @@ export class ContractListComponent extends General implements OnInit {
   departmentDDL = [];
   //FieldsDDL:Object;
   FieldsDDL: Object = { text: 'text', value: 'value' };
+  FieldsProject: Object = { text: 'name', value: 'id' };
   filter: looseObject = { pageNumber: 1, pageSize: 15, name: null, address: null };
   selectedRowIndexes: any;
   id: any;
@@ -40,11 +42,12 @@ export class ContractListComponent extends General implements OnInit {
   form: FormGroup;
   formDetails: FormGroup;
   employeeName: string;
-  public data: object[];
+   data: object[];
+   stockList=[{value:true,text:"عقد سهم"},{value:false,text:"عقد واحدات"}]
   constructor(private formBuilder: FormBuilder,
     public modalService: NgbModal,
     private _service: ContractService,
-
+     private _publicService: PublicService,
     private router: Router,
     private activeRoute: ActivatedRoute,
     private alert: AlertifyService) {
@@ -58,20 +61,21 @@ export class ContractListComponent extends General implements OnInit {
   this.selectionsettings = { type: 'Single' };
   
 
-  this.wrapSettings = { wrapMode: 'Content' };
+  this.wrapSettings = {wrapMode:"Content"  };
   this.getData(this.filter);
+  this.getDropDownList()
   this.form = this.formBuilder.group({
     id: [0],
     name: [null, [Validators.required]],
     address: [null, [Validators.required]],
-    floors: [0, [Validators.required]],
+    program: [0, [Validators.required]],
 
   });
   this.form = this.formBuilder.group({
     id: [0],
     name: [null, [Validators.required]],
     address: [null, [Validators.required]],
-    floors: [0, [Validators.required]],
+    program: [0, [Validators.required]],
 
   });
   this.formDetails = this.formBuilder.group({
@@ -86,7 +90,17 @@ export class ContractListComponent extends General implements OnInit {
     flatId:null
   });
 }
+getDropDownList() {
 
+  this._publicService.get("Project/GetDropDownList")
+    .subscribe((res: ResponseData) => {
+      if (res.isSuccess == true) {
+
+        this.dataDropDown = res.data;
+
+      }
+    });
+}
 changePage(event) {
 
   if (this.change) {
@@ -158,7 +172,7 @@ getById() {
           id: res.data.id,
           name: res.data.name,
           address: res.data.address,
-          floors: res.data.floors,
+          program: res.data.program,
         });
 
       }
@@ -201,7 +215,7 @@ dataBound() {
   Object.assign((this.gridObj.filterModule as any).filterOperators, { startsWith: 'contains' });
 }
 begin(args): any {
-
+debugger
   if (args.requestType === "filtering" && args.action === "filter") {
     if (args.currentFilterObject.field === "name") {
       this.filter.name = args.currentFilterObject.value;
@@ -209,8 +223,17 @@ begin(args): any {
     if (args.currentFilterObject.field === "address") {
       this.filter.address = args.currentFilterObject.value;
     }
-    if (args.currentFilterObject.field === "floors") {
-      this.filter.floors = args.currentFilterObject.value;
+    if (args.currentFilterObject.field === "program") {
+      this.filter.program = args.currentFilterObject.value;
+    }
+    if (args.currentFilterObject.field === "phone") {
+      this.filter.phone = args.currentFilterObject.value;
+    }
+    if (args.currentFilterObject.field === "nationalNumber") {
+      this.filter.nationalNumber = args.currentFilterObject.value;
+    }
+    if (args.currentFilterObject.field === "notes") {
+      this.filter.notes = args.currentFilterObject.value;
     }
     this.filter.pageNumber = 1;
     this.getData(this.filter);
@@ -226,8 +249,17 @@ begin(args): any {
       if (clearFilter.field === "address") {
         this.filter.address = null;
       }
-      if (clearFilter.field === "floors") {
-        this.filter.floors = 0;
+      if (clearFilter.field === "program") {
+        this.filter.program = null;
+      }
+      if (clearFilter.field === "phone") {
+        this.filter.phone = null;
+      }
+      if (clearFilter.field === "nationalNumber") {
+        this.filter.nationalNumber = null;
+      }
+      if (clearFilter.field === "notes") {
+        this.filter.notes = null;
       }
       this.filter.pageNumber = 1;
       this.getData(this.filter);
@@ -236,5 +268,15 @@ begin(args): any {
   }
 }
 //
+onChangeStock(e){
+  this.filter.isStock = e.value
+  this.getData(this.filter);
+}
+onChangeProject(e) {
 
+   
+    this.filter.ProjectId = e.value
+    this.getData(this.filter);
+  }
+  
 }

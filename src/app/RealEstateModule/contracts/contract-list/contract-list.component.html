@@ -56,49 +56,70 @@
 </button>
     </div>
     <br>
-    <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings' 
+    <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' (actionBegin)='begin($event)' [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings' 
         [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings">
         <e-columns>
             <!-- <e-column type='checkbox' [height]='315' [allowFiltering]='false' [allowSorting]='false'
                 [customAttributes]='customAttributes' width='60'></e-column> -->
 
-            <e-column field='projectName' [customAttributes]='customAttributes' height=130 headerText='العقار '
-                textAlign='Right' width=120>
-
+            <e-column field='projectName' [customAttributes]='customAttributes'  headerText='العقار '
+                textAlign='Right' width=150>
+                <ng-template #filterTemplate>
+                   
+                    <ejs-dropdownlist id="project" [dataSource]='dataDropDown' [changeOnBlur]='false'
+                    [allowFiltering]='true' [autofill]='true' [enableRtl]='true' width=450
+                            placeholder="اختار" [fields]='FieldsProject' 
+                            (change)='onChangeProject($event)'    [showClearButton]="true"   >
+                </ejs-dropdownlist>
+                  </ng-template>
             </e-column>
             <e-column field='isStock' [customAttributes]='customAttributes' headerText='نوع العقد ' textAlign='Right'
-                width=120>
+                width=150>
                 <ng-template #template let-data>
                     <span class="badge badge-light-success mr-2 ml-2" *ngIf="data.isStock">عقد سهم</span>
                     <span class="badge badge-light-danger" *ngIf="!data.isStock"> عقد واحدات</span>
                   </ng-template>
+                  <ng-template #filterTemplate>
+                   
+                    <ejs-dropdownlist id="stock" [dataSource]='stockList' 
+                    [autofill]='true' [enableRtl]='true'
+                            placeholder="اختار" [fields]='FieldsDDL' 
+                            (change)='onChangeStock($event)'    [showClearButton]="true"   >
+                </ejs-dropdownlist>
+                  </ng-template>
             </e-column>
 
             <e-column field='name' [customAttributes]='customAttributes' headerText='   العميل' textAlign='Right'
-                width=120>
+                width=150>
             </e-column>
             <e-column field='program' [customAttributes]='customAttributes' headerText='   نظام الدفع' textAlign='Right'
-                width=120>
+                width=150>
             </e-column>
 
             <e-column field='phone' [customAttributes]='customAttributes' headerText=' التلفون' textAlign='Right'
-                width=120>
+                width=150>
             </e-column>
 
             <e-column field='address' [customAttributes]='customAttributes' headerText=' العنوان' textAlign='Right'
-                width=120>
+                width=150>
             </e-column>
 
             <e-column field='nationalNumber' [customAttributes]='customAttributes' headerText=' الرقم القومي'
-                textAlign='Right' width=120>
+                textAlign='Right' width=150>
             </e-column>
 
-            <e-column field='date' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right'
-                format='yMd' width=90></e-column>
+            <e-column field='date' format='dd/MM/yyyy'  type='date' [customAttributes]='customAttributes' headerText='تاريخ العمل'
+            textAlign='Right' width=150>
+
+            <ng-template #filterTemplate>
+              
+                <input type="date" #date class="form-control" (change)=onChangeDateTime(date.value) format='dd/MM/yyyy' id="workSince">
+              </ng-template>
+        </e-column>
 
 
-            <e-column field='notes' [customAttributes]='customAttributes' height=400 headerText='  الملاحظات'
-                textAlign='Right' width=120>
+            <e-column field='notes' [allowFiltering]='false' [disabled]="true"  [customAttributes]='customAttributes' height=400 headerText='  الملاحظات'
+                textAlign='Right' width=190>
             </e-column>
 
             <e-column [allowFiltering]='false' [allowSorting]='false' width='170' [disabled]="true"
