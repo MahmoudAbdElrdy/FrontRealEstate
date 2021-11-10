@@ -69,15 +69,15 @@ export class ContractListComponent extends General implements OnInit {
     name: [null, [Validators.required]],
     address: [null, [Validators.required]],
     program: [0, [Validators.required]],
-
+    projectId: [0, [Validators.required]],
+    date: [null, [Validators.required]],
+    meterCost: [0, [Validators.required]],
+    totalCost: [0, [Validators.required]],
+    isStock: [false, [Validators.required]],
+    stockCount:[0],
+    metersCount:[0],
   });
-  this.form = this.formBuilder.group({
-    id: [0],
-    name: [null, [Validators.required]],
-    address: [null, [Validators.required]],
-    program: [0, [Validators.required]],
-
-  });
+  
   this.formDetails = this.formBuilder.group({
     id: [0],
     name: [null, [Validators.required]],
@@ -138,6 +138,9 @@ onChangeDateTime(args: any): void {
 }
 openModal() {
   this.form.reset();
+  this.addCustomer();
+  this.addPhone();
+  this.addNational();
   this.modalService.open(this.modalId, { size: 'lg', backdrop: 'static' });
 
 
@@ -278,5 +281,32 @@ onChangeProject(e) {
     this.filter.ProjectId = e.value
     this.getData(this.filter);
   }
+  //Add Update
+  values = [];
+  removeCustomer(i) {
+    this.values.splice(i, 1);
+  }
+  addCustomer() {
+    this.values.push({ value: "" });
+  }
+  //
+  valuesPhone = [];
+  removePhone(i) {
+    this.valuesPhone.splice(i, 1);
+  }
+
+  addPhone() {
+    this.valuesPhone.push({ value: "" });
+  }
+  //
+  valuesNational = [];
+  removeNational(i) {
+    this.valuesNational.splice(i, 1);
+  }
+
+  addNational() {
+    this.valuesNational.push({ value: "" });
+  }
   
+ 
 }

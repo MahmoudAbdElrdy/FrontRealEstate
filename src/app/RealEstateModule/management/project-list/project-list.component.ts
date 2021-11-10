@@ -84,7 +84,8 @@ export class ProjectListComponent extends General implements OnInit {
       room: [null, [Validators.required]],
       projectId: this.id,
       isBooked: false,
-      flatId:null
+      flatId:null,
+      floorNumber:0
     });
   }
 
@@ -153,7 +154,7 @@ export class ProjectListComponent extends General implements OnInit {
     this._service.getById(this.id)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-          debugger
+          
           this.model = res.data;
           this.form.patchValue({
             id: res.data.id,
@@ -250,14 +251,16 @@ export class ProjectListComponent extends General implements OnInit {
   numberApartment = 0;
   objectData: any = {}
   openModalBuilding() {
+    this.buildingData={
+      Floors: []
+    };
     if (this.id != undefined)
       this.modalService.open(this.buildingId, { size: 'lg', backdrop: 'static' });
     // this.model
   }
   openDetails(id){
-    this.buildingData={
-      Floors: []
-    };
+
+  
   
     this.modalService.open(this.buildingId, { size: 'lg', backdrop: 'static' });
     this.id=id;
@@ -300,6 +303,7 @@ export class ProjectListComponent extends General implements OnInit {
         item.ID = ++this.idFlat;
         item.IsBooked = false;
         item.Color = '#04AA6D'
+        item.floorNumber=r;
         let item2 = Object.assign({}, item)
         Floors.push(item2)
       }
@@ -314,7 +318,8 @@ export class ProjectListComponent extends General implements OnInit {
     this.formDetails.patchValue({
       projectId: this.projectId,
       isBooked: false,
-      flatId: this.FlatID
+      flatId: this.FlatID,
+      floorNumber:this.floorNumber
     });
     this.formDetails.markAllAsTouched();
     if(this.formDetails.valid){
@@ -361,9 +366,10 @@ export class ProjectListComponent extends General implements OnInit {
       });
 
   }
-  openModalDetails(id) {
+  openModalDetails(id,flat) {
     
     this.FlatID = id;
+    this.floorNumber=flat.floorNumber;
     this.modalService.open(this.modalDetailsId, { size: 'lg', backdrop: 'static' });
     if (id != undefined) {
       this.getProjectUnitById(id)

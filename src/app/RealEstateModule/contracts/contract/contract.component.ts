@@ -59,11 +59,9 @@ export class ContractComponent implements OnInit {
   removeCustomer(i) {
     this.values.splice(i, 1);
   }
-
   addCustomer() {
     this.values.push({ value: "" });
   }
-
   //
   valuesPhone = [];
   removePhone(i) {

@@ -5,4 +5,5 @@ export class FlatViewModel {
     Area: number;
     IsBooked:boolean;
     IsDisabled:boolean;
+    floorNumber:number;
 }

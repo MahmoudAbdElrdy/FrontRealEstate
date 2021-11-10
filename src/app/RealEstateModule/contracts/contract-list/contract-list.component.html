@@ -56,7 +56,7 @@
 </button>
     </div>
     <br>
-    <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' (actionBegin)='begin($event)' [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings' 
+    <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' height='100%' width='100%' (actionBegin)='begin($event)' [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings' 
         [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings">
         <e-columns>
             <!-- <e-column type='checkbox' [height]='315' [allowFiltering]='false' [allowSorting]='false'
@@ -154,20 +154,25 @@
         </button>
     </div>
     <div class="modal-body">
+        <form [formGroup]="form" >
         <div class="col-md-12 form-group">
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="projectID" style="display: block;" class="col-sm-2 col-form-label">العقار</label>
 
 
-                    <ejs-dropdownlist id='projectID' class=" col-sm-10" [dataSource]='dataDropDown'
-                        placeholder='اختر العقار'></ejs-dropdownlist>
+                  
+                        <ejs-dropdownlist id="projectID" formControlName="projectId" [dataSource]='dataDropDown' [changeOnBlur]='false'
+                    [allowFiltering]='true' [autofill]='true' [enableRtl]='true' width=450
+                            placeholder="اختار" [fields]='FieldsProject' 
+                               [showClearButton]="true"   >
+                </ejs-dropdownlist>
 
                 </div>
                 <div class="form-group col-md-6">
-                    <label style="display: block;" class="col-sm-2 col-form-label" for="phone">التاريخ</label>
+                    <label style="display: block;"  class="col-sm-2 col-form-label" for="date">التاريخ</label>
 
-                    <input type="date" class="form-control" id="date">
+                    <input type="date" formControlName="date" class="form-control" id="date">
 
 
                 </div>
@@ -179,14 +184,14 @@
             <br>
             <div *ngFor="let value of values; let i = index">
 
-                <input style="margin-right: 130px;width: 490px;" type="text" [(ngModel)]="value.value"
+                <input style="margin-right: 130px;width: 490px;" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="value.value"
                     name="value{{i}}">
                 &nbsp; &nbsp;
                 <button type="button" *ngIf="i>0" (click)="removeCustomer(i)">حذف</button>
                 &nbsp;
                 <br>
             </div>
-            <button class="button1" style="margin-right: 90%;" type="button" (click)="addCustomer()">اضافة عميل
+            <button class="button1" style="margin-right: 90%;" type="button" (click)="addCustomer()"><i class="fa fa-plus"></i>
             </button>
 
         </div>
@@ -195,14 +200,14 @@
             <br>
             <div *ngFor="let value of valuesPhone; let i = index">
 
-                <input style="margin-right: 130px;width: 490px;" type="text" [(ngModel)]="value.value"
+                <input style="margin-right: 130px;width: 490px;" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="value.value"
                     name="value{{i}}">
                 &nbsp; &nbsp;
                 <button type="button" *ngIf="i>0" (click)="removePhone(i)">حذف</button>
                 &nbsp;
                 <br>
             </div>
-            <button class="button1" style="margin-right: 90%;" type="button" (click)="addPhone()">اضافة رقم تلفيون
+            <button class="button1" style="margin-right: 90%;" type="button" (click)="addPhone()"><i class="fa fa-plus"></i>
             </button>
 
         </div>
@@ -211,7 +216,7 @@
             <br>
             <div *ngFor="let value of valuesNational; let i = index">
 
-                <input style="margin-right: 130px;width: 490px;" type="text" [(ngModel)]="valuesNational.value"
+                <input style="margin-right: 130px;width: 490px;" [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="valuesNational.value"
                     name="value{{i}}">
                 &nbsp; &nbsp;
                 <button type="button" *ngIf="i>0" (click)="removeNational(i)">حذف</button>
@@ -219,21 +224,21 @@
 
             </div>
             <br>
-            <button class="button1" style="margin-right: 90%;" type="button" (click)="addNational()">اضافة الرقم القومي
+            <button class="button1" style="margin-right: 90%;" type="button" (click)="addNational()"><i class="fa fa-plus"></i>
             </button>
 
         </div>
         <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">العنوان </label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="name">
+                <input type="text" class="form-control" id="name" formControlName="address">
 
             </div>
         </div>
         <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">نظام الدفع </label>
             <div class="col-sm-10">
-                <ejs-dropdownlist id='projectID' [dataSource]='program' placeholder='اختر '></ejs-dropdownlist>
+                <input type="text" class="form-control" id="name" formControlName="program">
             </div>
         </div>
 
@@ -242,14 +247,14 @@
         <div class="col-md-12 form-group">
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label for="name" style="display: block;" class="col-sm-2 col-form-label"> المتر </label>
+                    <label for="name" style="display: block;" class="col-sm-2 col-form-label">سعر المتر </label>
 
-                    <input type="number" class="form-control" id="name">
+                    <input type="number" class="form-control" id="name" formControlName="meterCost">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="name" style="display: block;" class="col-sm-2 col-form-label">الاجمالي </label>
 
-                    <input type="number" class="form-control" id="name">
+                    <input type="number" class="form-control" id="name" formControlName="totalCost">
                 </div>
             </div>
         </div>
@@ -258,7 +263,7 @@
             <label for="name" class="col-sm-2 col-form-label"> نوع العقد </label>
 
             <label class="col-sm-2 col-form-label" *ngFor="let radiobutton of radioItems">
-                <input type="radio" name="options" (click)="model.option = radiobutton"
+                <input type="radio" name="options" formControlName="isStock" (click)="model.option = radiobutton"
                     [checked]="radiobutton === model.option">{{radiobutton}}
             </label>
 
@@ -269,7 +274,7 @@
                 <div class="form-group col-md-6">
                     <label for="name" style="display: block;" class="col-sm-2 col-form-label"> عدد الاسهم </label>
 
-                    <input type="number" class="form-control" id="name">
+                    <input type="number" class="form-control" id="name" formControlName="stockCount">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="name" style="display: block;" class="col-sm-2 col-form-label">رقم الطابق </label>
@@ -285,7 +290,7 @@
                 <div class="form-group col-md-6">
                     <label for="name" style="display: block;" class="col-sm-2 col-form-label"> عدد الامتار </label>
 
-                    <input type="number" class="form-control" id="name">
+                    <input type="number" class="form-control" id="name" formControlName="metersCount">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="name" style="display: block;" class="col-sm-2 col-form-label">رقم الوحدة </label>
@@ -315,7 +320,7 @@
                 </div>
             </div>
         </div>
-       
+    </form>
     </div>
     <div class="modal-footer px-2 py-2">
         <button type="button" (click)="modal.close('Close click')" class="btn btn-outline-secondary mr-2">
