@@ -17,7 +17,8 @@ import { PageService, SortService, FilterService, GroupService } from '@syncfusi
      GridModule,DropDownListModule,SharedModule,ComboBoxModule,
      CommonModule,PagerModule,DateTimePickerModule,DatePickerModule,
  
-    ContractsRoutingModule,CheckBoxModule
+    ContractsRoutingModule,CheckBoxModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA

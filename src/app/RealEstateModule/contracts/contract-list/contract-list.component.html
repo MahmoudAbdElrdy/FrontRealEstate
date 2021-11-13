@@ -18,7 +18,7 @@
 
         <!-- delete -->
 
-      
+
         <button type="button" class="btn btn-outline-secondary mx-1">
             <i class="fas fa-undo"></i>
             حذف
@@ -26,7 +26,7 @@
 
         <button type="button" class="btn btn-outline-danger mx-1">
             <i class="fas fa-trash-alt"></i>
-                الغاء العقد
+            الغاء العقد
         </button>
         <!--  -->
         <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalInstallmentdateList()">
@@ -39,54 +39,53 @@
             سداد الاقساط
         </button>
         <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalSafe()">
-          <i class="far fa-address-card"></i>
-        الخزنة
-      </button>
-      <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalInstallmentPay()">
-        <i class="far fa-address-card"></i>
-        منبه الاقساط
-    </button>
-    <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalInstallmentPay()">
-      <i class="far fa-address-card"></i>
-      الاقساط  المتاخرة 
-  </button>
-  <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalInstallmentPay()">
-    <i class="far fa-address-card"></i>
-   التعاقدات الملغاة
-</button>
+            <i class="far fa-address-card"></i>
+            الخزنة
+        </button>
+        <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalInstallmentPay()">
+            <i class="far fa-address-card"></i>
+            منبه الاقساط
+        </button>
+        <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalInstallmentPay()">
+            <i class="far fa-address-card"></i>
+            الاقساط المتاخرة
+        </button>
+        <button type="button" class="btn btn-outline-secondary mx-1" (click)="openModalInstallmentPay()">
+            <i class="far fa-address-card"></i>
+            التعاقدات الملغاة
+        </button>
     </div>
     <br>
-    <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' height='100%' width='100%' (actionBegin)='begin($event)' [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings' 
+    <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' height='100%' width='100%' (actionBegin)='begin($event)'
+        [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings'
         [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings">
         <e-columns>
             <!-- <e-column type='checkbox' [height]='315' [allowFiltering]='false' [allowSorting]='false'
                 [customAttributes]='customAttributes' width='60'></e-column> -->
 
-            <e-column field='projectName' [customAttributes]='customAttributes'  headerText='العقار '
-                textAlign='Right' width=150>
+            <e-column field='projectName' [customAttributes]='customAttributes' headerText='العقار ' textAlign='Right'
+                width=150>
                 <ng-template #filterTemplate>
-                   
+
                     <ejs-dropdownlist id="project" [dataSource]='dataDropDown' [changeOnBlur]='false'
-                    [allowFiltering]='true' [autofill]='true' [enableRtl]='true' width=450
-                            placeholder="اختار" [fields]='FieldsProject' 
-                            (change)='onChangeProject($event)'    [showClearButton]="true"   >
-                </ejs-dropdownlist>
-                  </ng-template>
+                        [allowFiltering]='true' [autofill]='true' [enableRtl]='true' width=450 placeholder="اختار"
+                        [fields]='FieldsProject' (change)='onChangeProject($event)' [showClearButton]="true">
+                    </ejs-dropdownlist>
+                </ng-template>
             </e-column>
             <e-column field='isStock' [customAttributes]='customAttributes' headerText='نوع العقد ' textAlign='Right'
                 width=150>
                 <ng-template #template let-data>
                     <span class="badge badge-light-success mr-2 ml-2" *ngIf="data.isStock">عقد سهم</span>
                     <span class="badge badge-light-danger" *ngIf="!data.isStock"> عقد واحدات</span>
-                  </ng-template>
-                  <ng-template #filterTemplate>
-                   
-                    <ejs-dropdownlist id="stock" [dataSource]='stockList' 
-                    [autofill]='true' [enableRtl]='true'
-                            placeholder="اختار" [fields]='FieldsDDL' 
-                            (change)='onChangeStock($event)'    [showClearButton]="true"   >
-                </ejs-dropdownlist>
-                  </ng-template>
+                </ng-template>
+                <ng-template #filterTemplate>
+
+                    <ejs-dropdownlist id="stock" [dataSource]='stockList' [autofill]='true' [enableRtl]='true'
+                        placeholder="اختار" [fields]='FieldsDDL' (change)='onChangeStock($event)'
+                        [showClearButton]="true">
+                    </ejs-dropdownlist>
+                </ng-template>
             </e-column>
 
             <e-column field='name' [customAttributes]='customAttributes' headerText='   العميل' textAlign='Right'
@@ -108,18 +107,19 @@
                 textAlign='Right' width=150>
             </e-column>
 
-            <e-column field='date' format='dd/MM/yyyy'  type='date' [customAttributes]='customAttributes' headerText='تاريخ العمل'
-            textAlign='Right' width=150>
+            <e-column field='date' format='dd/MM/yyyy' type='date' [customAttributes]='customAttributes'
+                headerText='تاريخ العمل' textAlign='Right' width=150>
 
-            <ng-template #filterTemplate>
-              
-                <input type="date" #date class="form-control" (change)=onChangeDateTime(date.value) format='dd/MM/yyyy' id="workSince">
-              </ng-template>
-        </e-column>
+                <ng-template #filterTemplate>
+
+                    <input type="date" #date class="form-control" (change)=onChangeDateTime(date.value)
+                        format='dd/MM/yyyy' id="workSince">
+                </ng-template>
+            </e-column>
 
 
-            <e-column field='notes' [allowFiltering]='false' [disabled]="true"  [customAttributes]='customAttributes' height=400 headerText='  الملاحظات'
-                textAlign='Right' width=190>
+            <e-column field='notes' [allowFiltering]='false' [disabled]="true" [customAttributes]='customAttributes'
+                height=400 headerText='  الملاحظات' textAlign='Right' width=190>
             </e-column>
 
             <e-column [allowFiltering]='false' [allowSorting]='false' width='170' [disabled]="true"
@@ -141,7 +141,8 @@
 
         </e-columns>
     </ejs-grid>
-    <ejs-pager #pager [enableRtl]='true' [pageSize]='pageSize' [pageCount]='pageCount' [totalRecordsCount]='totalRecordsCount'  (click)="changePage($event)"></ejs-pager>
+    <ejs-pager #pager [enableRtl]='true' [pageSize]='pageSize' [pageCount]='pageCount'
+        [totalRecordsCount]='totalRecordsCount' (click)="changePage($event)"></ejs-pager>
 
 </ng-container>
 
@@ -154,180 +155,258 @@
         </button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="form" >
-        <div class="col-md-12 form-group">
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="projectID" style="display: block;" class="col-sm-2 col-form-label">العقار</label>
+        <form [formGroup]="form">
+            <div class="col-md-12 form-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="projectID" style="display: block;" class="col-sm-2 col-form-label">العقار</label>
 
 
-                  
-                        <ejs-dropdownlist id="projectID" formControlName="projectId" [dataSource]='dataDropDown' [changeOnBlur]='false'
-                    [allowFiltering]='true' [autofill]='true' [enableRtl]='true' width=450
-                            placeholder="اختار" [fields]='FieldsProject' 
-                               [showClearButton]="true"   >
-                </ejs-dropdownlist>
 
-                </div>
-                <div class="form-group col-md-6">
-                    <label style="display: block;"  class="col-sm-2 col-form-label" for="date">التاريخ</label>
+                        <ejs-dropdownlist id="projectID" formControlName="projectId" [dataSource]='dataDropDown'
+                            [changeOnBlur]='false' [allowFiltering]='true' [autofill]='true' [enableRtl]='true'
+                            width=290 placeholder="اختار" [fields]='FieldsProject' [showClearButton]="true"
+                            (change)='onChangeProjectToGetUnits($event)'>
+                        </ejs-dropdownlist>
+                        <small *ngIf="(form.get('projectId').errors?.required)&&(form.get('projectId').touched)"
+                            class="w-100 text-danger mt-1">
+                            مطلوب
+                        </small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label style="display: block;" class="col-sm-2 col-form-label" for="date">التاريخ</label>
 
-                    <input type="date" formControlName="date" class="form-control" id="date">
+                        <input type="date" formControlName="date" class="form-control" id="date">
 
-
+                        <small *ngIf="(form.get('date').errors?.required)&&(form.get('date').touched)"
+                            class="w-100 text-danger mt-1">
+                            مطلوب
+                        </small>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="name" style="display: inline-block;" class="col-sm-2 col-form-label"
-                class="col-sm-2 col-form-label">اسم العميل</label>
-            <br>
-            <div *ngFor="let value of values; let i = index">
-
-                <input style="margin-right: 130px;width: 490px;" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="value.value"
-                    name="value{{i}}">
-                &nbsp; &nbsp;
-                <button type="button" *ngIf="i>0" (click)="removeCustomer(i)">حذف</button>
-                &nbsp;
+            <div class="form-group row">
+                <label for="name" style="display: inline-block;" class="col-sm-2 col-form-label"
+                    class="col-sm-2 col-form-label">اسم العميل</label>
                 <br>
+                <div *ngFor="let value of values; let i = index">
+
+                    <input style="margin-right: 130px;width: 490px;"  type="text"
+                        [ngModelOptions]="{standalone: true}" [(ngModel)]="value.value" name="value{{i}}">
+                    &nbsp; &nbsp;
+                    <button type="button" *ngIf="i>0" (click)="removeCustomer(i)">حذف</button>
+                    &nbsp;
+                    <br>
+                </div>
+                <button class="button1" style="margin-right: 90%;" type="button" (click)="addCustomer()"><i
+                        class="fa fa-plus"></i>
+                </button>
+                <small *ngIf="(form.get('name').errors?.required)"
+                    class="w-100 text-danger mt-1">
+                    مطلوب
+                </small>
             </div>
-            <button class="button1" style="margin-right: 90%;" type="button" (click)="addCustomer()"><i class="fa fa-plus"></i>
-            </button>
-
-        </div>
-        <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">التليفون</label>
-            <br>
-            <div *ngFor="let value of valuesPhone; let i = index">
-
-                <input style="margin-right: 130px;width: 490px;" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="value.value"
-                    name="value{{i}}">
-                &nbsp; &nbsp;
-                <button type="button" *ngIf="i>0" (click)="removePhone(i)">حذف</button>
-                &nbsp;
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">التليفون</label>
                 <br>
-            </div>
-            <button class="button1" style="margin-right: 90%;" type="button" (click)="addPhone()"><i class="fa fa-plus"></i>
-            </button>
+                <div *ngFor="let value of valuesPhone; let i = index">
 
-        </div>
-        <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">الرقم القومي</label>
-            <br>
-            <div *ngFor="let value of valuesNational; let i = index">
-
-                <input style="margin-right: 130px;width: 490px;" [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="valuesNational.value"
-                    name="value{{i}}">
-                &nbsp; &nbsp;
-                <button type="button" *ngIf="i>0" (click)="removeNational(i)">حذف</button>
-                &nbsp;
-
-            </div>
-            <br>
-            <button class="button1" style="margin-right: 90%;" type="button" (click)="addNational()"><i class="fa fa-plus"></i>
-            </button>
-
-        </div>
-        <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">العنوان </label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" formControlName="address">
-
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">نظام الدفع </label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" formControlName="program">
-            </div>
-        </div>
-
-
-
-        <div class="col-md-12 form-group">
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="name" style="display: block;" class="col-sm-2 col-form-label">سعر المتر </label>
-
-                    <input type="number" class="form-control" id="name" formControlName="meterCost">
+                    <input style="margin-right: 130px;width: 490px;" formControlName="phone" type="text"
+                        [ngModelOptions]="{standalone: true}" [(ngModel)]="value.value" name="value{{i}}">
+                    &nbsp; &nbsp;
+                    <button type="button" *ngIf="i>0" (click)="removePhone(i)">حذف</button>
+                    &nbsp;
+                    <br>
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="name" style="display: block;" class="col-sm-2 col-form-label">الاجمالي </label>
-
-                    <input type="number" class="form-control" id="name" formControlName="totalCost">
-                </div>
+                <button class="button1" style="margin-right: 90%;" type="button" (click)="addPhone()"><i
+                        class="fa fa-plus"></i>
+                </button>
+                <small *ngIf="(form.get('phone').errors?.required)&&(form.get('phone').touched)"
+                    class="w-100 text-danger mt-1">
+                    مطلوب
+                </small>
             </div>
-        </div>
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">الرقم القومي</label>
+                <br>
+                <div *ngFor="let value of valuesNational; let i = index">
 
-        <div style="border: groove;" class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label"> نوع العقد </label>
+                    <input style="margin-right: 130px;width: 490px;" formControlName="nationalNumber"
+                        [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="valuesNational.value"
+                        name="value{{i}}">
+                    &nbsp; &nbsp;
+                    <button type="button" *ngIf="i>0" (click)="removeNational(i)">حذف</button>
+                    &nbsp;
 
-            <label class="col-sm-2 col-form-label" *ngFor="let radiobutton of radioItems">
-                <input type="radio" name="options" formControlName="isStock" (click)="model.option = radiobutton"
-                    [checked]="radiobutton === model.option">{{radiobutton}}
-            </label>
-
-        </div>
-        <!--  -->
-        <div class="col-md-12 form-group">
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="name" style="display: block;" class="col-sm-2 col-form-label"> عدد الاسهم </label>
-
-                    <input type="number" class="form-control" id="name" formControlName="stockCount">
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="name" style="display: block;" class="col-sm-2 col-form-label">رقم الطابق </label>
-
-                    <input type="number" class="form-control" id="name">
-                </div>
+                <br>
+                <button class="button1" style="margin-right: 90%;" type="button" (click)="addNational()"><i
+                        class="fa fa-plus"></i>
+                </button>
+                <small *ngIf="(form.get('nationalNumber').errors?.required)&&(form.get('nationalNumber').touched)"
+                    class="w-100 text-danger mt-1">
+                    مطلوب
+                </small>
             </div>
-        </div>
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">العنوان </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" formControlName="address">
 
-        <!--  -->
-        <div class="col-md-12 form-group">
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="name" style="display: block;" class="col-sm-2 col-form-label"> عدد الامتار </label>
-
-                    <input type="number" class="form-control" id="name" formControlName="metersCount">
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="name" style="display: block;" class="col-sm-2 col-form-label">رقم الوحدة </label>
+                <small *ngIf="(form.get('address').errors?.required)&&(form.get('address').touched)"
+                    class="w-100 text-danger mt-1">
+                    مطلوب
+                </small>
+            </div>
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">نظام الدفع </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" formControlName="program">
+                </div>
+                <small *ngIf="(form.get('program').errors?.required)&&(form.get('program').touched)"
+                    class="w-100 text-danger mt-1">
+                    مطلوب
+                </small>
+            </div>
 
-                    <input type="number" class="form-control" id="name">
+
+
+            <div class="col-md-12 form-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="name" style="display: block;" class="col-sm-2 col-form-label">سعر المتر </label>
+
+                        <input type="number" class="form-control" id="name" formControlName="meterCost">
+                        <small *ngIf="(form.get('meterCost').errors?.required)&&(form.get('meterCost').touched)"
+                            class="w-100 text-danger mt-1">
+                            مطلوب
+                        </small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="name" style="display: block;" class="col-sm-2 col-form-label">الاجمالي </label>
+
+                        <input type="number" class="form-control" id="name" formControlName="totalCost">
+                        <small *ngIf="(form.get('totalCost').errors?.required)&&(form.get('totalCost').touched)"
+                            class="w-100 text-danger mt-1">
+                            مطلوب
+                        </small>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--  -->
-        <div class="form-group row">
-            <label for="notes" class="col-sm-2 col-form-label">الملاحظات</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" id="notes">
+
+            <div style="border: groove;" class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label"> نوع العقد </label>
+                <div *ngFor="let item of radioItems">
+                    <input (change)="changeIsStock(item.value)" type="radio" id="{{item?.name}}"
+                        formControlName="isStock" [value]="item?.value">
+                    <label for="{{item.name}}" class="col-sm-2 col-form-label">{{item?.name}}</label>
+
+
+                </div>
+                <small *ngIf="form.get('isStock').errors?.required" class="w-100 text-danger mt-1">
+                    مطلوب
+                </small>
+                <!-- <label for="name" class="col-sm-2 col-form-label"> نوع العقد </label>
+
+                <label class="col-sm-2 col-form-label" *ngFor="let radiobutton of radioItems">
+                    <input type="radio" name="isStock" formControlName="isStock">{{radiobutton}}
+                </label> -->
+
+            </div>
+            <!--  -->
+            <div class="col-md-12 form-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="name" style="display: block;" class="col-sm-2 col-form-label"> عدد الاسهم </label>
+
+                        <input type="number" class="form-control" id="name" formControlName="stockCount">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="name" style="display: block;" class="col-sm-2 col-form-label">رقم الطابق </label>
+
+                        <ejs-dropdownlist id="projectUnti" formControlName="numberFloor" [dataSource]='unitListDLL'
+                            [changeOnBlur]='false' [allowFiltering]='true' [autofill]='true' [enableRtl]='true'
+                            width=290 placeholder="اختار" [fields]='FieldsDDLUnit' [showClearButton]="true"
+                            (change)='onChangeUnti($event)'>
+                        </ejs-dropdownlist>
+                    </div>
+                </div>
+            </div>
+
+            <!--  -->
+            <div class="col-md-12 form-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="name" style="display: block;" class="col-sm-2 col-form-label"> عدد الامتار </label>
+
+                        <input type="number" class="form-control" id="name" formControlName="metersCount">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="name" style="display: block;" class="col-sm-2 col-form-label">رقم الوحدة </label>
+
+                        <ejs-dropdownlist id="projectUnitId" formControlName="projectUnitId"
+                            [dataSource]='unitDescriptionsDLL' [changeOnBlur]='false' [allowFiltering]='true'
+                            [autofill]='true' [enableRtl]='true' width=290 placeholder="اختار" [fields]='FieldsUnit'
+                            [showClearButton]="true">
+                        </ejs-dropdownlist>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <div class="form-group row">
+                <label for="notes" class="col-sm-2 col-form-label">الملاحظات</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="notes" formControlName="notes">
              </textarea>
-            </div>
-        </div>
-        <!--  -->
-        <div class="form-group row">
-            <label for="notes" class="col-sm-2 col-form-label">الملحقات</label>
-            <div class="col-sm-10">
-                <div style="text-align:center">
-                    <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
-                    <div><img [src]="url" *ngIf="url"></div>
-                    <p>
-                        <input type="file" (change)="selectFile($event)">
-                    </p>
                 </div>
             </div>
-        </div>
-    </form>
+            <!--  -->
+            <!-- <div class="form-group row">
+                <label for="notes" class="col-sm-2 col-form-label">الملحقات</label>
+                <div class="col-sm-10">
+                    <div style="text-align:center">
+                        <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+                        <div><img [src]="url" *ngIf="url"></div>
+                        <p>
+                            <input type="file" (change)="selectFile($event)">
+                        </p>
+                    </div>
+                </div>
+            </div> -->
+            <!--  -->
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control file-name-input" hidden placeholder="ملفات"
+                        formControlName="contractFile" readonly>
+                    <button type="button" class="btn btn-success" (click)="file2.click()">
+                        <span class="material-icons valign-middle">
+
+                        </span>
+                        ارفع ملف</button>
+                </div>
+                <input type="file" name="File2" class="d-none" #file2 hidden name="contractFile"
+                    (change)="uploadImage($event)" multiple>
+                <div *ngFor="let item2 of ImageUrl;let j = index" class="mt-3">
+                    <div class="box-multi-uploads text-center float-right">
+
+                        <button type="button" class="btn btn-outline-secondary mx-1" (click)="removeAttachments2(j)">
+                            <i class="fas fa-undo"></i>
+                            حذف
+                        </button>
+                        <img [src]="BaseFile+item2" class="w-100 img-fluid">
+
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="modal-footer px-2 py-2">
         <button type="button" (click)="modal.close('Close click')" class="btn btn-outline-secondary mr-2">
             <i class="fas fa-undo"></i>
             اغلاق
         </button>
-        <button type="button" class="btn btn-info mr-2">
+        <button type="button" class="btn btn-info mr-2" (click)="addEitFrom()">
             <i class="far fa-save pr-1"></i>
             حفظ
         </button>

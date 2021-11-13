@@ -289,7 +289,7 @@ export class CustomersSalesComponent extends General implements OnInit {
   }
   getProjectUnitList(floors, apartmentNumber) {
 
-    this._serviceProject.getProjectUnitList(this.projectId)
+    this._serviceProject.getProjectUnitDescriptionsList(this.projectId)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
 
