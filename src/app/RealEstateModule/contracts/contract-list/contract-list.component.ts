@@ -64,7 +64,7 @@ export class ContractListComponent extends General implements OnInit {
     this.cdRef.detectChanges();
   }
   ngOnInit(): void {
-    
+
     this.customAttributes = { class: 'customcss' }; //use custom cs
     //  this.selectionsettings = { checkboxOnly: true };
     this.selectionsettings = { type: 'Single' };
@@ -154,8 +154,8 @@ export class ContractListComponent extends General implements OnInit {
   openModal() {
     this.form.reset();
     this.values.push({ value: "" });
-    this.addPhone();
-    this.addNational();
+    this.valuesPhone.push({ value: "" });
+    this.valuesNational.push({ value: "" });
     this.modalService.open(this.modalId, { size: 'lg', backdrop: 'static' });
 
     this.form.controls['stockCount'].disable()
@@ -187,7 +187,7 @@ export class ContractListComponent extends General implements OnInit {
     this._service.getById(this.id)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-          
+
           this.model = res.data;
           this.form.patchValue({
             id: res.data.id,
@@ -233,7 +233,7 @@ export class ContractListComponent extends General implements OnInit {
     Object.assign((this.gridObj.filterModule as any).filterOperators, { startsWith: 'contains' });
   }
   begin(args): any {
-    
+
     if (args.requestType === "filtering" && args.action === "filter") {
       if (args.currentFilterObject.field === "name") {
         this.filter.name = args.currentFilterObject.value;
@@ -299,11 +299,11 @@ export class ContractListComponent extends General implements OnInit {
   //Add Update
   values = [];
   removeCustomer(i) {
-    
+
     this.values.splice(i, 1);
   }
   addCustomer() {
-    
+
     this.values.push({ value: "" });
 
 
@@ -329,7 +329,7 @@ export class ContractListComponent extends General implements OnInit {
   }
 
   changeIsStock() {
-    
+
     if (this.form.controls['isStock'].value == 0) {
       this.form.controls['stockCount'].enable()
       this.form.controls['numberFloor'].disable()
@@ -375,14 +375,14 @@ export class ContractListComponent extends General implements OnInit {
   fileToUpload = null;
   @ViewChild('userPhoto') userPhoto: ElementRef;
   uploadImage(event) {
-    
+
     this.file2 = event.target.files;
     const formData = new FormData();
     for (let index = 0; index < this.file2.length; index++) {
       formData.append('files', this.file2[index]);
     }
     this.UploadServicesService.UploadImage2(formData).subscribe(event => {
-      
+
       const result = event as any;
       console.log(result)
       this.ImageUrl = result.filePaths;
@@ -397,23 +397,40 @@ export class ContractListComponent extends General implements OnInit {
     ;
     this.ImageUrl.splice(e, 1)
   }
+  //
+  
+
   addEitFrom() {
 
     this.form.markAllAsTouched();
-    
-    let name:string="";
+    let name: string = "";
+    name = this.values[0].value;
     if (this.values.length > 0) {
-      this.values.forEach(element => {
-        if (element.value != "" && isEmpty(element.value)) {
-          debugger
-          name+=element.value+"  " 
-        }
-
-      });
-      this.form.patchValue({
-        name: name
-      })
+      for (var i = 1; i <= this.values.length-1; i++) {
+        name+= "  "+this.values[i].value 
+      }
     }
+    ///
+    let phone: string = "";
+    phone = this.valuesPhone[0].value;
+    if (this.valuesPhone.length > 0) {
+      for (var i = 1; i <= this.valuesPhone.length-1; i++) {
+        phone+= "  "+this.valuesPhone[i].value 
+      }
+    }
+    ///
+    let national: string = "";
+    national = this.valuesNational[0].value;
+    if (this.valuesNational.length > 0) {
+      for (var i = 1; i <= this.valuesNational.length-1; i++) {
+        national+= "  "+this.valuesNational[i].value 
+      }
+    }
+    this.form.patchValue({
+      name: name,
+      phone:phone,
+      nationalNumber: national
+    })
     this.addEitFromGeneral();
   }
 }

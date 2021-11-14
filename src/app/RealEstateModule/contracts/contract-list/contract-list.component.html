@@ -211,7 +211,7 @@
                 <br>
                 <div *ngFor="let value of valuesPhone; let i = index">
 
-                    <input style="margin-right: 130px;width: 490px;" formControlName="phone" type="text"
+                    <input style="margin-right: 130px;width: 490px;"  type="text"
                         [ngModelOptions]="{standalone: true}" [(ngModel)]="value.value" name="value{{i}}">
                     &nbsp; &nbsp;
                     <button type="button" *ngIf="i>0" (click)="removePhone(i)">حذف</button>
@@ -221,7 +221,7 @@
                 <button class="button1" style="margin-right: 90%;" type="button" (click)="addPhone()"><i
                         class="fa fa-plus"></i>
                 </button>
-                <small *ngIf="(form.get('phone').errors?.required)&&(form.get('phone').touched)"
+                <small *ngIf="(form.get('phone').errors?.required)"
                     class="w-100 text-danger mt-1">
                     مطلوب
                 </small>
@@ -231,8 +231,8 @@
                 <br>
                 <div *ngFor="let value of valuesNational; let i = index">
 
-                    <input style="margin-right: 130px;width: 490px;" formControlName="nationalNumber"
-                        [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="valuesNational.value"
+                    <input style="margin-right: 130px;width: 490px;"
+                        [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="value.value"
                         name="value{{i}}">
                     &nbsp; &nbsp;
                     <button type="button" *ngIf="i>0" (click)="removeNational(i)">حذف</button>
@@ -243,7 +243,7 @@
                 <button class="button1" style="margin-right: 90%;" type="button" (click)="addNational()"><i
                         class="fa fa-plus"></i>
                 </button>
-                <small *ngIf="(form.get('nationalNumber').errors?.required)&&(form.get('nationalNumber').touched)"
+                <small *ngIf="(form.get('nationalNumber').errors?.required)"
                     class="w-100 text-danger mt-1">
                     مطلوب
                 </small>
