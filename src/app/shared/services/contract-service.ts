@@ -52,5 +52,31 @@ export class ContractService {
   } 
   saveReservation(Contract: any):Observable<ResponseData>{
     return this._httpClient.post<any>(environment.apiUrl + "/Contract/SaveReservation", Contract);
+  }
+  cancellContract(cancell: any):Observable<ResponseData>{
+    return this._httpClient.post<any>(environment.apiUrl + "/Contract/CancellContract", cancell);
+  }  
+  //
+  
+  saveContractDetail(model: any):Observable<ResponseData>{
+    return this._httpClient.post<any>(environment.apiUrl + "/ContractDetail/SaveContractDetail", model);
+  } 
+
+  getAllContractDetail(contractId):Observable<ResponseData>{
+    let params = new HttpParams();
+    params = params.append('contractId', contractId);
+    return this._httpClient.get<any>(environment.apiUrl + "/ContractDetail/GetAllContractDetail", { params: params});
+  } 
+
+  getByIdContractDetail(id:any):Observable<any>{
+    let params = new HttpParams();
+    params = params.append('id', id);
+    return this._httpClient.get<any>(environment.apiUrl + "/ContractDetail/GetByIdContractDetail", { params: params});
+  } 
+
+  deleteContractDetail(id: any):Observable<any>{
+    let params = new HttpParams();
+    params = params.append('id', id);
+    return this._httpClient.get<any>(environment.apiUrl + "/ContractDetail/DeleteContractDetail", { params: params});
   } 
 }

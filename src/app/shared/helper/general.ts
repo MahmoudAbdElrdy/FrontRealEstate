@@ -57,7 +57,7 @@ export class General {
             
             }
             else {
-              this.alert.showError(res.message);
+              this.alert.error(res.message);
             }
           });
         }

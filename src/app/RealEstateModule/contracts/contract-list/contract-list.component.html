@@ -9,22 +9,20 @@
             جديد
         </button>
 
-        <!-- edit -->
-
-        <button type="button" class="btn btn-outline-warning mx-1">
+        <button type="button" class="btn btn-outline-warning mx-1"  (click)="openEditModal()">
             <i class="fas fa-plus"></i>
             تعديل
         </button>
 
         <!-- delete -->
 
-
-        <button type="button" class="btn btn-outline-secondary mx-1">
-            <i class="fas fa-undo"></i>
+        <button type="button" class="btn btn-outline-danger mx-1" (click)="removeSlect()">
+            <i class="fas fa-trash-alt"></i>
             حذف
         </button>
+      
 
-        <button type="button" class="btn btn-outline-danger mx-1">
+        <button type="button" class="btn btn-outline-danger mx-1" (click)="cancelSlect()">
             <i class="fas fa-trash-alt"></i>
             الغاء العقد
         </button>
@@ -58,7 +56,7 @@
     <br>
     <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' height='100%' width='100%' (actionBegin)='begin($event)'
         [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings'
-        [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings">
+        [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings" (rowSelected)='rowSelected($event)'>
         <e-columns>
             <!-- <e-column type='checkbox' [height]='315' [allowFiltering]='false' [allowSorting]='false'
                 [customAttributes]='customAttributes' width='60'></e-column> -->
@@ -108,7 +106,7 @@
             </e-column>
 
             <e-column field='date' format='dd/MM/yyyy' type='date' [customAttributes]='customAttributes'
-                headerText='تاريخ العمل' textAlign='Right' width=150>
+                headerText='تاريخ العمل' textAlign='Right' width=180>
 
                 <ng-template #filterTemplate>
 
@@ -125,11 +123,11 @@
             <e-column [allowFiltering]='false' [allowSorting]='false' width='170' [disabled]="true"
                 headerText='العمليات' [customAttributes]='customAttributes'>
                 <ng-template #template let-data>
-                    <button class="btn btn-outline-info mx-1" data-toggle="tooltip" data-placement="bottom">
+                    <button class="btn btn-outline-info mx-1" data-toggle="tooltip" data-placement="bottom" (click)="openEdit(data.id)">
                         <i class="far fa-edit"></i>
                     </button>
-                    <button class="btn btn-outline-danger" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
-                        title="Delete">
+                    <button class="btn btn-outline-danger" rel="tooltip" data-toggle="tooltip" data-placement="bottom" (click)="remove(data.id)"
+                       >
                         <i class="far fa-trash-alt"></i>
                     </button>
                     <button class="btn btn-outline-secondary" rel="tooltip" data-toggle="tooltip"
@@ -307,12 +305,7 @@
                 <small *ngIf="form.get('isStock').errors?.required" class="w-100 text-danger mt-1">
                     مطلوب
                 </small>
-                <!-- <label for="name" class="col-sm-2 col-form-label"> نوع العقد </label>
-
-                <label class="col-sm-2 col-form-label" *ngFor="let radiobutton of radioItems">
-                    <input type="radio" name="isStock" formControlName="isStock">{{radiobutton}}
-                </label> -->
-
+              
             </div>
             <!--  -->
             <div class="col-md-12 form-group">
@@ -412,3 +405,223 @@
         </button>
     </div>
 </ng-template>
+  <!--  -->
+  <ng-template #cancellId let-modalcancell>
+    <div class="modal-header">
+  
+      <button type="button" class="close" aria-label="Close" (click)="modalcancell.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+  
+  
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label"> المدفوع </label>
+        <div class="col-sm-10">
+          <input type="number"  [(ngModel)]="cancell.paid" class="form-control"  id="Paid">
+        </div>
+      </div>
+  
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">المرتجع </label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" [(ngModel)]="cancell.back" 
+            id="back">
+        </div>
+      </div>
+  
+    </div>
+    <div class="modal-footer px-2 py-2">
+      <button type="button" (click)="modalcancell.close('Close click')" class="btn btn-outline-secondary mr-2">
+        <i class="fas fa-undo"></i>
+        اغلاق
+      </button>
+      <button type="button" class="btn btn-info mr-2" (click)="cancelSlectSave()">
+        <i class="far fa-save pr-1"></i>
+        الغاء العقد
+      </button>
+    </div>
+  </ng-template>
+  <!--  -->
+  <!-- open modal تاريخ الاقساط تفاصيل بنود العقد -->
+<ng-template #InstallmentdateId let-installmentdate>
+    <div class="modal-header">
+      <h4 class="modal-title"> اضافة</h4>
+      <button type="button" class="close" aria-label="Close" (click)="installmentdate.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+  
+  
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">القسط</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" #Floor id="numberFloor">
+        </div>
+      </div>
+  
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label"> المبلغ</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label"> التاريخ</label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label"> بند ملحق</label>
+        <div class="col-sm-1">
+          <input type="checkbox" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer px-2 py-2">
+      <button type="button" (click)="installmentdate.close('Close click')" class="btn btn-outline-secondary mr-2">
+        <i class="fas fa-undo"></i>
+        اغلاق
+      </button>
+      <button type="button" class="btn btn-info mr-2">
+        <i class="far fa-save pr-1"></i>
+        حفظ
+    </button>
+    </div>
+  </ng-template>
+  <!-- التفاصيل  -->
+  <ng-template #InstallmentdateList let-installmentdateList>
+    <div class="modal-header">
+      <h4 class="modal-title"> التفاصيل</h4>
+      <button type="button" class="close" aria-label="Close" (click)="installmentdateList.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <ng-container>
+          <div class="pt-3 clearfix">
+            <label for="" class="col-sm-2 col-form-label">  اجمالي العقد</label>
+          
+              <input type="text" class="col-sm-2" value="60000">
+              <label for="" class="col-sm-2 col-form-label">  اجمالي البنود</label>
+          
+              <input type="text" class="col-sm-2" value="60000">
+              <label for="" class="col-sm-2 col-form-label">  اجمالي الملحقات</label>
+          
+              <input type="text" class="col-sm-2" value="8900">
+            
+           
+          </div>
+            <div class="pt-3 clearfix">
+          
+              <!-- new -->
+          
+              <button type="button" class="btn btn-outline-info mx-1 " (click)="openModalInstallmentdate()">
+                <i class="fas fa-plus"></i>
+                جديد
+              </button>
+              <button type="button" class="btn btn-outline-info mx-1 " (click)="openModalInstallmentGeneratet()">
+                <i class="fas fa-plus"></i>
+                توليد اقساط
+              </button>
+          
+              <!-- edit -->
+          
+              <button type="button" class="btn btn-outline-warning mx-1">
+                <i class="fas fa-plus"></i>
+                تعديل
+              </button>
+          
+              <!-- delete -->
+          
+              <button type="button" class="btn btn-outline-danger mx-1">
+                <i class="fas fa-trash-alt"></i>
+                حذف
+              </button>
+             
+            </div>
+            <br>
+            <ejs-grid #grid [dataSource]='data2'  [enableRtl]='true' [allowFiltering]='false'
+              [selectionSettings]='selectionsettings'  gridLines='Both'>
+              <e-columns>
+                <!-- <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false' [customAttributes]='customAttributes'
+                  width='60'></e-column> -->
+               
+
+                  <e-column [customAttributes]='customAttributes' headerText='بند الملحق ' [customAttributes]='customAttributes' width=90>
+                    <ng-template #template let-data>
+                      <ejs-checkbox   ></ejs-checkbox>
+                     
+                    </ng-template>
+                  </e-column>
+                 
+                <e-column field='ProjectID' [customAttributes]='customAttributes'  headerText='بند العقد' textAlign='Right' width=120>
+                </e-column>
+                <e-column field='date' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right'
+                format='d/M/y' width=90></e-column>
+
+                <e-column field='Number' [customAttributes]='customAttributes' headerText=' المبلغ' textAlign='Right'
+                  width=120>
+                </e-column>
+              
+          
+              </e-columns>
+            </ejs-grid>
+         
+          </ng-container>
+          
+    </div>
+    <div class="modal-footer px-2 py-2">
+      <button type="button" (click)="installmentdateList.close('Close click')" class="btn btn-outline-secondary mr-2">
+        <i class="fas fa-undo"></i>
+        اغلاق
+      </button>
+   
+    </div>
+  </ng-template>
+  <!-- توليد اقساط شهرية -->
+  <ng-template #InstallmentGenerate let-installmentGenerate>
+    <div class="modal-header">
+      <h4 class="modal-title">توليد اقساط شهرية  </h4>
+      <button type="button" class="close" aria-label="Close" (click)="installmentGenerate.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+  
+  
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">من تاريخ</label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" #fromDate id="fromDate1">
+        </div>
+      </div>
+  
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label"> الي تاريخ</label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" #toDate id="toDate1">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">  مبلغ التقسيط</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" #numberInstallmen>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer px-2 py-2">
+      <button type="button" (click)="installmentGenerate.close('Close click')" class="btn btn-outline-secondary mr-2">
+        <i class="fas fa-undo"></i>
+        اغلاق
+      </button>
+      <button type="button" class="btn btn-outline-info mx-1 " (click)="installmentGeneratet(fromDate.value,toDate.value,numberInstallmen.value);installmentGenerate.close('Close click')">
+        <i class="fas fa-plus"></i>
+        توليد 
+      </button>
+    </div>
+  </ng-template>
