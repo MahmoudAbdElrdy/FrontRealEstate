@@ -59,24 +59,26 @@ export class ContractService {
   //
   
   saveContractDetail(model: any):Observable<ResponseData>{
-    return this._httpClient.post<any>(environment.apiUrl + "/ContractDetail/SaveContractDetail", model);
+    return this._httpClient.post<any>(environment.apiUrl + "/Contract/SaveContractDetail", model);
   } 
-
+  saveListContractDetail(model: any):Observable<ResponseData>{
+    return this._httpClient.post<any>(environment.apiUrl + "/Contract/SaveListContractDetail", model);
+  } 
   getAllContractDetail(contractId):Observable<ResponseData>{
     let params = new HttpParams();
     params = params.append('contractId', contractId);
-    return this._httpClient.get<any>(environment.apiUrl + "/ContractDetail/GetAllContractDetail", { params: params});
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/GetAllContractDetail", { params: params});
   } 
 
   getByIdContractDetail(id:any):Observable<any>{
     let params = new HttpParams();
     params = params.append('id', id);
-    return this._httpClient.get<any>(environment.apiUrl + "/ContractDetail/GetByIdContractDetail", { params: params});
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/GetByIdContractDetail", { params: params});
   } 
 
   deleteContractDetail(id: any):Observable<any>{
     let params = new HttpParams();
     params = params.append('id', id);
-    return this._httpClient.get<any>(environment.apiUrl + "/ContractDetail/DeleteContractDetail", { params: params});
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/DeleteContractDetail", { params: params});
   } 
 }

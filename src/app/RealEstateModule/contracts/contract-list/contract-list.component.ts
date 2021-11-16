@@ -44,13 +44,13 @@ export class ContractListComponent extends General implements OnInit {
   id: any;
   model: any = {};
   form: FormGroup;
-  formDetails: FormGroup;
+  formcontractDetailId: FormGroup;
   employeeName: string;
   data: object[];
   stockList = [{ value: true, text: "عقد سهم" }, { value: false, text: "عقد واحدات" }]
   constructor(private formBuilder: FormBuilder,
     public modalService: NgbModal,
-    private modalService2:NgbModal,
+    private modalService2: NgbModal,
     private _service: ContractService,
     private _publicService: PublicService,
     private router: Router,
@@ -95,17 +95,7 @@ export class ContractListComponent extends General implements OnInit {
       contractFile: [[], []],
     });
 
-    this.formDetails = this.formBuilder.group({
-      id: [0],
-      name: [null, [Validators.required]],
-      area: [null, [Validators.required]],
-      bath: [null, [Validators.required]],
-      kitchen: [null, [Validators.required]],
-      room: [null, [Validators.required]],
-      ContractId: this.id,
-      isBooked: false,
-      flatId: null
-    });
+    
   }
   getDropDownList() {
 
@@ -526,67 +516,208 @@ export class ContractListComponent extends General implements OnInit {
     })
   }
   //  this.modalService.open(this.modalId, { size: 'lg', backdrop: 'static' });
-//date تاريخ الاقساط
- ///
- ///
- @ViewChild('InstallmentdateId') installmentdate: ElementRef;
- openModalInstallmentdate() {
-   this.modalService.open(this.installmentdate, { size: 'lg', backdrop: 'static' });
+  //date تاريخ الاقساط
+  ///
+  rowContractDetailSelected(args: RowSelectEventArgs) {
+    this.formcontractDetailId = this.formBuilder.group({
+      id: [0],
+      name: [null, [Validators.required]],
+      contractId: this.id,
+      isExtra: false,
+      date: Globals.formatDate(Date.now),
+      amount:0
+    });
+    this.formcontractDetailId.reset();
+   debugger
+    var data = args.data as any;
+    this.contractDetailIdData = data;
+    if(data!=null){
+      this.formcontractDetailId = this.formBuilder.group({
+        id: [0],
+        name: [null, [Validators.required]],
+        contractId: this.id,
+        isExtra: false,
+        date: Globals.formatDate(Date.now),
+        amount:0
+      });
+    }
+   
+  }
+  saveContractDetailId(){
+    this._service.saveContractDetail(this.formcontractDetailId.getRawValue()).subscribe(res => {
+      if (res.isSuccess) {
 
- }
- @ViewChild('InstallmentdateList') installmentdateList: ElementRef;
- openModalInstallmentdateList() {
-   this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+        this.alert.success(res.message);
+       this.getAllContractDetail();
+       this.modalService2.dismissAll("InstallmentGenerate");
+       this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+      }
+      else {
+        this.alert.error(res.message);
+        this.modalService2.dismissAll("InstallmentGenerate");
+        this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+      }
+    });
+  }
+  @ViewChild('InstallmentdateId') installmentdate: ElementRef;
+  openModalInstallmentdate() {
+    this.modalService.open(this.installmentdate, { size: 'lg', backdrop: 'static' });
 
- }
- ///
+  }
+  deleteInstallmentdate(){
+    if (this.contractDetailIdData.id == 0) return;
+    Swal.fire({
+      title: 'الحذف',
+      text: "هل متاكد من الحذف؟",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'نعم',
+      cancelButtonText:"لا"
+    }).then((result) => {
+      if (result.value) {
 
- @ViewChild('InstallmentGenerate') installmentGenerate: ElementRef;
- openModalInstallmentGeneratet() {
-   this.modalService2.open(this.installmentGenerate, { size: 'lg', backdrop: 'static' });
+        this._service.deleteContractDetail(this.contractDetailIdData.id).subscribe(res => {
+          if (res.isSuccess) {
+            this.getAllContractDetail()
+            this.alert.success(res.message);
 
- }
+          
+          }
+          else {
+            this.alert.error(res.message);
+          }
+        });
+      }
 
- installmentGeneratet(fromDate, toDate, numberInstallmen) {
+    })
+  }
+  editModalInstallmentdate(){
+    this.modalService.open(this.installmentdate, { size: 'lg', backdrop: 'static' });
+  
+    if( this.contractDetailIdData!=null|| this.contractDetailIdData!=undefined){
+      debugger
+      this.formcontractDetailId = this.formBuilder.group({
+        id: this.contractDetailIdData.id,
+        name: this.contractDetailIdData.name,
+        contractId: this.id,
+        isExtra: this.contractDetailIdData.isExtra,
+        date: Globals.formatDate(Date.parse(this.contractDetailIdData.date)),
+        amount:this.contractDetailIdData.amount
+      });
+    }
+  }
+  @ViewChild('InstallmentdateList') installmentdateList: ElementRef;
+  contractDetail: any = { totalCost: 0, totalItems: 0 ,totalAccessories:0};
+  openModalInstallmentdateList() {
+    if(this.id!=undefined||this.id>0)
+    { 
+      console.log(this.model)
+      //totalCost
+      this.contractDetail.totalCost=this.model.totalCost
+      this.contractDetail.totalItems=this.model.totalCost
+      this.getAllContractDetail()
+       this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
 
-   var start = fromDate.split('-');
-   var end = toDate.split('-');
-   var startYear = parseInt(start[0]);
-   var endYear = parseInt(end[0]);
-   var dates = [];
-   let number = 1;
-   for (var i = startYear; i <= endYear; i++) {
-     var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
-     var startMon = i === startYear ? parseInt(start[1]) - 1 : 0;
-     for (var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : j + 1) {
-       debugger
-       var month = j + 1;
-       var displayMonth = month < 10 ? '0' + month : month;
+    }
+  
 
-       let _temp: { [k: string]: any } = {};
-       let newDate = new Date([i, displayMonth, parseInt(start[2])].join('-'));
-       _temp.ProjectID = "قسط " + number++;
-       _temp.Number = numberInstallmen;
-       _temp.date = newDate;
+  }
+  ///
 
-       this.data2.push(_temp)
-       console.log(dates);
-       console.log(this.data2);
-     }
+  @ViewChild('InstallmentGenerate') installmentGenerate: ElementRef;
+  openModalInstallmentGeneratet() {
+    this.modalService2.open(this.installmentGenerate, { size: 'lg', backdrop: 'static' });
 
-   }
+  }
+  data2 = [];
+  installmentGeneratet(fromDate, toDate, numberInstallmen, numberMonth) {
+    this.data2 = []
+    var start = fromDate.split('-');
+    var end = toDate.split('-');
+    var startYear = parseInt(start[0]);
+    var endYear = parseInt(end[0]);
+    var dates = [];
+    let number = 1;
+    for (var i = startYear; i <= endYear; i++) {
+      var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
+      var startMon = i === startYear ? parseInt(start[1]) - 1 : 0;
 
+      for (var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : (Number(j) + Number(numberMonth))) {
+        debugger
+        var month = j + 1;
+        var displayMonth = month < 10 ? '0' + month : month;
 
+        let _temp: { [k: string]: any } = {};
+        let newDate = new Date([i, displayMonth, parseInt(start[2])].join('-'));
+        _temp.name = "قسط " + number++;
+        _temp.amount = numberInstallmen;
+        _temp.date = newDate;
+        _temp.isExtra = false;
+        _temp.contractID=this.id;
+        this.data2.push(_temp)
+        console.log(dates);
+        console.log(this.data2);
+      }
+    
+    }
 
-   this.modalService2.dismissAll("InstallmentGenerate");
-   this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+    let contractDetailDtos: any = { ContractDetailDtoList: null }
+    contractDetailDtos.contractDetailDtos = this.data2;
+    this._service.saveListContractDetail(contractDetailDtos).subscribe(res => {
+      if (res.isSuccess) {
 
- }
- data3=[{type:"اساسي",installment:"قسط 1",installmentDate:"23/4/2021",value1:"5000",numberBill:"4",payDate:"23/5/2021",value2:"6000"}]
+        this.alert.success(res.message);
+       this.getAllContractDetail();
+       this.modalService2.dismissAll("InstallmentGenerate");
+       this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+      }
+      else {
+        this.alert.error(res.message);
+        this.modalService2.dismissAll("InstallmentGenerate");
+        this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+      }
+    });
 
- @ViewChild('InstallmentPay') installmentPay: ElementRef;
- openModalInstallmentPay() {
-   this.modalService.open(this.installmentPay, { size: 'lg', backdrop: 'static' });
+  
 
- }
+  }
+
+  //
+  getTotal(list) {
+    let total = 0;
+  
+    list.forEach((item) => {
+      debugger
+      if(item.isExtra){
+        total += Number(item.amount);
+      }
+    
+    });
+  
+    return total;
+  }
+  getAllContractDetail() {
+
+    this._service.getAllContractDetail(this.id)
+      .subscribe(res => {
+        if (res.isSuccess) {
+
+          this.dataContractDetail = res.data;
+          this.contractDetail.totalAccessories=this.getTotal(this.dataContractDetail)
+        } else {
+          Swal.fire("حدث مشكلة", null, "error");
+        }
+
+        this.form.reset();
+      })
+  }
+  data3 = [{ type: "اساسي", installment: "قسط 1", installmentDate: "23/4/2021", value1: "5000", numberBill: "4", payDate: "23/5/2021", value2: "6000" }]
+
+  @ViewChild('InstallmentPay') installmentPay: ElementRef;
+  openModalInstallmentPay() {
+    this.modalService.open(this.installmentPay, { size: 'lg', backdrop: 'static' });
+
+  }
 }

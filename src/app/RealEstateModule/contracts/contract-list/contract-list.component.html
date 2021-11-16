@@ -454,40 +454,41 @@
     </div>
     <div class="modal-body">
   
-  
+      <form [formGroup]="formcontractDetailId">
       <div class="form-group row">
         <label for="" class="col-sm-2 col-form-label">القسط</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" #Floor id="numberFloor">
+          <input type="text" class="form-control" formControlName="name" id="name">
         </div>
       </div>
   
       <div class="form-group row">
         <label for="" class="col-sm-2 col-form-label"> المبلغ</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control">
+          <input type="number" class="form-control" formControlName="amount" id="amount">
         </div>
       </div>
       <div class="form-group row">
         <label for="" class="col-sm-2 col-form-label"> التاريخ</label>
         <div class="col-sm-10">
-          <input type="date" class="form-control">
+          <input type="date" class="form-control" formControlName="date" id="date">
         </div>
       </div>
 
       <div class="form-group row">
         <label for="" class="col-sm-2 col-form-label"> بند ملحق</label>
         <div class="col-sm-1">
-          <input type="checkbox" class="form-control">
+          <input type="checkbox" class="form-control" formControlName="isExtra" id="isExtra">
         </div>
       </div>
+      </form>
     </div>
     <div class="modal-footer px-2 py-2">
       <button type="button" (click)="installmentdate.close('Close click')" class="btn btn-outline-secondary mr-2">
         <i class="fas fa-undo"></i>
         اغلاق
       </button>
-      <button type="button" class="btn btn-info mr-2">
+      <button type="button" class="btn btn-info mr-2" (click)="saveContractDetailId()">
         <i class="far fa-save pr-1"></i>
         حفظ
     </button>
@@ -506,13 +507,13 @@
           <div class="pt-3 clearfix">
             <label for="" class="col-sm-2 col-form-label">  اجمالي العقد</label>
           
-              <input type="text" class="col-sm-2" value="60000">
+              <input type="text" disabled class="col-sm-2" value="{{contractDetail.totalCost}}">
               <label for="" class="col-sm-2 col-form-label">  اجمالي البنود</label>
           
-              <input type="text" class="col-sm-2" value="60000">
+              <input type="text" disabled class="col-sm-2" value="{{contractDetail.totalItems}}">
               <label for="" class="col-sm-2 col-form-label">  اجمالي الملحقات</label>
           
-              <input type="text" class="col-sm-2" value="8900">
+              <input type="text" disabled class="col-sm-2" value="{{contractDetail.totalAccessories}}">
             
            
           </div>
@@ -531,40 +532,43 @@
           
               <!-- edit -->
           
-              <button type="button" class="btn btn-outline-warning mx-1">
+              <button type="button" class="btn btn-outline-warning mx-1" (click)="editModalInstallmentdate()">
                 <i class="fas fa-plus"></i>
                 تعديل
               </button>
           
               <!-- delete -->
           
-              <button type="button" class="btn btn-outline-danger mx-1">
+              <button type="button" class="btn btn-outline-danger mx-1" (click)="deleteInstallmentdate()">
                 <i class="fas fa-trash-alt"></i>
                 حذف
               </button>
              
             </div>
             <br>
-            <ejs-grid #grid [dataSource]='data2'  [enableRtl]='true' [allowFiltering]='false'
-              [selectionSettings]='selectionsettings'  gridLines='Both'>
+            <ejs-grid #grid [dataSource]='dataContractDetail'  [enableRtl]='true' [allowFiltering]='false'
+              [selectionSettings]='selectionsettings'  gridLines='Both'
+              [textWrapSettings]='wrapSettings'
+           [resizeSettings]="resizeSettings" (rowSelected)='rowContractDetailSelected($event)'
+              >
               <e-columns>
                 <!-- <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false' [customAttributes]='customAttributes'
                   width='60'></e-column> -->
                
 
-                  <e-column [customAttributes]='customAttributes' headerText='بند الملحق ' [customAttributes]='customAttributes' width=90>
+                  <e-column editType='booleanedit' type="boolean" [customAttributes]='customAttributes' headerText='بند الملحق ' [customAttributes]='customAttributes' width=90>
                     <ng-template #template let-data>
-                      <ejs-checkbox   ></ejs-checkbox>
+                      <ejs-checkbox  [checked]="data?.isExtra" disabled ></ejs-checkbox>
                      
                     </ng-template>
                   </e-column>
                  
-                <e-column field='ProjectID' [customAttributes]='customAttributes'  headerText='بند العقد' textAlign='Right' width=120>
+                <e-column field='name' [customAttributes]='customAttributes'  headerText='بند العقد' textAlign='Right' width=120>
                 </e-column>
-                <e-column field='date' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right'
-                format='d/M/y' width=90></e-column>
+                <e-column field='date' format='dd/MM/yyyy' type='date' [customAttributes]='customAttributes' headerText='التاريخ' textAlign='Right'
+              width=90></e-column>
 
-                <e-column field='Number' [customAttributes]='customAttributes' headerText=' المبلغ' textAlign='Right'
+                <e-column field='amount' [customAttributes]='customAttributes' headerText=' المبلغ' textAlign='Right'
                   width=120>
                 </e-column>
               
@@ -613,13 +617,19 @@
           <input type="number" class="form-control" #numberInstallmen>
         </div>
       </div>
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label"> عدد الشهور</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" #numberMonth>
+        </div>
+      </div>
     </div>
     <div class="modal-footer px-2 py-2">
       <button type="button" (click)="installmentGenerate.close('Close click')" class="btn btn-outline-secondary mr-2">
         <i class="fas fa-undo"></i>
         اغلاق
       </button>
-      <button type="button" class="btn btn-outline-info mx-1 " (click)="installmentGeneratet(fromDate.value,toDate.value,numberInstallmen.value);installmentGenerate.close('Close click')">
+      <button type="button" class="btn btn-outline-info mx-1 " (click)="installmentGeneratet(fromDate.value,toDate.value,numberInstallmen.value,numberMonth.value);installmentGenerate.close('Close click')">
         <i class="fas fa-plus"></i>
         توليد 
       </button>

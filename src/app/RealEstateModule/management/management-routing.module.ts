@@ -61,7 +61,7 @@ const routes: Routes = [ {
 ,
 {
     path: 'Contract',
-    component: ContractListComponent,
+    component: ContractComponent,
     data: {
         title: ' التعاقدات',
         urls: [
