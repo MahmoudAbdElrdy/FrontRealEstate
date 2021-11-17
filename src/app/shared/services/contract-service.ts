@@ -81,4 +81,37 @@ export class ContractService {
     params = params.append('id', id);
     return this._httpClient.get<any>(environment.apiUrl + "/Contract/DeleteContractDetail", { params: params});
   } 
+  getAllInstallmentOverdue(model: any):Observable<ResponseData>{
+    return this._httpClient.post<any>(environment.apiUrl + "/Contract/GetAllInstallmentOverdue", model);
+  } 
+  getAllInstallmentAlert(id:any):Observable<any>{
+    let params = new HttpParams();
+    params = params.append('id', id);
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/GetAllInstallmentAlert", { params: params});
+  } 
+
+  ///
+  saveContractDetailBill(model: any):Observable<ResponseData>{
+    return this._httpClient.post<any>(environment.apiUrl + "/Contract/SaveContractDetailBill", model);
+  } 
+ 
+  getAllContractDetailBill(contractId):Observable<ResponseData>{
+    let params = new HttpParams();
+    params = params.append('contractId', contractId);
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/GetAllContractDetailBill", { params: params});
+  } 
+
+  getByIdContractDetailBill(id:any):Observable<any>{
+    let params = new HttpParams();
+    params = params.append('id', id);
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/GetByIdContractDetailBill", { params: params});
+  } 
+
+  deleteContractDetailBill(id: any):Observable<any>{
+    let params = new HttpParams();
+    params = params.append('id', id);
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/DeleteContractDetailBill", { params: params});
+  } 
+  ///
+  
 }
