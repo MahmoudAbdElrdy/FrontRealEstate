@@ -81,13 +81,13 @@ export class ContractService {
     params = params.append('id', id);
     return this._httpClient.get<any>(environment.apiUrl + "/Contract/DeleteContractDetail", { params: params});
   } 
-  getAllInstallmentOverdue(model: any):Observable<ResponseData>{
-    return this._httpClient.post<any>(environment.apiUrl + "/Contract/GetAllInstallmentOverdue", model);
+  getAllInstallmentAlert(model: any):Observable<ResponseData>{
+    return this._httpClient.post<any>(environment.apiUrl + "/Contract/GetAllInstallmentAlert", model);
   } 
-  getAllInstallmentAlert(id:any):Observable<any>{
+  getAllInstallmentOverdue(id:any):Observable<any>{
     let params = new HttpParams();
-    params = params.append('id', id);
-    return this._httpClient.get<any>(environment.apiUrl + "/Contract/GetAllInstallmentAlert", { params: params});
+    params = params.append('contractId', id);
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/GetAllInstallmentOverdue", { params: params});
   } 
 
   ///
@@ -95,9 +95,9 @@ export class ContractService {
     return this._httpClient.post<any>(environment.apiUrl + "/Contract/SaveContractDetailBill", model);
   } 
  
-  getAllContractDetailBill(contractId):Observable<ResponseData>{
+  getAllContractDetailBill(contractDetailId):Observable<ResponseData>{
     let params = new HttpParams();
-    params = params.append('contractId', contractId);
+    params = params.append('contractDetailId', contractDetailId);
     return this._httpClient.get<any>(environment.apiUrl + "/Contract/GetAllContractDetailBill", { params: params});
   } 
 
@@ -113,5 +113,19 @@ export class ContractService {
     return this._httpClient.get<any>(environment.apiUrl + "/Contract/DeleteContractDetailBill", { params: params});
   } 
   ///
+  getAllInstallmentNotPaid(contractId):Observable<ResponseData>{
+    let params = new HttpParams();
+    params = params.append('contractId', contractId);
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/GetAllInstallmentNotPaid", { params: params});
+  }
+  getAllViewPayInstallments(contractId):Observable<ResponseData>{
+    let params = new HttpParams();
+    params = params.append('contractId', contractId);
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/GetAllViewPayInstallments", { params: params});
+  }
+  //
+  getAllCancelledContracts(model):Observable<any>{
   
+    return this._httpClient.post<any>(environment.apiUrl + "/Contract/GetAllCancelledContracts",model);
+  }   
 }

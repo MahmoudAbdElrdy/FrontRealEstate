@@ -1,6 +1,7 @@
 
 <div class="row nav-item navbar-nav" style="display: flex; flex-wrap: nowrap; background: rgb(167, 138, 58)">
     <div
+    
         class="col-lg-4"
         style="
             color: #363e52;
@@ -10,7 +11,7 @@
             font-size: 1.3rem;
         "
     >
-     
+  
     </div>
     <div
         class="col-lg-4"
@@ -23,6 +24,8 @@
             text-align: center;
         "
     >
+    <img id="main-logo" src="assets/images/logo.jpeg" height="60" width="100" alt="logo" class="logo">
+
         {{ dateObj | date }} &nbsp; &nbsp; &nbsp;
         {{ time | async | date: "hh:mm:ss a" }}
     </div>

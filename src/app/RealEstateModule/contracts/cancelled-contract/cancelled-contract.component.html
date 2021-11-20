@@ -1,0 +1,54 @@
+<ng-container>
+
+    <div class="pt-3 clearfix">
+ 
+      
+    </div>
+    <br>
+    <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' height='100%' width='100%' (actionBegin)='begin($event)'
+      [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings'
+      [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings"
+      (rowSelected)='rowSelected($event)'>
+      <e-columns>
+          <e-column field='customer' [customAttributes]='customAttributes' headerText='   العميل' textAlign='Right' width=150>
+        </e-column>
+        <e-column field='project' [customAttributes]='customAttributes' headerText='  المشروع' textAlign='Right'
+          width=150>
+        </e-column>
+  
+        
+        <e-column field='date' format='dd/MM/yyyy' type='date' [customAttributes]='customAttributes'
+          headerText='تاريخ ' textAlign='Right' width=180>
+  
+          <ng-template #filterTemplate>
+  
+            <input type="date" #date class="form-control" (change)=onChangeDateTime(date.value) format='dd/MM/yyyy'
+              id="workSince">
+          </ng-template>
+        </e-column>
+  
+  
+        <e-column field='paid' [allowFiltering]='false' [disabled]="true" [customAttributes]='customAttributes'
+          height=400 headerText='  المدفوع' textAlign='Right' width=190>
+        </e-column>
+        <e-column field='back' [allowFiltering]='false' [disabled]="true" [customAttributes]='customAttributes'
+        height=400 headerText='  المسترجع' textAlign='Right' width=190>
+      </e-column>
+        <e-column [allowFiltering]='false' [allowSorting]='false' width='170' [disabled]="true" headerText='العمليات'
+          [customAttributes]='customAttributes'>
+          <ng-template #template let-data>
+           
+            <button class="btn btn-outline-danger" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+              (click)="remove(data.id)">
+              <i class="far fa-trash-alt"></i>
+            </button>
+          
+          </ng-template>
+        </e-column>
+  
+      </e-columns>
+    </ejs-grid>
+    <ejs-pager #pager [enableRtl]='true' [pageSize]='pageSize' [pageCount]='pageCount'
+      [totalRecordsCount]='totalRecordsCount' (click)="changePage($event)"></ejs-pager>
+  
+  </ng-container>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CancelledContractComponent } from './cancelled-contract/cancelled-contract.component';
 import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractComponent } from './contract/contract.component';
 
@@ -18,6 +19,17 @@ const routes: Routes = [ {
                   { title: ' التعاقدات', }
               ]
           }
+      },
+      {
+        path: 'CancelledContract',
+        component: CancelledContractComponent,
+        data: {
+            title: ' التعاقدات',
+            urls: [
+                { title: 'التعاقدات', url: '/Contracts' },
+                { title: ' التعاقدات', }
+            ]
+        }
       }
   ]
 }];

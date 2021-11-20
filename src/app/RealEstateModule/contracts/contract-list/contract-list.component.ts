@@ -44,7 +44,8 @@ export class ContractListComponent extends General implements OnInit {
   id: any;
   model: any = {};
   form: FormGroup;
-  formcontractDetailId: FormGroup;
+  formcontractDetail: FormGroup;
+  formcontractDetailBill: FormGroup;
   employeeName: string;
   data: object[];
   stockList = [{ value: true, text: "عقد سهم" }, { value: false, text: "عقد واحدات" }]
@@ -95,7 +96,7 @@ export class ContractListComponent extends General implements OnInit {
       contractFile: [[], []],
     });
 
-    
+
   }
   getDropDownList() {
 
@@ -132,7 +133,7 @@ export class ContractListComponent extends General implements OnInit {
           this.pageSize = res.pageSize;
 
         } else {
-          Swal.fire("حدث مشكلة", null, "error");
+          this.alert.error('حدثت مشكلة');
         }
 
         this.form.reset();
@@ -517,40 +518,40 @@ export class ContractListComponent extends General implements OnInit {
   }
   //  this.modalService.open(this.modalId, { size: 'lg', backdrop: 'static' });
   //date تاريخ الاقساط
-  ///
-  rowContractDetailSelected(args: RowSelectEventArgs) {
-    this.formcontractDetailId = this.formBuilder.group({
+  ///rowContractDetailSelected
+  rowContractDateSelected(args: RowSelectEventArgs) {
+    this.formcontractDetail = this.formBuilder.group({
       id: [0],
       name: [null, [Validators.required]],
       contractId: this.id,
       isExtra: false,
       date: Globals.formatDate(Date.now),
-      amount:0
+      amount: 0
     });
-    this.formcontractDetailId.reset();
-   debugger
+    this.formcontractDetail.reset();
+
     var data = args.data as any;
     this.contractDetailIdData = data;
-    if(data!=null){
-      this.formcontractDetailId = this.formBuilder.group({
+    if (data != null) {
+      this.formcontractDetail = this.formBuilder.group({
         id: [0],
         name: [null, [Validators.required]],
         contractId: this.id,
         isExtra: false,
         date: Globals.formatDate(Date.now),
-        amount:0
+        amount: 0
       });
     }
-   
+
   }
-  saveContractDetailId(){
-    this._service.saveContractDetail(this.formcontractDetailId.getRawValue()).subscribe(res => {
+  saveContractDetailId() {
+    this._service.saveContractDetail(this.formcontractDetail.getRawValue()).subscribe(res => {
       if (res.isSuccess) {
 
         this.alert.success(res.message);
-       this.getAllContractDetail();
-       this.modalService2.dismissAll("InstallmentGenerate");
-       this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+        this.getAllContractDetail();
+        this.modalService2.dismissAll("InstallmentGenerate");
+        this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
       }
       else {
         this.alert.error(res.message);
@@ -564,7 +565,7 @@ export class ContractListComponent extends General implements OnInit {
     this.modalService.open(this.installmentdate, { size: 'lg', backdrop: 'static' });
 
   }
-  deleteInstallmentdate(){
+  deleteInstallmentdate() {
     if (this.contractDetailIdData.id == 0) return;
     Swal.fire({
       title: 'الحذف',
@@ -574,7 +575,7 @@ export class ContractListComponent extends General implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'نعم',
-      cancelButtonText:"لا"
+      cancelButtonText: "لا"
     }).then((result) => {
       if (result.value) {
 
@@ -583,7 +584,7 @@ export class ContractListComponent extends General implements OnInit {
             this.getAllContractDetail()
             this.alert.success(res.message);
 
-          
+
           }
           else {
             this.alert.error(res.message);
@@ -593,35 +594,34 @@ export class ContractListComponent extends General implements OnInit {
 
     })
   }
-  editModalInstallmentdate(){
+  editModalInstallmentdate() {
     this.modalService.open(this.installmentdate, { size: 'lg', backdrop: 'static' });
-  
-    if( this.contractDetailIdData!=null|| this.contractDetailIdData!=undefined){
-      debugger
-      this.formcontractDetailId = this.formBuilder.group({
+
+    if (this.contractDetailIdData != null || this.contractDetailIdData != undefined) {
+
+      this.formcontractDetail = this.formBuilder.group({
         id: this.contractDetailIdData.id,
         name: this.contractDetailIdData.name,
         contractId: this.id,
         isExtra: this.contractDetailIdData.isExtra,
         date: Globals.formatDate(Date.parse(this.contractDetailIdData.date)),
-        amount:this.contractDetailIdData.amount
+        amount: this.contractDetailIdData.amount
       });
     }
   }
   @ViewChild('InstallmentdateList') installmentdateList: ElementRef;
-  contractDetail: any = { totalCost: 0, totalItems: 0 ,totalAccessories:0};
+  contractDetail: any = { totalCost: 0, totalItems: 0, totalAccessories: 0 };
   openModalInstallmentdateList() {
-    if(this.id!=undefined||this.id>0)
-    { 
+    if (this.id != undefined || this.id > 0) {
       console.log(this.model)
       //totalCost
-      this.contractDetail.totalCost=this.model.totalCost
-      this.contractDetail.totalItems=this.model.totalCost
+      this.contractDetail.totalCost = this.model.totalCost
+      this.contractDetail.totalItems = this.model.totalCost
       this.getAllContractDetail()
-       this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+      this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
 
     }
-  
+
 
   }
   ///
@@ -645,7 +645,7 @@ export class ContractListComponent extends General implements OnInit {
       var startMon = i === startYear ? parseInt(start[1]) - 1 : 0;
 
       for (var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : (Number(j) + Number(numberMonth))) {
-        debugger
+
         var month = j + 1;
         var displayMonth = month < 10 ? '0' + month : month;
 
@@ -655,12 +655,12 @@ export class ContractListComponent extends General implements OnInit {
         _temp.amount = numberInstallmen;
         _temp.date = newDate;
         _temp.isExtra = false;
-        _temp.contractID=this.id;
+        _temp.contractID = this.id;
         this.data2.push(_temp)
         console.log(dates);
         console.log(this.data2);
       }
-    
+
     }
 
     let contractDetailDtos: any = { ContractDetailDtoList: null }
@@ -669,9 +669,9 @@ export class ContractListComponent extends General implements OnInit {
       if (res.isSuccess) {
 
         this.alert.success(res.message);
-       this.getAllContractDetail();
-       this.modalService2.dismissAll("InstallmentGenerate");
-       this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+        this.getAllContractDetail();
+        this.modalService2.dismissAll("InstallmentGenerate");
+        this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
       }
       else {
         this.alert.error(res.message);
@@ -680,22 +680,22 @@ export class ContractListComponent extends General implements OnInit {
       }
     });
 
-  
+
 
   }
 
   //
   getTotal(list) {
     let total = 0;
-  
+
     list.forEach((item) => {
-      debugger
-      if(item.isExtra){
+
+      if (item.isExtra) {
         total += Number(item.amount);
       }
-    
+
     });
-  
+
     return total;
   }
   getAllContractDetail() {
@@ -705,19 +705,223 @@ export class ContractListComponent extends General implements OnInit {
         if (res.isSuccess) {
 
           this.dataContractDetail = res.data;
-          this.contractDetail.totalAccessories=this.getTotal(this.dataContractDetail)
+          this.contractDetail.totalAccessories = this.getTotal(this.dataContractDetail)
         } else {
-          Swal.fire("حدث مشكلة", null, "error");
+          this.alert.error('حدثت مشكلة');
         }
 
         this.form.reset();
       })
   }
-  data3 = [{ type: "اساسي", installment: "قسط 1", installmentDate: "23/4/2021", value1: "5000", numberBill: "4", payDate: "23/5/2021", value2: "6000" }]
-
+  // data3 = [{ type: "اساسي", installment: "قسط 1", installmentDate: "23/4/2021", value1: "5000", numberBill: "4", payDate: "23/5/2021", value2: "6000" }]
+  //viewPayInstallments
   @ViewChild('InstallmentPay') installmentPay: ElementRef;
   openModalInstallmentPay() {
     this.modalService.open(this.installmentPay, { size: 'lg', backdrop: 'static' });
+    if (this.id) {
+      this._service.getAllViewPayInstallments(this.id)
+        .subscribe(res => {
+          if (res.isSuccess) {
 
+            this.viewPayInstallments = res.data;
+
+          } else {
+            this.alert.error('حدثت مشكلة');
+          }
+
+          this.form.reset();
+        })
+    }
+  }
+
+  //Safe
+  dataSafe = []
+
+  @ViewChild('Safe') safe: ElementRef;
+  openModalSafe() {
+    if (this.id) {
+      this.modalService.open(this.safe, { size: 'lg', backdrop: 'static' });
+      this._service.getAllInstallmentNotPaid(this.id)
+        .subscribe(res => {
+          if (res.isSuccess) {
+
+            this.installmentNotPaid = res.data;
+
+          } else {
+            this.alert.error('حدثت مشكلة');
+          }
+
+          this.form.reset();
+        })
+    }
+
+  }
+  //rowContractDetailSelected rowContractBillSelected
+  rowContractDetailSelected(args: RowSelectEventArgs) {
+    
+    var data = args.data as any;
+    this.contractDetailId = data.id;
+
+    if (this.contractDetailId) {
+      this._service.getAllContractDetailBill(this.contractDetailId)
+        .subscribe(res => {
+          if (res.isSuccess) {
+
+            this.dataSafe = res.data;
+
+          } else {
+            this.alert.error('حدثت مشكلة');
+          }
+
+
+        })
+    }
+    this.formcontractDetailBill = this.formBuilder.group({
+      id: [0],
+      number: [null, [Validators.required]],
+      contractDetailId: this.contractDetailId,
+      date: Globals.formatDate(Date.now),
+      paid: [null, [Validators.required]],
+    });
+  }
+  //
+  //Safe
+  rowContractBillSelected(args: RowSelectEventArgs) {
+    
+    this.dataContractDetailBill = args.data as any;
+    this.contractDetailBillId = this.dataContractDetailBill.id
+    this.formcontractDetailBill = this.formBuilder.group({
+      id: [0],
+      number: [null, [Validators.required]],
+      contractDetailId: this.contractDetailId,
+      date: Globals.formatDate(Date.now),
+      paid: [null, [Validators.required]],
+    });
+
+  }
+  @ViewChild('SafeAddEdit') safeAddEdit: ElementRef;
+  openModalSafeAddEdit() {
+    this.formcontractDetailBill.reset()
+    this.modalService.open(this.safeAddEdit, { size: 'lg', backdrop: 'static' });
+  }
+  openModalSafeEdit() {
+    this.formcontractDetailBill.reset()
+
+    var data = this.dataContractDetailBill;
+    this.modalService.open(this.safeAddEdit, { size: 'lg', backdrop: 'static' });
+    if (data != null) {
+      this._service.getByIdContractDetailBill(this.dataContractDetailBill.id)
+        .subscribe(res => {
+          if (res.isSuccess) {
+
+            if (data != null) {
+              this.formcontractDetailBill.patchValue({
+                id: data.id,
+                number: data.number,
+                contractDetailId: this.contractDetailId,
+                date: Globals.formatDate(Date.parse(data.date)),
+                paid: data.paid,
+              });
+            }
+          } else {
+            this.alert.error('حدثت مشكلة');
+          }
+
+
+        })
+    }
+
+
+  }
+  safeAddEditClick() {
+    this.formcontractDetailBill.patchValue({
+      contractDetailId: this.contractDetailId,
+    });
+    this._service.saveContractDetailBill(this.formcontractDetailBill.getRawValue()).subscribe(res => {
+      if (res.isSuccess) {
+
+        this.modalService.dismissAll();
+        if (this.contractDetailId) {
+          this._service.getAllContractDetailBill(this.contractDetailId)
+            .subscribe(res => {
+              if (res.isSuccess) {
+
+                this.dataSafe = res.data;
+                this.alert.success(res.message);
+                this.openModalSafe();
+              } else {
+                this.alert.error('حدثت مشكلة');
+              }
+
+
+            })
+        }
+
+      }
+      else {
+        this.alert.error(res.message);
+      }
+    });
+
+  }
+  removeContractDetailBill() {
+    if (this.contractDetailBillId != undefined)
+      this.removeGeneral(this.contractDetailBillId)
+  }
+  //
+  //viewPayInstallments
+  contractDetailDate = { contractId: 0, fromDate: null, toDate: null }
+  @ViewChild('InstallmentAlert') installmentAlert: ElementRef;
+  openModalInstallmentAlert() {
+    if (this.id)
+      this.modalService.open(this.installmentAlert, { size: 'lg', backdrop: 'static' });
+
+  }
+  openModalAlert() {
+
+    if (this.id) {
+      this.contractDetailDate.contractId = this.id;
+      this._service.getAllInstallmentAlert(this.contractDetailDate)
+        .subscribe(res => {
+          if (res.isSuccess) {
+
+            this.viewAlertInstallments = res.data;
+
+          } else {
+            this.alert.error('حدثت مشكلة');
+          }
+
+          this.form.reset();
+        })
+    }
+  }
+  //
+
+  @ViewChild('InstallmentOverdue') installmentOverdue: ElementRef;
+  openModalInstallmentOverdue() {
+    if (this.id)
+      this.modalService.open(this.installmentOverdue, { size: 'lg', backdrop: 'static' });
+    if (this.id) {
+      
+      this._service.getAllInstallmentOverdue(this.id)
+        .subscribe(res => {
+          
+          if (res.isSuccess) {
+            
+            this.viewOverdueInstallments = res.data;
+
+          } else {
+            this.alert.error('حدثت مشكلة')
+          }
+
+
+        })
+    }
+
+  }
+  openCancelledContract(){
+    //CancelledContract
+    debugger
+    this.router.navigateByUrl('/Management/CancelledContract')
   }
 }
