@@ -29,6 +29,16 @@ export const ROUTES: RouteInfo[] = [
         extralink: false,
         submenu: []
 },
+,
+
+{
+        path: '/Management/Supervisor',
+        title: 'المشرفيين',
+        icon: 'fas fa-user',
+        class: '',
+        extralink: false,
+        submenu: []
+},
 {
        
         title: 'خدمة العملاء',

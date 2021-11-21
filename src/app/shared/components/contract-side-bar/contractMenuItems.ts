@@ -12,4 +12,13 @@ export const ROUTES: RouteInfo[] = [
         submenu: []
 },
 
+{
+        path: '/Contracts/Supervisor',
+        title: 'المشرفيين',
+        icon: 'fas fa-user',
+        class: '',
+        extralink: false,
+        submenu: []
+},
+
 ];

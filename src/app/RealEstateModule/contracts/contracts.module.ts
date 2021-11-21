@@ -11,8 +11,9 @@ import { ContractListComponent } from './contract-list/contract-list.component';
 import { DatePickerModule, DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
 import { CancelledContractComponent } from './cancelled-contract/cancelled-contract.component';
+import { SupervisorComponent } from './supervisor/supervisor.component';
 @NgModule({
-  declarations: [ ContractListComponent, CancelledContractComponent],
+  declarations: [ ContractListComponent, CancelledContractComponent, SupervisorComponent],
   imports: [ ReactiveFormsModule, FormsModule, 
      GridModule,DropDownListModule,SharedModule,ComboBoxModule,
      CommonModule,PagerModule,DateTimePickerModule,DatePickerModule,

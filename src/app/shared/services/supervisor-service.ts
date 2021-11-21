@@ -17,6 +17,9 @@ export class SupervisorService {
   createUpdate(Supervisor: any):Observable<ResponseData>{
     return this._httpClient.post<any>(environment.apiUrl + "/Supervisor/CreateUpdate", Supervisor);
   } 
+  saveSupervisorDetail(Supervisor: any):Observable<ResponseData>{
+    return this._httpClient.post<any>(environment.apiUrl + "/Supervisor/SaveSupervisorDetail", Supervisor);
+  } 
 
   getAll(filter):Observable<ResponseData>{
     return this._httpClient.post<any>(environment.apiUrl + "/Supervisor/GetAll",filter);

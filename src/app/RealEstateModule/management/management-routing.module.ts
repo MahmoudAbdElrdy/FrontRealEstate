@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CancelledContractComponent } from '../contracts/cancelled-contract/cancelled-contract.component';
 import { ContractListComponent } from '../contracts/contract-list/contract-list.component';
+import { SupervisorComponent } from '../contracts/supervisor/supervisor.component';
 import { CustomersComponent } from '../customers-service/customers/customers.component';
 import { ProjectVisitComponent } from '../customers-service/project-visit/project-visit.component';
 import { CustomersSalesComponent } from '../sales/customers/customers.component';
@@ -128,7 +129,18 @@ const routes: Routes = [ {
         ]
     }
   } 
-    
+  ,
+  {
+    path: 'Supervisor',
+    component: SupervisorComponent,
+    data: {
+        title: ' المشرفين',
+        urls: [
+            { title: 'المشرفين', url: '/Management' },
+            { title: ' المشرفين', }
+        ]
+    }
+  }
   ]
 }];
 @NgModule({
