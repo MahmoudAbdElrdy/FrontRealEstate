@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CancelledContractComponent } from './cancelled-contract/cancelled-contract.component';
 import { ContractListComponent } from './contract-list/contract-list.component';
-import { ContractComponent } from './contract/contract.component';
+
 
 
 

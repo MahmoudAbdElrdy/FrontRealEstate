@@ -33,7 +33,7 @@
     </button>
   </div>
   <br>
-  <ejs-grid [dataSource]='data'  #grid   [enableRtl]='true' [allowFiltering]='true' [allowResizing]='true'   [isResponsive]="true" [enableResponsiveRow]="true"
+  <ejs-grid [dataSource]='data' [filterSettings]="filterSettings"  #grid   [enableRtl]='true' [allowFiltering]='true' [allowResizing]='true'   [isResponsive]="true" [enableResponsiveRow]="true"
   [selectionSettings]='selectionsettings' (dataBound)='dataBound()' gridLines='Both' (rowSelected)='rowSelected($event)' (actionBegin)='begin($event)'>
 
     <e-columns>

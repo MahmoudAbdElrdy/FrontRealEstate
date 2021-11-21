@@ -59,7 +59,9 @@ export class EmployeeSalaryComponent extends General implements OnInit {
     //  this.selectionsettings = { checkboxOnly: true };
     this.selectionsettings = { type: 'Single' };
     this.filter.employeeId = this.activeRoute.snapshot.queryParams['employeeId']
-   
+    this.filterSettings = {
+      type: 'FilterBar', hierarchyMode: 'Parent', mode: 'Immediate',
+    }
     this.employeeName= localStorage.getItem("employeeName");
     this.getData(this.filter);
     this.form = this.formBuilder.group({

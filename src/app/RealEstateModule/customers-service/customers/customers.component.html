@@ -29,7 +29,7 @@
   </div>
   <br>
   <ejs-grid [dataSource]='data'  #grid   [enableRtl]='true' [allowFiltering]='true' [allowResizing]='true'   [isResponsive]="true" [enableResponsiveRow]="true"
-  [selectionSettings]='selectionsettings' (dataBound)='dataBound()' gridLines='Both' (rowSelected)='rowSelected($event)' (actionBegin)='begin($event)'>
+  [selectionSettings]='selectionsettings' [filterSettings]="filterSettings" (dataBound)='dataBound()' gridLines='Both' (rowSelected)='rowSelected($event)' (actionBegin)='begin($event)'>
 
     <e-columns>
       <!-- <e-column type='checkbox' [allowFiltering]='false' [allowSorting]='false' [customAttributes]='customAttributes'

@@ -55,7 +55,9 @@ export class CustomersComponent extends General implements OnInit {
     //  this.selectionsettings = { checkboxOnly: true };
     this.selectionsettings = { type: 'Single' };
     this.getData(this.filter);
-
+    this.filterSettings = {
+      type: 'FilterBar', hierarchyMode: 'Parent', mode: 'Immediate',
+    }
     this.form = this.formBuilder.group({
       id: [0],
       name: ['', [Validators.required]],

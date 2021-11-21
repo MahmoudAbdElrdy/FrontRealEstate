@@ -55,7 +55,7 @@
   </div>
   <br>
   <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' height='100%' width='100%' (actionBegin)='begin($event)'
-    [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings'
+    [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings' [filterSettings]="filterSettings"
     [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings"
     (rowSelected)='rowSelected($event)'>
     <e-columns>
@@ -63,11 +63,11 @@
                 [customAttributes]='customAttributes' width='60'></e-column> -->
 
       <e-column field='projectName' [customAttributes]='customAttributes' headerText='العقار ' textAlign='Right'
-        width=150>
+        width=200>
         <ng-template #filterTemplate>
 
-          <ejs-dropdownlist id="project" [dataSource]='dataDropDown' [changeOnBlur]='false' [allowFiltering]='true'
-            [autofill]='true' [enableRtl]='true' width=450 placeholder="اختار" [fields]='FieldsProject'
+          <ejs-dropdownlist  id="project" [dataSource]='dataDropDown' [changeOnBlur]='false' [allowFiltering]='true'
+            [autofill]='true'  width=200 placeholder="اختار" [fields]='FieldsProject'
             (change)='onChangeProject($event)' [showClearButton]="true">
           </ejs-dropdownlist>
         </ng-template>

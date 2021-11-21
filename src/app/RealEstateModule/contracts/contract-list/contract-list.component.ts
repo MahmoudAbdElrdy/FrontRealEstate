@@ -72,7 +72,9 @@ export class ContractListComponent extends General implements OnInit {
     //  this.selectionsettings = { checkboxOnly: true };
     this.selectionsettings = { type: 'Single' };
 
-
+    this.filterSettings = {
+      type: 'FilterBar', hierarchyMode: 'Parent', mode: 'Immediate',
+    }
     this.wrapSettings = { wrapMode: "Content" };
     this.getData(this.filter);
     this.getDropDownList()

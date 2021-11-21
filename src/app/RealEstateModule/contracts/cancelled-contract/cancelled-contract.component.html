@@ -6,7 +6,7 @@
     </div>
     <br>
     <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' height='100%' width='100%' (actionBegin)='begin($event)'
-      [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings'
+      [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings' [filterSettings]="filterSettings"
       [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings"
       (rowSelected)='rowSelected($event)'>
       <e-columns>

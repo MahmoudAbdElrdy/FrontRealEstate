@@ -2,7 +2,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/cor
 import { CommonModule } from '@angular/common';
 
 import { ContractsRoutingModule } from './contracts-routing.module';
-import { ContractComponent } from './contract/contract.component';
 import { GridModule, PagerModule } from '@syncfusion/ej2-angular-grids';
 import { ComboBoxModule, DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { SharedModule } from '../shared/shared.module';
@@ -13,7 +12,7 @@ import { DatePickerModule, DateTimePickerModule } from '@syncfusion/ej2-angular-
 import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
 import { CancelledContractComponent } from './cancelled-contract/cancelled-contract.component';
 @NgModule({
-  declarations: [ContractComponent, ContractListComponent, CancelledContractComponent],
+  declarations: [ ContractListComponent, CancelledContractComponent],
   imports: [ ReactiveFormsModule, FormsModule, 
      GridModule,DropDownListModule,SharedModule,ComboBoxModule,
      CommonModule,PagerModule,DateTimePickerModule,DatePickerModule,

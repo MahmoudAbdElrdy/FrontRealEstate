@@ -53,7 +53,9 @@ export class ProjectVisitComponent extends General implements OnInit {
     //  this.selectionsettings = { checkboxOnly: true };
     this.selectionsettings = { type: 'Single' };
     this.filter.customerId = this.activeRoute.snapshot.queryParams['customerId']
-
+    this.filterSettings = {
+      type: 'FilterBar', hierarchyMode: 'Parent', mode: 'Immediate',
+    }
     this.customerName = localStorage.getItem("customerName");
     this.getData(this.filter);
     this.getDropDownList();

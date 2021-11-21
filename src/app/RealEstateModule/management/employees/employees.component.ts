@@ -54,7 +54,9 @@ export class EmployeesComponent extends General implements OnInit {
     this.selectionsettings = { type: 'Single' };
     this.getData(this.filter);
     this.getDropDownList();
-
+    this.filterSettings = {
+      type: 'FilterBar', hierarchyMode: 'Parent', mode: 'Immediate',
+    }
     this.form = this.formBuilder.group({
       id: [0],
       departmentId: [0,],

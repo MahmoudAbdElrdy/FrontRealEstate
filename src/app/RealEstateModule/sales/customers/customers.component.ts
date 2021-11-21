@@ -80,6 +80,9 @@ export class CustomersSalesComponent extends General implements OnInit {
     this.customAttributes = { class: 'customcss' }; //use custom cs
     //  this.selectionsettings = { checkboxOnly: true };
     this.selectionsettings = { type: 'Single' };
+    this.filterSettings = {
+      type: 'FilterBar', hierarchyMode: 'Parent', mode: 'Immediate',
+    }
     this.getData(this.filter);
     this.getDropDownList();
     this.form = this.formBuilder.group({

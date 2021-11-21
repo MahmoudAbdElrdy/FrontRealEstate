@@ -27,7 +27,9 @@ export class CancelledContractComponent extends General implements OnInit {
     this.customAttributes = { class: 'customcss' }; //use custom cs
     //  this.selectionsettings = { checkboxOnly: true };
     this.selectionsettings = { type: 'Single' };
-
+    this.filterSettings = {
+      type: 'FilterBar', hierarchyMode: 'Parent', mode: 'Immediate',
+    }
 
     this.wrapSettings = { wrapMode: "Content" };
     this.getData();

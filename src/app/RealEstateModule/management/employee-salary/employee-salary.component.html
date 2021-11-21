@@ -40,7 +40,7 @@
 
     </div>
     <br>
-   <ejs-grid [dataSource]='data'  #grid   [enableRtl]='true' [allowFiltering]='false' [allowResizing]='true'   [isResponsive]="true" [enableResponsiveRow]="true"
+   <ejs-grid [dataSource]='data' [filterSettings]="filterSettings"  #grid   [enableRtl]='true' [allowFiltering]='false' [allowResizing]='true'   [isResponsive]="true" [enableResponsiveRow]="true"
         [selectionSettings]='selectionsettings'  gridLines='Both' (rowSelected)='rowSelected($event)'>
         <e-columns>
          
