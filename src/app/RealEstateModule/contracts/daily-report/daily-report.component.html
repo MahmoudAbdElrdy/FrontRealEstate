@@ -1,0 +1,177 @@
+<ng-container>
+
+    <div class="pt-3 clearfix">
+
+        <!-- new -->
+
+        <button type="button" class="btn btn-outline-info mx-1 " (click)="openModal()">
+            <i class="fas fa-plus"></i>
+            جديد
+        </button>
+
+        <!-- edit -->
+
+        <button type="button" class="btn btn-outline-warning mx-1" (click)="openEditModal()">
+            <i class="fas fa-plus"></i>
+            تعديل
+        </button>
+
+        <!-- delete -->
+
+        <button type="button" class="btn btn-outline-danger mx-1" (click)="removeSlect()">
+            <i class="fas fa-trash-alt"></i>
+            حذف
+        </button>
+      
+    </div>
+    <br>
+    <ejs-grid [dataSource]='data' #grid [enableRtl]='true' [allowFiltering]='true' [allowResizing]='true'
+        [isResponsive]="true" [enableResponsiveRow]="true" [selectionSettings]='selectionsettings'
+        [filterSettings]="filterSettings" (dataBound)='dataBound()' gridLines='Both' (rowSelected)='rowSelected($event)'
+        (actionBegin)='begin($event)'>
+
+        <e-columns>
+            <e-column field='employeeName' [customAttributes]='customAttributes' headerText='مسؤول حسابات '
+                textAlign='Right' width=120>
+                <ng-template #filterTemplate>
+
+                    <ejs-dropdownlist  [dataSource]='dataEmployee' (change)='onChangeEmployee($event)' 
+                    [changeOnBlur]='false' [allowFiltering]='true' [autofill]='true' [enableRtl]='true'
+                    placeholder="اختار" [fields]='FieldsDDL' [showClearButton]="true">
+                </ejs-dropdownlist>
+                  </ng-template>
+            </e-column>
+            <e-column field='supervisorName' [customAttributes]='customAttributes' headerText='مشرف مستلم'
+                textAlign='Right' format='C2' width=90>
+                <ng-template #filterTemplate>
+
+                    <ejs-dropdownlist  [dataSource]='dataSupervisor'   (change)='onChangeSupervisor($event)' 
+                    [changeOnBlur]='false' [allowFiltering]='true' [autofill]='true' [enableRtl]='true'
+                    placeholder="اختار" [fields]='FieldsDDL' [showClearButton]="true">
+                </ejs-dropdownlist>
+                  </ng-template>
+            </e-column>
+            <e-column field='value' [customAttributes]='customAttributes' headerText='قيمة' textAlign='Right' width=120>
+            </e-column>
+            <e-column field='employeeSubmitted' [customAttributes]='customAttributes'
+                headerText='اسم الموظف المسلم للمشرف' textAlign='Right' width=120>
+            </e-column>
+            <e-column field='date' format='dd/MM/yyyy' type='date' [customAttributes]='customAttributes'
+                headerText='تاريخ العمل' textAlign='Right' width=180>
+
+                <ng-template #filterTemplate>
+
+                    <input type="date" #date class="form-control" (change)=onChangeDateTime(date.value)
+                        format='dd/MM/yyyy' id="workSince">
+                </ng-template>
+            </e-column>
+            <e-column field='notes' [allowFiltering]='false' [disabled]="true" [customAttributes]='customAttributes'
+                height=400 headerText='  الملاحظات' textAlign='Right' width=190>
+            </e-column>
+            <e-column [allowFiltering]='false' [allowSorting]='false' width='90' [disabled]="true" headerText='العمليات'
+                [customAttributes]='customAttributes'>
+                <ng-template #template let-data>
+                    <button class="btn btn-outline-info mx-1" data-toggle="tooltip" data-placement="bottom"
+                        (click)="openEdit(data.id)">
+                        <i class="far fa-edit"></i>
+                    </button>
+                    <button class="btn btn-outline-danger" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+                        (click)="remove(data.id)">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+
+
+                </ng-template>
+            </e-column>
+        </e-columns>
+    </ejs-grid>
+    <!-- <app-pager (pageChange)="paggination($event)" [pager]="pager"></app-pager> -->
+    <ejs-pager #pager [enableRtl]='true' [pageSize]='pageSize' [pageCount]='pageCount'
+        [totalRecordsCount]='totalRecordsCount' (click)="changePage($event)"></ejs-pager>
+
+</ng-container>
+
+
+<ng-template #ModalId let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">اضافة</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form">
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">اسم المشرف</label>
+                <div class="col-sm-10">
+                    <ejs-dropdownlist id="supervisorId" formControlName="supervisorId" [dataSource]='dataSupervisor'
+                        [changeOnBlur]='false' [allowFiltering]='true' [autofill]='true' [enableRtl]='true'
+                        placeholder="اختار" [fields]='FieldsDDL' [showClearButton]="true">
+                    </ejs-dropdownlist>
+                    <small *ngIf="(f.supervisorId.errors?.required)&&(f.supervisorId.touched)"
+                        class="w-100 text-danger mt-1">
+                        مطلوب
+                    </small>
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">اسم المسئول</label>
+                <div class="col-sm-10">
+                    <ejs-dropdownlist id="employeeId" formControlName="employeeId" [dataSource]='dataEmployee'
+                        [changeOnBlur]='false' [allowFiltering]='true' [autofill]='true' [enableRtl]='true'
+                        placeholder="اختار" [fields]='FieldsDDL' [showClearButton]="true">
+                    </ejs-dropdownlist>
+                    <small *ngIf="(f.employeeId.errors?.required)&&(f.employeeId.touched)"
+                        class="w-100 text-danger mt-1">
+                        مطلوب
+                    </small>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <label for="phone" class="col-sm-2 col-form-label">اسم الموظف المسلم للمشرف</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="employeeSubmitted" formControlName="employeeSubmitted">
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="value" class="col-sm-2 col-form-label">القيمة</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="value" formControlName="value">
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="date">التاريخ</label>
+                <div class="col-sm-10">
+                    <input type="date" formControlName="date" class="form-control" id="date">
+                </div>
+                <small *ngIf="(form.get('date').errors?.required)&&(form.get('date').touched)"
+                    class="w-100 text-danger mt-1">
+                    مطلوب
+                </small>
+            </div>
+            <div class="form-group row">
+                <label for="notes" class="col-sm-2 col-form-label">الملاحظات</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="notes" formControlName="notes">
+                     </textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer px-2 py-2">
+        <button type="button" (click)="modal.close('Close click')" class="btn btn-outline-secondary mr-2">
+            <i class="fas fa-undo"></i>
+            اغلاق
+        </button>
+        <button type="button" class="btn btn-info mr-2" (click)="addEitFrom()">
+            <i class="far fa-save pr-1"></i>
+            حفظ
+        </button>
+    </div>
+</ng-template>

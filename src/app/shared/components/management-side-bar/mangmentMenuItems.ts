@@ -40,6 +40,14 @@ export const ROUTES: RouteInfo[] = [
         submenu: []
 },
 {
+        path: '/Management/DailyReport',
+        title: 'التقرير اليومي',
+        icon: 'fas fa-user',
+        class: '',
+        extralink: false,
+        submenu: []
+},
+{
        
         title: 'خدمة العملاء',
         path: '',

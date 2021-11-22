@@ -20,5 +20,13 @@ export const ROUTES: RouteInfo[] = [
         extralink: false,
         submenu: []
 },
+{
+        path: '/Contracts/DailyReport',
+        title: 'التقرير اليومي',
+        icon: 'fas fa-user',
+        class: '',
+        extralink: false,
+        submenu: []
+},
 
 ];
