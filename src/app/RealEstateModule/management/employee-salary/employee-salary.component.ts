@@ -33,7 +33,7 @@ export class EmployeeSalaryComponent extends General implements OnInit {
   departmentDDL = [];
   //FieldsDDL:Object;
   FieldsDDL: Object = { text: 'text', value: 'value' };
-  filter: looseObject = { pageNumber: 1, pageSize: 10, employeeId: 0, date: null };
+  filter: looseObject = { pageNumber: 1, pageSize: 15, employeeId: 0, date: null };
   selectedRowIndexes: any;
   id: any;
   model: any;

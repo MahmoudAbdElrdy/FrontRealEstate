@@ -1,6 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { L10n, setCulture } from '@syncfusion/ej2-base';
+import { Locales } from 'src/app/shared/helper/constants';
+setCulture('ar-AE');
+L10n.load(Locales.getLocaleObjects())
 declare var $: any;
 @Component({
   selector: 'app-sales',

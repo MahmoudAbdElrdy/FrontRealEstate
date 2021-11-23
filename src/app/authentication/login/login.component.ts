@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
     let decodedJwtJsonData = window.atob(jwtData)
     let decodedJwtData = JSON.parse(decodedJwtJsonData)
    
-   
+   debugger
     let department = decodedJwtData.Department;
     
     if(department=="Administration"){
@@ -82,28 +82,14 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("UserName",this.UserName);
       localStorage.setItem("department",department);
       this.router.navigate(['/Sales/CustomerSales'])
-    } else if(department=="EM"){
+    } else if(department=="safe"||department=="Contracting-a"){
       this.alertify.toastSuccess("تم الدخول بنجاح");
       localStorage.setItem("userToken",next.token);
       localStorage.setItem('isLoggedin', 'true');
       localStorage.setItem("UserName",this.UserName);
       localStorage.setItem("department",department);
-      this.router.navigate(['/EM/Customer'])
-    } else if(department=="CEO"){
-      this.alertify.toastSuccess("تم الدخول بنجاح");
-      localStorage.setItem("userToken",next.token);
-      localStorage.setItem('isLoggedin', 'true');
-      localStorage.setItem("UserName",this.UserName);
-      localStorage.setItem("department",department);
-      this.router.navigate(['/CEO/AddPayment'])
-    }else if(department=="FM"){
-      this.alertify.toastSuccess("تم الدخول بنجاح");
-      localStorage.setItem("userToken",next.token);
-      localStorage.setItem('isLoggedin', 'true');
-      localStorage.setItem("UserName",this.UserName);
-      localStorage.setItem("department",department);
-      this.router.navigate(['/FinanceManager/AddPayment'])
-    }else{
+      this.router.navigate(['/Contracts/Contract'])
+    } else{
         this.toastr.error('لاتملك صالحية', 'خطأ');  
       }
 

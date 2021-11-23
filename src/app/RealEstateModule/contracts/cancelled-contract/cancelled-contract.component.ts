@@ -1,14 +1,12 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FilterService, GridComponent, PagerComponent, PageService, RowSelectEventArgs, SortService, TextWrapSettingsModel, ToolbarService } from '@syncfusion/ej2-angular-grids';
-import { looseObject } from 'src/app/shared/models/looseObject';
-import Swal from 'sweetalert2';
-import { ResponseData } from 'src/app/shared/models/ResponseData';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FilterService, GridComponent, PagerComponent, PageService, SortService, TextWrapSettingsModel, ToolbarService } from '@syncfusion/ej2-angular-grids';
 import { AlertifyService } from 'src/app/shared/services/alertify.service';
 import { General } from 'src/app/shared/helper/general';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from 'src/app/shared/services/contract-service';
+import { L10n, setCulture } from '@syncfusion/ej2-base';
+import { Locales } from 'src/app/shared/helper/constants';
+setCulture('ar-AE');
+L10n.load(Locales.getLocaleObjects())
 @Component({
   selector: 'app-cancelled-contract',
   templateUrl: './cancelled-contract.component.html',

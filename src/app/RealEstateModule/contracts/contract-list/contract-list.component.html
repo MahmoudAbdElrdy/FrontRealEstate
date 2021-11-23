@@ -137,7 +137,7 @@
 
     </e-columns>
   </ejs-grid>
-  <ejs-pager #pager [enableRtl]='true' [pageSize]='pageSize' [pageCount]='pageCount'
+  <ejs-pager *ngIf="data?.length>0" #pager [enableRtl]='true' [pageSize]='pageSize' [pageCount]='pageCount'
     [totalRecordsCount]='totalRecordsCount' (click)="changePage($event)"></ejs-pager>
 
 </ng-container>

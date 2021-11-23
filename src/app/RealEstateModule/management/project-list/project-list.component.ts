@@ -31,7 +31,7 @@ export class ProjectListComponent extends General implements OnInit {
   departmentDDL = [];
   //FieldsDDL:Object;
   FieldsDDL: Object = { text: 'text', value: 'value' };
-  filter: looseObject = { pageNumber: 1, pageSize: 10, name: null, address: null, floors: 0 };
+  filter: looseObject = { pageNumber: 1, pageSize: 15, name: null, address: null, floors: 0 };
   selectedRowIndexes: any;
   id: any;
   model: any={};

@@ -2,15 +2,17 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PageService, SortService, FilterService, GroupService, GridComponent, PagerComponent, RowSelectEventArgs } from '@syncfusion/ej2-angular-grids';
-import { Globals } from 'src/app/shared/helper/constants';
+import { PageService, SortService, FilterService, GroupService, GridComponent, RowSelectEventArgs } from '@syncfusion/ej2-angular-grids';
 import { General } from 'src/app/shared/helper/general';
 import { looseObject } from 'src/app/shared/models/looseObject';
 import { ResponseData } from 'src/app/shared/models/ResponseData';
 import { AlertifyService } from 'src/app/shared/services/alertify.service';
-import { CustomerService } from 'src/app/shared/services/Customer-service';
 import { SupervisorService } from 'src/app/shared/services/supervisor-service';
 import Swal from 'sweetalert2';
+import { L10n, setCulture } from '@syncfusion/ej2-base';
+import { Locales } from 'src/app/shared/helper/constants';
+setCulture('ar-AE');
+L10n.load(Locales.getLocaleObjects())
 @Component({
   selector: 'app-supervisor',
   templateUrl: './supervisor.component.html',

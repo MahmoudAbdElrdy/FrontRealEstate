@@ -9,13 +9,14 @@ import { AlertifyService } from 'src/app/shared/services/alertify.service';
 import { General } from 'src/app/shared/helper/general';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from 'src/app/shared/services/contract-service';
-import { FlatViewModel } from '../../shared/models/flat.model';
-import { BuildingViewModel } from '../../shared/models/building.model';
 import { PublicService } from 'src/app/shared/services/public.service';
 import { ProjectService } from 'src/app/shared/services/peoject-service';
 import { UploadServicesService } from 'src/app/shared/services/UploadServices.service';
-import { isEmpty, isNull } from 'lodash';
 import { Globals } from 'src/app/shared/helper/constants';
+import { L10n, setCulture } from '@syncfusion/ej2-base';
+import { Locales } from 'src/app/shared/helper/constants';
+setCulture('ar-AE');
+L10n.load(Locales.getLocaleObjects())
 @Component({
   selector: 'app-contract-list',
   templateUrl: './contract-list.component.html',

@@ -13,6 +13,10 @@ import { CustomerService } from 'src/app/shared/services/Customer-service';
 import Swal from 'sweetalert2';
 import { PublicService } from 'src/app/shared/services/public.service';
 import { ProjectVisitService } from 'src/app/shared/services/project-visit-service';
+import { L10n, setCulture } from '@syncfusion/ej2-base';
+import { Locales } from 'src/app/shared/helper/constants';
+setCulture('ar-AE');
+L10n.load(Locales.getLocaleObjects())
 @Component({
   selector: 'app-project-visit',
   templateUrl: './project-visit.component.html',
