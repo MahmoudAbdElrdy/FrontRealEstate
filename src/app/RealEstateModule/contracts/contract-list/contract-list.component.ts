@@ -50,6 +50,8 @@ export class ContractListComponent extends General implements OnInit {
   employeeName: string;
   data: object[];
   stockList = [{ value: true, text: "عقد سهم" }, { value: false, text: "عقد واحدات" }]
+  extraList = [{ value: "عداد مياة", text: "عداد مياة" }, {  text: "عداد كهرباء", value: "عداد كهرباء" }, 
+  {  text: "دفعة مباني", value: "دفعة مباني" }, {  text: " وديعة اسانسير", value: " وديعة اسانسير" }]
   constructor(private formBuilder: FormBuilder,
     public modalService: NgbModal,
     private modalService2: NgbModal,
@@ -98,7 +100,15 @@ export class ContractListComponent extends General implements OnInit {
       numberFloor: [null],
       contractFile: [[], []],
     });
-
+    this.formcontractDetail = this.formBuilder.group({
+      id: [0],
+      name: [null, [Validators.required]],
+      contractId: this.id,
+      isExtra: false,
+      date: Globals.formatDate(Date.now),
+      amount: 0,
+      nameisExtra: [null, [Validators.required]],
+    });
 
   }
   getDropDownList() {
@@ -522,49 +532,67 @@ export class ContractListComponent extends General implements OnInit {
   //  this.modalService.open(this.modalId, { size: 'lg', backdrop: 'static' });
   //date تاريخ الاقساط
   ///rowContractDetailSelected
+  get isExtra(){
+    return this.formcontractDetail.get('isExtra').value;
+  }
   rowContractDateSelected(args: RowSelectEventArgs) {
-    this.formcontractDetail = this.formBuilder.group({
-      id: [0],
-      name: [null, [Validators.required]],
-      contractId: this.id,
-      isExtra: false,
-      date: Globals.formatDate(Date.now),
-      amount: 0
-    });
-    this.formcontractDetail.reset();
+   
+  
 
     var data = args.data as any;
     this.contractDetailIdData = data;
     if (data != null) {
+      this.formcontractDetail.reset();
       this.formcontractDetail = this.formBuilder.group({
         id: [0],
         name: [null, [Validators.required]],
         contractId: this.id,
         isExtra: false,
         date: Globals.formatDate(Date.now),
-        amount: 0
+        amount: 0,
+        nameisExtra: [null, [Validators.required]],
       });
     }
 
   }
   saveContractDetailId() {
-    this._service.saveContractDetail(this.formcontractDetail.getRawValue()).subscribe(res => {
-      if (res.isSuccess) {
-
-        this.alert.success(res.message);
-        this.getAllContractDetail();
-        this.modalService2.dismissAll("InstallmentGenerate");
-        this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
-      }
-      else {
-        this.alert.error(res.message);
-        this.modalService2.dismissAll("InstallmentGenerate");
-        this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
-      }
-    });
+    debugger
+    this.formcontractDetail.markAllAsTouched();
+    if(this.formcontractDetail.get('isExtra').value==true){
+      this.formcontractDetail.patchValue({
+        name: this.formcontractDetail.get('nameisExtra').value,
+      });
+    }
+    else{
+      this.formcontractDetail.patchValue({
+        nameisExtra: this.formcontractDetail.get('name').value,
+      });
+    }
+    if(this.formcontractDetail.valid){
+      this._service.saveContractDetail(this.formcontractDetail.getRawValue()).subscribe(res => {
+        if (res.isSuccess) {
+  
+          this.alert.success(res.message);
+          this.getAllContractDetail();
+          this.modalService2.dismissAll("InstallmentGenerate");
+          this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+        }
+        else {
+          this.alert.error(res.message);
+          this.modalService2.dismissAll("InstallmentGenerate");
+          this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+        }
+      });
+    }
+   
   }
   @ViewChild('InstallmentdateId') installmentdate: ElementRef;
   openModalInstallmentdate() {
+    this.formcontractDetail.reset();
+    this.formcontractDetail.patchValue({   
+      isExtra: false,
+      contractId: this.id,
+    });
     this.modalService.open(this.installmentdate, { size: 'lg', backdrop: 'static' });
 
   }
@@ -608,7 +636,8 @@ export class ContractListComponent extends General implements OnInit {
         contractId: this.id,
         isExtra: this.contractDetailIdData.isExtra,
         date: Globals.formatDate(Date.parse(this.contractDetailIdData.date)),
-        amount: this.contractDetailIdData.amount
+        amount: this.contractDetailIdData.amount,
+        nameisExtra:  this.contractDetailIdData.name,
       });
     }
   }

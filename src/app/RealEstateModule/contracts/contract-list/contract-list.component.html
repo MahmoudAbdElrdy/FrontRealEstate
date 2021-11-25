@@ -446,31 +446,39 @@
 
     <form [formGroup]="formcontractDetail">
       <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label"> بند ملحق</label>
+        <div class="col-sm-1">
+          <input type="checkbox" class="form-control" formControlName="isExtra" id="isExtra" name="isExtra">
+        </div>
+      </div>
+      <div *ngIf="isExtra==false" class="form-group row">
         <label for="" class="col-sm-2 col-form-label">القسط</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" formControlName="name" id="name">
         </div>
       </div>
-
+      <div *ngIf="isExtra==true" class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">الملحق</label>
+        <div class="col-sm-10">
+          <ejs-dropdownlist id="stock" [dataSource]='extraList' id="nameisExtra" name="nameisExtra" formControlName="nameisExtra" [autofill]='true' [enableRtl]='true' placeholder="اختار"
+            [fields]='FieldsDDL'  [showClearButton]="true">
+          </ejs-dropdownlist>
+        </div>
+      </div>
       <div class="form-group row">
         <label for="" class="col-sm-2 col-form-label"> المبلغ</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" formControlName="amount" id="amount">
+          <input type="number" class="form-control" formControlName="amount" id="amount" name="amount">
         </div>
       </div>
       <div class="form-group row">
         <label for="" class="col-sm-2 col-form-label"> التاريخ</label>
         <div class="col-sm-10">
-          <input type="date" class="form-control" formControlName="date" id="date">
+          <input type="date" class="form-control" formControlName="date" id="date" name="date">
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="" class="col-sm-2 col-form-label"> بند ملحق</label>
-        <div class="col-sm-1">
-          <input type="checkbox" class="form-control" formControlName="isExtra" id="isExtra">
-        </div>
-      </div>
+    
     </form>
   </div>
   <div class="modal-footer px-2 py-2">
@@ -545,7 +553,7 @@
 
 
           <e-column editType='booleanedit' type="boolean" [customAttributes]='customAttributes' headerText='بند الملحق '
-            [customAttributes]='customAttributes' width=90>
+            [customAttributes]='customAttributes'  width=120>
             <ng-template #template let-data>
               <ejs-checkbox [checked]="data?.isExtra" disabled></ejs-checkbox>
 
@@ -556,7 +564,7 @@
             width=120>
           </e-column>
           <e-column field='date' format='dd/MM/yyyy' type='date' [customAttributes]='customAttributes'
-            headerText='التاريخ' textAlign='Right' ></e-column>
+            headerText='التاريخ' textAlign='Right'  width=120></e-column>
 
           <e-column field='amount' [customAttributes]='customAttributes' headerText=' المبلغ' textAlign='Right'
             width=120>
