@@ -6,6 +6,7 @@ import { DailyReportComponent } from '../contracts/daily-report/daily-report.com
 import { SupervisorComponent } from '../contracts/supervisor/supervisor.component';
 import { CustomersComponent } from '../customers-service/customers/customers.component';
 import { ProjectVisitComponent } from '../customers-service/project-visit/project-visit.component';
+import { ExtraContrcatComponent } from '../report/extra-contrcat/extra-contrcat.component';
 import { CustomersSalesComponent } from '../sales/customers/customers.component';
 import { QestionsComponent } from '../sales/qestions/qestions.component';
 import { EmployeeSalaryComponent } from './employee-salary/employee-salary.component';
@@ -152,7 +153,19 @@ const routes: Routes = [ {
             { title: ' التقرير اليومي', }
         ]
     }
-  }
+  },
+  {
+    path: 'ExtraContrcat',
+    component: ExtraContrcatComponent,
+    data: {
+        title: ' الملحقات',
+        urls: [
+            { title: 'الملحقات', url: '/Management' },
+            { title: ' الملحقات', }
+        ]
+    }
+  } 
+  ,
   ]
 }];
 @NgModule({

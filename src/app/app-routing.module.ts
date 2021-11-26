@@ -10,6 +10,7 @@ import { SalesComponent } from './layouts/sales/sales.component';
 import { ContractComponent } from './layouts/contract/contract.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { AuthGuard } from './shared/helper/auth-guard';
+import { ExtraContrcatComponent } from './RealEstateModule/report/extra-contrcat/extra-contrcat.component';
 
 export const Approutes: Routes = [
   
@@ -62,6 +63,20 @@ export const Approutes: Routes = [
             {
                 path: '',
                 loadChildren: () => import('./RealEstateModule/contracts/contracts.module').then(m => m.ContractsModule)
+            }
+        ]
+    },
+    
+    {
+        path: 'Report',
+        canActivate: [AuthGuard],
+        data:{department:["Administration"]},
+        component: ExtraContrcatComponent,
+        children: [
+           { path: '', redirectTo: '/Report/ExtraContract', pathMatch: 'full' },
+            {
+                path: '',
+                loadChildren: () => import('./RealEstateModule/report/report.module').then(m => m.ReportModule)
             }
         ]
     },

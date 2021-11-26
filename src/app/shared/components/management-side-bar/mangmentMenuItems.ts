@@ -92,4 +92,23 @@ export const ROUTES: RouteInfo[] = [
                
         ]
 },
+{
+       
+        title: 'التقارير',
+        path: '',
+        icon: 'mdi mdi-format-color-fill',
+        class: 'has-arrow',
+        extralink: false,
+        submenu: [
+                {
+                        path: '/Management/ExtraContrcat',
+                        title: 'تقرير الملحقات ',
+                        icon: '',
+                        class: '',
+                        extralink: false,
+                        submenu: []
+                },
+             
+        ]
+},
 ];

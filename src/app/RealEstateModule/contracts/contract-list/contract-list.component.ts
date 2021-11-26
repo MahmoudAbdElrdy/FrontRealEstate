@@ -898,7 +898,53 @@ export class ContractListComponent extends General implements OnInit {
   }
   removeContractDetailBill() {
     if (this.contractDetailBillId != undefined)
-      this.removeGeneral(this.contractDetailBillId)
+     {
+
+
+      if (this.contractDetailBillId == 0) return;
+      Swal.fire({
+        title: 'الحذف',
+        text: "هل متاكد من الحذف؟",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'نعم',
+        cancelButtonText:"لا"
+      }).then((result) => {
+        if (result.value) {
+  
+          this._service.deleteContractDetailBill(this.contractDetailBillId).subscribe(res => {
+            if (res.isSuccess) {
+             // this.getData(this.filter);
+             this.modalService.dismissAll();
+             if (this.contractDetailId) {
+               this._service.getAllContractDetailBill(this.contractDetailId)
+                 .subscribe(res => {
+                   if (res.isSuccess) {
+     
+                     this.dataSafe = res.data;
+                     this.alert.success(res.message);
+                     this.openModalSafe();
+                   } else {
+                     this.alert.error('حدثت مشكلة');
+                   }
+     
+     
+                 })
+             }
+              this.alert.success(res.message);
+  
+            
+            }
+            else {
+              this.alert.error(res.message);
+            }
+          });
+        }
+  
+      })
+     }
   }
   //
   //viewPayInstallments

@@ -1,0 +1,40 @@
+<div class="modal-body">
+    <form [formGroup]="form">
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="projectID" style="display: block;" class="col-sm-2 col-form-label">المشروع</label>
+
+
+
+                    <ejs-dropdownlist id="projectID" formControlName="projectID" [dataSource]='dataDropDown'
+                        [changeOnBlur]='false' [allowFiltering]='true' [autofill]='true' [enableRtl]='true' width=290
+                        placeholder="اختار" [fields]='FieldsProject' [showClearButton]="true">
+                    </ejs-dropdownlist>
+                    <small *ngIf="(form.get('projectID').errors?.required)&&(form.get('projectID').touched)"
+                        class="w-100 text-danger mt-1">
+                        مطلوب
+                    </small>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="" class="col-sm-2 col-form-label">الملحق</label>
+                    <div class="col-sm-10">
+                        <ejs-dropdownlist id="stock" [dataSource]='extraList' id="contractExtraName" name="contractExtraName"
+                            formControlName="contractExtraName" [autofill]='true' [enableRtl]='true' placeholder="اختار"
+                            [fields]='FieldsDDL' [showClearButton]="true">
+                        </ejs-dropdownlist>
+                    </div>
+
+                    <small *ngIf="(form.get('contractExtraName').errors?.required)&&(form.get('contractExtraName').touched)"
+                        class="w-100 text-danger mt-1">
+                        مطلوب
+                    </small>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-outline-info mx-1 " (click)="getFile()">
+            <i class="fas fa-plus"></i>
+            عرض
+        </button>
+    </form>
+</div>
