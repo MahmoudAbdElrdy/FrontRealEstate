@@ -6,6 +6,7 @@ import { DailyReportComponent } from '../contracts/daily-report/daily-report.com
 import { SupervisorComponent } from '../contracts/supervisor/supervisor.component';
 import { CustomersComponent } from '../customers-service/customers/customers.component';
 import { ProjectVisitComponent } from '../customers-service/project-visit/project-visit.component';
+import { CustomerCardComponent } from '../report/customer-card/customer-card.component';
 import { ExtraContrcatComponent } from '../report/extra-contrcat/extra-contrcat.component';
 import { CustomersSalesComponent } from '../sales/customers/customers.component';
 import { QestionsComponent } from '../sales/qestions/qestions.component';
@@ -166,6 +167,16 @@ const routes: Routes = [ {
     }
   } 
   ,
+  {
+    path: 'CustomerCard',
+    component: CustomerCardComponent,
+    data: {
+        title: ' كارت العميل',
+        urls: [
+            { title: 'كارت العميل', url: '/Management' },
+            { title: ' كارت العميل', }
+        ]
+    }}
   ]
 }];
 @NgModule({

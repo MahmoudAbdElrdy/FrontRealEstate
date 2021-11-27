@@ -8,17 +8,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReportService } from 'src/app/shared/services/report.service';
 
 @Component({
-  selector: 'app-extra-contrcat',
-  templateUrl: './extra-contrcat.component.html',
-  styleUrls: ['./extra-contrcat.component.css']
+  selector: 'app-customer-card',
+  templateUrl: './customer-card.component.html',
+  styleUrls: ['./customer-card.component.css']
 })
-export class ExtraContrcatComponent implements OnInit {
-  extraList = [{ value: "عداد مياة", text: "عداد مياة" }, {  text: "عداد كهرباء", value: "عداد كهرباء" }, 
-  {  text: "دفعة مباني", value: "دفعة مباني" }, {  text: " وديعة اسانسير", value: " وديعة اسانسير" }]
-  dataDropDown: any;
+export class CustomerCardComponent implements OnInit {
+   dataDropDown: any;
   form: FormGroup;
   FieldsDDL: Object = { text: 'text', value: 'value' };
-  FieldsProject: Object = { text: 'name', value: 'id' };
+  FieldsProject: Object = { text: 'name', value: 'name' };
   constructor(  private _service: ReportService,
     private _publicService: PublicService,
     private router: Router,  private formBuilder: FormBuilder,
@@ -28,14 +26,14 @@ export class ExtraContrcatComponent implements OnInit {
   ngOnInit(): void {
     this.getDropDownList()
     this.form = this.formBuilder.group({
-      projectID: [null, [Validators.required]],
+     
       
-      contractExtraName:  [null, [Validators.required]],
+      customerName:  [null, [Validators.required]],
     });
   }
   getDropDownList() {
 
-    this._publicService.get("Project/GetDropDownList")
+    this._publicService.get("Contract/GetAllName")
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
 
@@ -47,12 +45,12 @@ export class ExtraContrcatComponent implements OnInit {
   getFile() {
     this.form.markAllAsTouched();
     if(this.form.valid){
-         this._service.reportExtraContrcat(this.form.value).subscribe(res => {
+       this._service.customerCard(this.form.value).subscribe(res => {
       
       const fileURL = URL.createObjectURL(res);
       window.open(fileURL, '_blank');
     });
     }
- 
+   
 }
 }

@@ -108,6 +108,14 @@ export const ROUTES: RouteInfo[] = [
                         extralink: false,
                         submenu: []
                 },
+                {
+                        path: '/Management/CustomerCard',
+                        title: 'كارت العميل',
+                        icon: '',
+                        class: '',
+                        extralink: false,
+                        submenu: []
+                }
              
         ]
 },

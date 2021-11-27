@@ -1,0 +1,27 @@
+<div class="modal-body">
+    <form [formGroup]="form">
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="customerName" style="display: block;" class="col-sm-2 col-form-label">اسم العميل</label>
+
+
+
+                    <ejs-dropdownlist id="customerName" formControlName="customerName" [dataSource]='dataDropDown'
+                        [changeOnBlur]='false' [allowFiltering]='true' [autofill]='true' [enableRtl]='true' width=290
+                        placeholder="اختار" [fields]='FieldsProject' [showClearButton]="true">
+                    </ejs-dropdownlist>
+                    <small *ngIf="(form.get('customerName').errors?.required)&&(form.get('customerName').touched)"
+                        class="w-100 text-danger mt-1">
+                        مطلوب
+                    </small>
+                </div>
+              
+            </div>
+        </div>
+        <button type="button" class="btn btn-outline-info mx-1 " (click)="getFile()">
+            <i class="fas fa-plus"></i>
+            عرض
+        </button>
+    </form>
+</div>
