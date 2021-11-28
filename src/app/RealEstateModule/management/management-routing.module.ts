@@ -9,6 +9,7 @@ import { ProjectVisitComponent } from '../customers-service/project-visit/projec
 import { CustomerCardComponent } from '../report/customer-card/customer-card.component';
 import { CustomerDataComponent } from '../report/customer-data/customer-data.component';
 import { ExtraContrcatComponent } from '../report/extra-contrcat/extra-contrcat.component';
+import { YearContrcatComponent } from '../report/year-contrcat/year-contrcat.component';
 import { CustomersSalesComponent } from '../sales/customers/customers.component';
 import { QestionsComponent } from '../sales/qestions/qestions.component';
 import { EmployeeSalaryComponent } from './employee-salary/employee-salary.component';
@@ -186,6 +187,17 @@ const routes: Routes = [ {
             urls: [
                 { title: 'بيانات العملاء', url: '/Management' },
                 { title: 'بيانات العملاء', }
+            ]
+        }}
+        ,
+    {
+        path: 'YearContrcat',
+        component: YearContrcatComponent,
+        data: {
+            title: ' مبيعات السنة ',
+            urls: [
+                { title: 'مبيعات السنة ', url: '/Management' },
+                { title: 'مبيعات السنة ', }
             ]
         }}
   ]

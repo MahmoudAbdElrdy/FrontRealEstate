@@ -117,6 +117,14 @@ export const ROUTES: RouteInfo[] = [
                         submenu: []
                 },
                 {
+                        path: '/Management/YearContrcat',
+                        title: 'مبيعات السنة ',
+                        icon: '',
+                        class: '',
+                        extralink: false,
+                        submenu: []
+                },
+                {
                         path: '/Management/CustomerData',
                         title: 'بيانات العملاء',
                         icon: '',
@@ -124,6 +132,8 @@ export const ROUTES: RouteInfo[] = [
                         extralink: false,
                         submenu: []
                 }
+                
+                
              
         ]
 },

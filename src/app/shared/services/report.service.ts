@@ -35,4 +35,10 @@ export class ReportService {
     return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
     
   }
+  reportSalesYear(year: any) {
+    
+    this.requestUrl = `${environment.urlReport}/Report/ReportSalesYear?year=${year}`;
+    return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
+    
+  }
 }
