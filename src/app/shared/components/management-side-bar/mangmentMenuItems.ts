@@ -115,6 +115,14 @@ export const ROUTES: RouteInfo[] = [
                         class: '',
                         extralink: false,
                         submenu: []
+                },
+                {
+                        path: '/Management/CustomerData',
+                        title: 'بيانات العملاء',
+                        icon: '',
+                        class: '',
+                        extralink: false,
+                        submenu: []
                 }
              
         ]

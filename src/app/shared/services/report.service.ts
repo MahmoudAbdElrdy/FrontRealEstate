@@ -29,4 +29,10 @@ export class ReportService {
     return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
     
   }
+  customerData() {
+    
+    this.requestUrl = `${environment.urlReport}/Report/ReportCustomerData`;
+    return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
+    
+  }
 }
