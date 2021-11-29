@@ -18,7 +18,7 @@ export class ReportService {
 
  
   reportExtraContrcat(ExtraContrcat: any) {
-    
+    debugger
     this.requestUrl = `${environment.urlReport}/Report/ReportExtraContrcat?ProjectID=${ExtraContrcat.projectID}&ContractExtraName=${ExtraContrcat.contractExtraName}`;
     return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
     
@@ -29,9 +29,9 @@ export class ReportService {
     return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
     
   }
-  customerData() {
+  customerData(option) {
     
-    this.requestUrl = `${environment.urlReport}/Report/ReportCustomerData`;
+    this.requestUrl = `${environment.urlReport}/Report/ReportCustomerData?option=${option}`;
     return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
     
   }

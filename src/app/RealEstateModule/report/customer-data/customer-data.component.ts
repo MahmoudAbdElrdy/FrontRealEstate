@@ -13,24 +13,35 @@ import { ReportService } from 'src/app/shared/services/report.service';
   styleUrls: ['./customer-data.component.css']
 })
 export class CustomerDataComponent implements OnInit {
-
-  constructor(  private _service: ReportService,
+  radioTitle: string;
+  radioItems: any;
+  model = { option: 'الكل', value: 1 };
+  constructor(private _service: ReportService,
     private _publicService: PublicService,
-    private router: Router,  private formBuilder: FormBuilder,
+    private router: Router, private formBuilder: FormBuilder,
     private activeRoute: ActivatedRoute,
     private _serviceProject: ProjectService,) { }
 
   ngOnInit(): void {
+    this.radioTitle = 'Radio Button in Angular';
+    this.radioItems = [
+      { option: 'الكل', value: 1 },
+      { option: 'رقم التليفون فقط', value: 2 },
+      { option: 'تليفون والعنوان ورقم القومى', value: 3 },
+      { option: ' العنوان فقط', value: 4 },
+      { option: ' تاريخ التعاقد وملاحظات ونظام الدفع ', value: 5}
+    ];
   }
   getFile() {
-    
-  {
-         this._service.customerData().subscribe(res => {
-      
-      const fileURL = URL.createObjectURL(res);
-      window.open(fileURL, '_blank');
-    });
+
+    {
+      debugger
+      this._service.customerData(this.model.value).subscribe(res => {
+
+        const fileURL = URL.createObjectURL(res);
+        window.open(fileURL, '_blank');
+      });
     }
- 
-}
+
+  }
 }
