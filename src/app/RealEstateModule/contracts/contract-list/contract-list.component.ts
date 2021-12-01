@@ -556,7 +556,7 @@ export class ContractListComponent extends General implements OnInit {
 
   }
   saveContractDetailId() {
-    debugger
+    
     this.formcontractDetail.markAllAsTouched();
     if(this.formcontractDetail.get('isExtra').value==true){
       this.formcontractDetail.patchValue({
@@ -999,13 +999,13 @@ export class ContractListComponent extends General implements OnInit {
   }
   openCancelledContract(){
     //CancelledContract
-    debugger
+    
     this.router.navigateByUrl('/Management/CancelledContract')
   }
   download(url): void {
-    debugger
+    
     url.forEach(element => {
-      debugger
+      
       this._service
       .download(element)
       .subscribe(blob => {
