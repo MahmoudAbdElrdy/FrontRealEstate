@@ -116,7 +116,15 @@
       <e-column field='notes' [allowFiltering]='false' [disabled]="true" [customAttributes]='customAttributes'
         height=400 headerText='  الملاحظات' textAlign='Right' width=190>
       </e-column>
-
+      <e-column field='contractFile' headerText="الملفات" [customAttributes]='customAttributes'  width=190>
+        <ng-template #template let-data>
+        
+          <a [href]=""  (click)="download(data.contractFile)" >
+        عرض الملفات
+          </a>
+        </ng-template>
+      
+      </e-column>
       <e-column [allowFiltering]='false' [allowSorting]='false' width='170' [disabled]="true" headerText='العمليات'
         [customAttributes]='customAttributes'>
         <ng-template #template let-data>
@@ -570,7 +578,7 @@
             width=120>
           </e-column>
 
-
+        
         </e-columns>
       </ejs-grid>
 

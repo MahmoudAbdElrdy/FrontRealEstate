@@ -1002,4 +1002,21 @@ export class ContractListComponent extends General implements OnInit {
     debugger
     this.router.navigateByUrl('/Management/CancelledContract')
   }
+  download(url): void {
+    debugger
+    url.forEach(element => {
+      debugger
+      this._service
+      .download(element)
+      .subscribe(blob => {
+        const a = document.createElement('a')
+        const objectUrl = URL.createObjectURL(blob)
+        a.href = objectUrl
+        a.download = "file";
+        a.click();
+        URL.revokeObjectURL(objectUrl);
+      })
+    });
+   
+  }
 }

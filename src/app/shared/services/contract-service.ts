@@ -128,4 +128,9 @@ export class ContractService {
   
     return this._httpClient.post<any>(environment.apiUrl + "/Contract/GetAllCancelledContracts",model);
   }   
+  download(url: string): Observable<Blob> {
+    return this._httpClient.get(url, {
+      responseType: 'blob'
+    })
+  }
 }
