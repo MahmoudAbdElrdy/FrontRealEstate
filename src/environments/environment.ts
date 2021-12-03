@@ -8,7 +8,8 @@ export const environment = {
   urlReport:'http://localhost:7652'
 };
 
-/*
+/* apiUrl:'http://mahmoud2025-001-site1.btempurl.com/api',
+  urlReport:'http://mahmoud2025-001-site1.btempurl.com'
  * In development mode, to ignore zone related error stack frames such as
  * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can
  * import the following file, but please comment it out in production mode

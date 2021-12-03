@@ -423,8 +423,8 @@ export class ContractListComponent extends General implements OnInit {
   }
 
   //
-  BaseFile: string = "http://localhost:7652/wwwroot/UploadFiles/";
-  ImageUrl: any;
+  BaseFile: string = "http://mahmoud2025-001-site1.btempurl.com/wwwroot/UploadFiles/";
+  ImageUrl=new Array;
   fileToUpload = null;
   @ViewChild('userPhoto') userPhoto: ElementRef;
   uploadImage(event) {
@@ -438,12 +438,17 @@ export class ContractListComponent extends General implements OnInit {
 
       const result = event as any;
       console.log(result)
-      this.ImageUrl = result.filePaths;
-      this.fileToUpload = null;
-      this.form.patchValue({
-        contractFile: result.filePaths
+      result.filePaths.forEach(element => {
+        this.ImageUrl.push(element) ;
       });
+    
+     // this.fileToUpload = null;
+      this.form.patchValue({
+        contractFile:this.ImageUrl
+      });
+      console.log(this.ImageUrl)
     }
+   
     );
   }
   removeAttachments2(e) {
@@ -1007,12 +1012,12 @@ export class ContractListComponent extends General implements OnInit {
     url.forEach(element => {
       
       this._service
-      .download(element)
+      .download(this.BaseFile+element)
       .subscribe(blob => {
         const a = document.createElement('a')
         const objectUrl = URL.createObjectURL(blob)
         a.href = objectUrl
-        a.download = "file";
+        a.download =element;
         a.click();
         URL.revokeObjectURL(objectUrl);
       })
