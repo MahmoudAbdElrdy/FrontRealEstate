@@ -18,7 +18,7 @@ import { YearContrcatComponent } from './year-contrcat/year-contrcat.component';
 
 @NgModule({
   declarations: [ExtraContrcatComponent, CustomerCardComponent, CustomerDataComponent, YearContrcatComponent],
-  imports: [ ReactiveFormsModule, FormsModule,
+  imports: [ ReactiveFormsModule, FormsModule ,
     ReportRoutingModule,  GridModule,DropDownListModule,SharedModule,ComboBoxModule,CommonModule,PagerModule,DateTimePickerModule,DatePickerModule,
   ],
   schemas: [

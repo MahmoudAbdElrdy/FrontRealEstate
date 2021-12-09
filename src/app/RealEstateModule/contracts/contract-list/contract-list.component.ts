@@ -649,9 +649,9 @@ export class ContractListComponent extends General implements OnInit {
   @ViewChild('InstallmentdateList') installmentdateList: ElementRef;
   contractDetail: any = { totalCost: 0, totalItems: 0, totalAccessories: 0 };
   openModalInstallmentdateList() {
+    
     if (this.id != undefined || this.id > 0) {
-      console.log(this.model)
-      //totalCost
+    
       this.contractDetail.totalCost = this.model.totalCost
       this.contractDetail.totalItems = this.model.totalCost
       this.getAllContractDetail()
@@ -735,6 +735,19 @@ export class ContractListComponent extends General implements OnInit {
 
     return total;
   }
+  getTotalNotExtra(list) {
+    let total = 0;
+
+    list.forEach((item) => {
+
+      if (!item.isExtra) {
+        total += Number(item.amount);
+      }
+
+    });
+
+    return total;
+  }
   getAllContractDetail() {
 
     this._service.getAllContractDetail(this.id)
@@ -743,6 +756,7 @@ export class ContractListComponent extends General implements OnInit {
 
           this.dataContractDetail = res.data;
           this.contractDetail.totalAccessories = this.getTotal(this.dataContractDetail)
+          this.contractDetail.totalCost+=this.getTotalNotExtra(this.dataContractDetail)
         } else {
           this.alert.error('حدثت مشكلة');
         }
@@ -777,6 +791,7 @@ export class ContractListComponent extends General implements OnInit {
   @ViewChild('Safe') safe: ElementRef;
   openModalSafe() {
     if (this.id) {
+      this.dataSafe=null;
       this.modalService.open(this.safe, { size: 'lg', backdrop: 'static' });
       this._service.getAllInstallmentNotPaid(this.id)
         .subscribe(res => {
@@ -1010,17 +1025,17 @@ export class ContractListComponent extends General implements OnInit {
   download(url): void {
     
     url.forEach(element => {
-      
-      this._service
-      .download(this.BaseFile+element)
-      .subscribe(blob => {
-        const a = document.createElement('a')
-        const objectUrl = URL.createObjectURL(blob)
-        a.href = objectUrl
-        a.download =element;
-        a.click();
-        URL.revokeObjectURL(objectUrl);
-      })
+      window.open(this.BaseFile+element, "_blank")
+      // this._service
+      // .download(this.BaseFile+element)
+      // .subscribe(blob => {
+      //   const a = document.createElement('a')
+      //   const objectUrl = URL.createObjectURL(blob)
+      //   a.href = objectUrl
+      //   a.download =element;
+      //   a.click();
+      //   URL.revokeObjectURL(objectUrl);
+      // })
     });
    
   }

@@ -21,7 +21,7 @@ export class CustomerDataComponent implements OnInit {
     private router: Router, private formBuilder: FormBuilder,
     private activeRoute: ActivatedRoute,
     private _serviceProject: ProjectService,) { }
-
+    pdfSrc = "https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf";
   ngOnInit(): void {
     this.radioTitle = 'Radio Button in Angular';
     this.radioItems = [
