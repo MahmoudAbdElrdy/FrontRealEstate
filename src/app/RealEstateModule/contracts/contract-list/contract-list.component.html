@@ -54,29 +54,29 @@
     </button>
   </div>
   <br>
-  <ejs-grid [dataSource]='data' id='Grid' [enableRtl]='true' height='100%' width='100%' (actionBegin)='begin($event)'
+  <ejs-grid [dataSource]='data' #grid  [enableRtl]='true' height='100%' width='100%' (actionBegin)='begin($event)'
     [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings' [filterSettings]="filterSettings"
-    [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings"
+    [selectionSettings]='selectionsettings' gridLines='Both' [resizeSettings]="resizeSettings" (dataBound)='dataBound()'
     (rowSelected)='rowSelected($event)'>
     <e-columns>
       <!-- <e-column type='checkbox' [height]='315' [allowFiltering]='false' [allowSorting]='false'
                 [customAttributes]='customAttributes' width='60'></e-column> -->
 
       <e-column field='projectName' [customAttributes]='customAttributes' headerText='العقار ' textAlign='Right'
-        width=200>
+        width=300>
         <ng-template #filterTemplate>
 
           <ejs-dropdownlist  id="project" [dataSource]='dataDropDown' [changeOnBlur]='false' [allowFiltering]='true'
-            [autofill]='true'  width=200 placeholder="اختار" [fields]='FieldsProject'
+            [autofill]='true'  width=300 placeholder="اختار" [fields]='FieldsProject'
             (change)='onChangeProject($event)' [showClearButton]="true">
           </ejs-dropdownlist>
         </ng-template>
       </e-column>
       <e-column field='isStock' [customAttributes]='customAttributes' headerText='نوع العقد ' textAlign='Right'
-        width=150>
+        width=90>
         <ng-template #template let-data>
-          <span class="badge badge-light-success mr-2 ml-2" *ngIf="data.isStock">عقد سهم</span>
-          <span class="badge badge-light-danger" *ngIf="!data.isStock"> عقد واحدات</span>
+          <span class="badge badge-light-success mr-2 ml-2" *ngIf="data.isStock"> سهم</span>
+          <span class="badge badge-light-danger" *ngIf="!data.isStock">  واحدات</span>
         </ng-template>
         <ng-template #filterTemplate>
 
@@ -86,10 +86,10 @@
         </ng-template>
       </e-column>
 
-      <e-column field='name' [customAttributes]='customAttributes' headerText='   العميل' textAlign='Right' width=150>
+      <e-column field='name' [customAttributes]='customAttributes' headerText=' العميل' textAlign='Right' width=150>
       </e-column>
-      <e-column field='program' [customAttributes]='customAttributes' headerText='   نظام الدفع' textAlign='Right'
-        width=150>
+      <e-column field='program' [customAttributes]='customAttributes' headerText='نظام الدفع' textAlign='Right'
+        width=70>
       </e-column>
 
       <e-column field='phone' [customAttributes]='customAttributes' headerText=' التلفون' textAlign='Right' width=150>
@@ -103,20 +103,23 @@
       </e-column>
 
       <e-column field='date' format='dd/MM/yyyy' type='date' [customAttributes]='customAttributes'
-        headerText='تاريخ العمل' textAlign='Right' width=180>
+        headerText='تاريخ العقد' textAlign='Right' width=100>
 
         <ng-template #filterTemplate>
 
-          <input type="date" #date class="form-control" (change)=onChangeDateTime(date.value) format='dd/MM/yyyy'
-            id="workSince">
+          <ejs-dropdownlist id="year"  [dataSource]='dataDropDownYear' (change)='onChangeDateTime($event)'
+          [changeOnBlur]='false' [allowFiltering]='true' [autofill]='true' [enableRtl]='true' width=100
+          placeholder="اختار" [fields]='FieldsDDL' [showClearButton]="true">
+      </ejs-dropdownlist>
         </ng-template>
+      
       </e-column>
 
 
       <e-column field='notes' [allowFiltering]='false' [disabled]="true" [customAttributes]='customAttributes'
         height=400 headerText='  الملاحظات' textAlign='Right' width=190>
       </e-column>
-      <e-column field='contractFile' headerText="الملفات" [customAttributes]='customAttributes'  width=190>
+      <e-column field='contractFile' headerText="الملفات" [customAttributes]='customAttributes'  width=90>
         <ng-template #template let-data>
         
           <a [href]=""  (click)="download(data.contractFile)" >
@@ -271,9 +274,27 @@
 
 
 
-      <div class="col-md-12 form-group">
-        <div class="row">
-          <div class="form-group col-md-6">
+      
+      <div class="form-group row">
+          <div class="form-group col-md-4">
+            <label for="name"  class="col-sm-2 col-form-label">الاجمالي </label>
+
+            <input type="number" class="form-control" id="name" formControlName="totalCost">
+            <small *ngIf="(form.get('totalCost').errors?.required)&&(form.get('totalCost').touched)"
+              class="w-100 text-danger mt-1">
+              مطلوب
+            </small>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="name" style="display: block;" class="col-sm-2 col-form-label">عدد الامتار </label>
+
+            <input type="number" (change)="changeMeterCost()" class="form-control" id="name" formControlName="metersNumer">
+            <small *ngIf="(form.get('metersNumer').errors?.required)&&(form.get('metersNumer').touched)"
+              class="w-100 text-danger mt-1">
+              مطلوب
+            </small>
+          </div>
+          <div class="form-group col-md-4">
             <label for="name" style="display: block;" class="col-sm-2 col-form-label">سعر المتر </label>
 
             <input type="number" class="form-control" id="name" formControlName="meterCost">
@@ -282,17 +303,9 @@
               مطلوب
             </small>
           </div>
-          <div class="form-group col-md-6">
-            <label for="name" style="display: block;" class="col-sm-2 col-form-label">الاجمالي </label>
-
-            <input type="number" class="form-control" id="name" formControlName="totalCost">
-            <small *ngIf="(form.get('totalCost').errors?.required)&&(form.get('totalCost').touched)"
-              class="w-100 text-danger mt-1">
-              مطلوب
-            </small>
-          </div>
+         
         </div>
-      </div>
+     
 
       <div style="border: groove;" class="form-group row">
         <label for="name" class="col-sm-2 col-form-label"> نوع العقد </label>

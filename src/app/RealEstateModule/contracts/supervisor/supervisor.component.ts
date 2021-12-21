@@ -38,7 +38,7 @@ export class SupervisorComponent extends General implements OnInit {
   departmentDDL = [];
   //FieldsDDL:Object;
   FieldsDDL: Object = { text: 'text', value: 'value' };
-  filter: looseObject = { pageNumber: 1, pageSize: 15, name: null, phone: null, job: null };
+  filter: looseObject = { pageNumber: 1, pageSize: 20, name: null, phone: null, job: null };
   selectedRowIndexes: any;
   id: any;
   model: any;

@@ -35,7 +35,7 @@ export class EmployeesComponent extends General implements OnInit {
   departmentDDL = [];
   //FieldsDDL:Object;
   FieldsDDL: Object = { text: 'text', value: 'value' };
-  filter: looseObject = { pageNumber: 1, pageSize: 15, name: null, departmentId: null, workSince: null, phone: null };
+  filter: looseObject = { pageNumber: 1, pageSize: 20, name: null, departmentId: null, workSince: null, phone: null };
   selectedRowIndexes: any;
   id: any;
   model: any;

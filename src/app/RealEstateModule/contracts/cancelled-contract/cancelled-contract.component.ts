@@ -41,7 +41,7 @@ export class CancelledContractComponent extends General implements OnInit {
   @ViewChild('grid') gridObj: GridComponent;
   @ViewChild("pager") pager: PagerComponent;
   data:[];
-  filter: any = { pageNumber: 1, pageSize: 15, date: null, customer: null, project: null,paid:null,back:null };
+  filter: any = { pageNumber: 1, pageSize: 20, date: null, customer: null, project: null,paid:null,back:null };
 
   getData() {
 

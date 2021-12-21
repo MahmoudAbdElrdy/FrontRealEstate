@@ -38,7 +38,7 @@ export class DailyReportComponent extends General implements OnInit {
   departmentDDL = [];
   //FieldsDDL:Object;
   FieldsDDL: Object = { text: 'text', value: 'value' };
-  filter: looseObject = { pageNumber: 1, pageSize: 15, employeeId: null, supervisorId: null, value: null };
+  filter: looseObject = { pageNumber: 1, pageSize: 20, employeeId: null, supervisorId: null, value: null };
   selectedRowIndexes: any;
   id: any;
   model: any;

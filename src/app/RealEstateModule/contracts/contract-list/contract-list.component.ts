@@ -39,8 +39,9 @@ export class ContractListComponent extends General implements OnInit {
   departmentDDL = [];
   //FieldsDDL:Object;
   FieldsDDL: Object = { text: 'text', value: 'value' };
+  FieldsDDLYear: Object ={ text: 'value', value: 'value' };
   FieldsProject: Object = { text: 'name', value: 'id' };
-  filter: looseObject = { pageNumber: 1, pageSize: 15, name: null, address: null };
+  filter: looseObject = { pageNumber: 1, pageSize: 20, name: null, address: null };
   selectedRowIndexes: any;
   id: any;
   model: any = {};
@@ -49,7 +50,7 @@ export class ContractListComponent extends General implements OnInit {
   formcontractDetailBill: FormGroup;
   employeeName: string;
   data: object[];
-  stockList = [{ value: true, text: "عقد سهم" }, { value: false, text: "عقد واحدات" }]
+  stockList = [{ value: true, text: " سهم" }, { value: false, text: " واحدات" }]
   extraList = [{ value: "عداد مياة", text: "عداد مياة" }, {  text: "عداد كهرباء", value: "عداد كهرباء" }, 
   {  text: "دفعة مباني", value: "دفعة مباني" }, {  text: " وديعة اسانسير", value: " وديعة اسانسير" }]
   constructor(private formBuilder: FormBuilder,
@@ -81,6 +82,7 @@ export class ContractListComponent extends General implements OnInit {
     this.wrapSettings = { wrapMode: "Content" };
     this.getData(this.filter);
     this.getDropDownList()
+    this.getDropDownListYear()
     this.form = this.formBuilder.group({
       id: [0],
       name: [null, [Validators.required]],
@@ -92,6 +94,7 @@ export class ContractListComponent extends General implements OnInit {
       date: [Globals.formatDate(Date.now), [Validators.required]],
       meterCost: [0, [Validators.required]],
       totalCost: [0, [Validators.required]],
+      metersNumer:[0, [Validators.required]],
       isStock: [false, [Validators.required]],
       stockCount: [0],
       metersCount: [0],
@@ -110,6 +113,10 @@ export class ContractListComponent extends General implements OnInit {
       nameisExtra: [null, [Validators.required]],
     });
 
+  }
+  changeMeterCost(){
+    var meterCost=this.form.value.totalCost/this.form.value.metersNumer;
+    this.form.patchValue({ meterCost: meterCost})
   }
   getDropDownList() {
 
@@ -152,10 +159,21 @@ export class ContractListComponent extends General implements OnInit {
         this.form.reset();
       })
   }
+  dataDropDownYear=new Array();
+  getDropDownListYear() {
+    var max = new Date().getFullYear(),
+      min = max - 10,
+      max = max + 90;
+      
+      for(var i=min; i<=max; i++){
+        
+        this.dataDropDownYear.push(i);
+      }
+   
+   }
+  onChangeDateTime(e) {
 
-  onChangeDateTime(args: any): void {
-
-    this.filter.date = args
+    this.filter.date = e.itemData.value
     this.getData(this.filter);
   }
   openModal() {
@@ -219,6 +237,7 @@ export class ContractListComponent extends General implements OnInit {
             date: Globals.formatDate(Date.parse(res.data.date)),
             meterCost: res.data.meterCost,
             totalCost: res.data.totalCost,
+            metersNumer:res.data.metersNumer,
             isStock: res.data.isStock,
             stockCount: res.data.stockCount,
             metersCount: res.data.metersCount,

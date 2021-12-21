@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://mahmoud2025-001-site1.btempurl.com/api',
-  urlReport:'http://mahmoud2025-001-site1.btempurl.com'
+  apiUrl:'http://localhost:7652/api',
+  urlReport:'http://localhost:7652'
 };
 
 /* apiUrl:'http://mahmoud2025-001-site1.btempurl.com/api',

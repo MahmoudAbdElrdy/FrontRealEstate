@@ -43,7 +43,7 @@ export class CustomersSalesComponent extends General implements OnInit {
   departmentDDL = [];
   //FieldsDDL:Object;
   FieldsDDL: Object = { text: 'text', value: 'value' };
-  filter: looseObject = { pageNumber: 1, pageSize: 15, name: null, phone: null, referrer: null };
+  filter: looseObject = { pageNumber: 1, pageSize: 20, name: null, phone: null, referrer: null };
   selectedRowIndexes: any;
   id: any;
   form: FormGroup;

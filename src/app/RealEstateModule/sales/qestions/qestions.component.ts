@@ -37,7 +37,7 @@ export class QestionsComponent extends General implements OnInit {
   @ViewChild('grid') gridObj: GridComponent;
   @ViewChild("pager") pager: PagerComponent;
   FieldsDDL: Object = { text: 'text', value: 'value' };
-  filter: looseObject = { pageNumber: 1, pageSize: 15, name: null };
+  filter: looseObject = { pageNumber: 1, pageSize: 20, name: null };
   selectedRowIndexes: any;
   id: any;
   form: FormGroup;
