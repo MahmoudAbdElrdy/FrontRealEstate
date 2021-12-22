@@ -41,4 +41,10 @@ export class ReportService {
     return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
     
   }
+  reportAlert(model: any) {
+    
+    this.requestUrl = `${environment.urlReport}/Report/ReportAlert?id=${model.projectID}&from=${model.fromDate}&to=${model.toDate}`;
+    return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
+    
+  }
 }

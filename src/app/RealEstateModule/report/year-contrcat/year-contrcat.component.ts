@@ -17,16 +17,11 @@ export class YearContrcatComponent implements OnInit {
  FieldsDDL: Object = { text: 'value', value: 'value' };
 
  constructor(  private _service: ReportService,
-   private _publicService: PublicService,
-   private router: Router,  private formBuilder: FormBuilder,
-   private activeRoute: ActivatedRoute,
-   private _serviceProject: ProjectService,) { }
+   private formBuilder: FormBuilder,) { }
 
  ngOnInit(): void {
    this.getDropDownList()
    this.form = this.formBuilder.group({
-    
-     
      year:  [null, [Validators.required]],
    });
  }

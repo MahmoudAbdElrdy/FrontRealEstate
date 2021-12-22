@@ -39,7 +39,7 @@ export class ContractListComponent extends General implements OnInit {
   departmentDDL = [];
   //FieldsDDL:Object;
   FieldsDDL: Object = { text: 'text', value: 'value' };
-  FieldsDDLYear: Object ={ text: 'value', value: 'value' };
+  FieldsDDLYear: Object = { text: 'value', value: 'value' };
   FieldsProject: Object = { text: 'name', value: 'id' };
   filter: looseObject = { pageNumber: 1, pageSize: 20, name: null, address: null };
   selectedRowIndexes: any;
@@ -51,8 +51,8 @@ export class ContractListComponent extends General implements OnInit {
   employeeName: string;
   data: object[];
   stockList = [{ value: true, text: " سهم" }, { value: false, text: " واحدات" }]
-  extraList = [{ value: "عداد مياة", text: "عداد مياة" }, {  text: "عداد كهرباء", value: "عداد كهرباء" }, 
-  {  text: "دفعة مباني", value: "دفعة مباني" }, {  text: " وديعة اسانسير", value: " وديعة اسانسير" }]
+  extraList = [{ value: "عداد مياة", text: "عداد مياة" }, { text: "عداد كهرباء", value: "عداد كهرباء" },
+  { text: "دفعة مباني", value: "دفعة مباني" }, { text: " وديعة اسانسير", value: " وديعة اسانسير" }]
   constructor(private formBuilder: FormBuilder,
     public modalService: NgbModal,
     private modalService2: NgbModal,
@@ -94,7 +94,7 @@ export class ContractListComponent extends General implements OnInit {
       date: [Globals.formatDate(Date.now), [Validators.required]],
       meterCost: [0, [Validators.required]],
       totalCost: [0, [Validators.required]],
-      metersNumer:[0, [Validators.required]],
+      metersNumer: [0, [Validators.required]],
       isStock: [false, [Validators.required]],
       stockCount: [0],
       metersCount: [0],
@@ -114,9 +114,9 @@ export class ContractListComponent extends General implements OnInit {
     });
 
   }
-  changeMeterCost(){
-    var meterCost=this.form.value.totalCost/this.form.value.metersNumer;
-    this.form.patchValue({ meterCost: meterCost})
+  changeMeterCost() {
+    var meterCost = this.form.value.totalCost / this.form.value.metersNumer;
+    this.form.patchValue({ meterCost: meterCost })
   }
   getDropDownList() {
 
@@ -159,18 +159,18 @@ export class ContractListComponent extends General implements OnInit {
         this.form.reset();
       })
   }
-  dataDropDownYear=new Array();
+  dataDropDownYear = new Array();
   getDropDownListYear() {
     var max = new Date().getFullYear(),
       min = max - 10,
       max = max + 90;
-      
-      for(var i=min; i<=max; i++){
-        
-        this.dataDropDownYear.push(i);
-      }
-   
-   }
+
+    for (var i = min; i <= max; i++) {
+
+      this.dataDropDownYear.push(i);
+    }
+
+  }
   onChangeDateTime(e) {
 
     this.filter.date = e.itemData.value
@@ -237,7 +237,7 @@ export class ContractListComponent extends General implements OnInit {
             date: Globals.formatDate(Date.parse(res.data.date)),
             meterCost: res.data.meterCost,
             totalCost: res.data.totalCost,
-            metersNumer:res.data.metersNumer,
+            metersNumer: res.data.metersNumer,
             isStock: res.data.isStock,
             stockCount: res.data.stockCount,
             metersCount: res.data.metersCount,
@@ -443,7 +443,7 @@ export class ContractListComponent extends General implements OnInit {
 
   //
   BaseFile: string = "http://mahmoud2025-001-site1.btempurl.com/wwwroot/UploadFiles/";
-  ImageUrl=new Array;
+  ImageUrl = new Array;
   fileToUpload = null;
   @ViewChild('userPhoto') userPhoto: ElementRef;
   uploadImage(event) {
@@ -458,16 +458,16 @@ export class ContractListComponent extends General implements OnInit {
       const result = event as any;
       console.log(result)
       result.filePaths.forEach(element => {
-        this.ImageUrl.push(element) ;
+        this.ImageUrl.push(element);
       });
-    
-     // this.fileToUpload = null;
+
+      // this.fileToUpload = null;
       this.form.patchValue({
-        contractFile:this.ImageUrl
+        contractFile: this.ImageUrl
       });
       console.log(this.ImageUrl)
     }
-   
+
     );
   }
   removeAttachments2(e) {
@@ -556,12 +556,12 @@ export class ContractListComponent extends General implements OnInit {
   //  this.modalService.open(this.modalId, { size: 'lg', backdrop: 'static' });
   //date تاريخ الاقساط
   ///rowContractDetailSelected
-  get isExtra(){
+  get isExtra() {
     return this.formcontractDetail.get('isExtra').value;
   }
   rowContractDateSelected(args: RowSelectEventArgs) {
-   
-  
+
+
 
     var data = args.data as any;
     this.contractDetailIdData = data;
@@ -580,22 +580,22 @@ export class ContractListComponent extends General implements OnInit {
 
   }
   saveContractDetailId() {
-    
+
     this.formcontractDetail.markAllAsTouched();
-    if(this.formcontractDetail.get('isExtra').value==true){
+    if (this.formcontractDetail.get('isExtra').value == true) {
       this.formcontractDetail.patchValue({
         name: this.formcontractDetail.get('nameisExtra').value,
       });
     }
-    else{
+    else {
       this.formcontractDetail.patchValue({
         nameisExtra: this.formcontractDetail.get('name').value,
       });
     }
-    if(this.formcontractDetail.valid){
+    if (this.formcontractDetail.valid) {
       this._service.saveContractDetail(this.formcontractDetail.getRawValue()).subscribe(res => {
         if (res.isSuccess) {
-  
+
           this.alert.success(res.message);
           this.getAllContractDetail();
           this.modalService2.dismissAll("InstallmentGenerate");
@@ -608,12 +608,12 @@ export class ContractListComponent extends General implements OnInit {
         }
       });
     }
-   
+
   }
   @ViewChild('InstallmentdateId') installmentdate: ElementRef;
   openModalInstallmentdate() {
     this.formcontractDetail.reset();
-    this.formcontractDetail.patchValue({   
+    this.formcontractDetail.patchValue({
       isExtra: false,
       contractId: this.id,
     });
@@ -661,16 +661,16 @@ export class ContractListComponent extends General implements OnInit {
         isExtra: this.contractDetailIdData.isExtra,
         date: Globals.formatDate(Date.parse(this.contractDetailIdData.date)),
         amount: this.contractDetailIdData.amount,
-        nameisExtra:  this.contractDetailIdData.name,
+        nameisExtra: this.contractDetailIdData.name,
       });
     }
   }
   @ViewChild('InstallmentdateList') installmentdateList: ElementRef;
   contractDetail: any = { totalCost: 0, totalItems: 0, totalAccessories: 0 };
   openModalInstallmentdateList() {
-    
+
     if (this.id != undefined || this.id > 0) {
-    
+
       this.contractDetail.totalCost = this.model.totalCost
       this.contractDetail.totalItems = this.model.totalCost
       this.getAllContractDetail()
@@ -775,7 +775,7 @@ export class ContractListComponent extends General implements OnInit {
 
           this.dataContractDetail = res.data;
           this.contractDetail.totalAccessories = this.getTotal(this.dataContractDetail)
-          this.contractDetail.totalCost+=this.getTotalNotExtra(this.dataContractDetail)
+          this.contractDetail.totalCost += this.getTotalNotExtra(this.dataContractDetail)
         } else {
           this.alert.error('حدثت مشكلة');
         }
@@ -810,7 +810,7 @@ export class ContractListComponent extends General implements OnInit {
   @ViewChild('Safe') safe: ElementRef;
   openModalSafe() {
     if (this.id) {
-      this.dataSafe=null;
+      this.dataSafe = null;
       this.modalService.open(this.safe, { size: 'lg', backdrop: 'static' });
       this._service.getAllInstallmentNotPaid(this.id)
         .subscribe(res => {
@@ -829,7 +829,7 @@ export class ContractListComponent extends General implements OnInit {
   }
   //rowContractDetailSelected rowContractBillSelected
   rowContractDetailSelected(args: RowSelectEventArgs) {
-    
+
     var data = args.data as any;
     this.contractDetailId = data.id;
 
@@ -858,7 +858,7 @@ export class ContractListComponent extends General implements OnInit {
   //
   //Safe
   rowContractBillSelected(args: RowSelectEventArgs) {
-    
+
     this.dataContractDetailBill = args.data as any;
     this.contractDetailBillId = this.dataContractDetailBill.id
     this.formcontractDetailBill = this.formBuilder.group({
@@ -936,8 +936,7 @@ export class ContractListComponent extends General implements OnInit {
 
   }
   removeContractDetailBill() {
-    if (this.contractDetailBillId != undefined)
-     {
+    if (this.contractDetailBillId != undefined) {
 
 
       if (this.contractDetailBillId == 0) return;
@@ -949,50 +948,51 @@ export class ContractListComponent extends General implements OnInit {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'نعم',
-        cancelButtonText:"لا"
+        cancelButtonText: "لا"
       }).then((result) => {
         if (result.value) {
-  
+
           this._service.deleteContractDetailBill(this.contractDetailBillId).subscribe(res => {
             if (res.isSuccess) {
-             // this.getData(this.filter);
-             this.modalService.dismissAll();
-             if (this.contractDetailId) {
-               this._service.getAllContractDetailBill(this.contractDetailId)
-                 .subscribe(res => {
-                   if (res.isSuccess) {
-     
-                     this.dataSafe = res.data;
-                     this.alert.success(res.message);
-                     this.openModalSafe();
-                   } else {
-                     this.alert.error('حدثت مشكلة');
-                   }
-     
-     
-                 })
-             }
+              // this.getData(this.filter);
+              this.modalService.dismissAll();
+              if (this.contractDetailId) {
+                this._service.getAllContractDetailBill(this.contractDetailId)
+                  .subscribe(res => {
+                    if (res.isSuccess) {
+
+                      this.dataSafe = res.data;
+                      this.alert.success(res.message);
+                      this.openModalSafe();
+                    } else {
+                      this.alert.error('حدثت مشكلة');
+                    }
+
+
+                  })
+              }
               this.alert.success(res.message);
-  
-            
+
+
             }
             else {
               this.alert.error(res.message);
             }
           });
         }
-  
+
       })
-     }
+    }
   }
   //
   //viewPayInstallments
   contractDetailDate = { contractId: 0, fromDate: null, toDate: null }
   @ViewChild('InstallmentAlert') installmentAlert: ElementRef;
   openModalInstallmentAlert() {
-    if (this.id)
-      this.modalService.open(this.installmentAlert, { size: 'lg', backdrop: 'static' });
-
+    debugger
+    // if (this.id)
+    //   this.modalService.open(this.installmentAlert, { size: 'lg', backdrop: 'static' });
+    this.router.navigateByUrl('/Management/Alert')
   }
   openModalAlert() {
 
@@ -1019,12 +1019,12 @@ export class ContractListComponent extends General implements OnInit {
     if (this.id)
       this.modalService.open(this.installmentOverdue, { size: 'lg', backdrop: 'static' });
     if (this.id) {
-      
+
       this._service.getAllInstallmentOverdue(this.id)
         .subscribe(res => {
-          
+
           if (res.isSuccess) {
-            
+
             this.viewOverdueInstallments = res.data;
 
           } else {
@@ -1036,15 +1036,15 @@ export class ContractListComponent extends General implements OnInit {
     }
 
   }
-  openCancelledContract(){
+  openCancelledContract() {
     //CancelledContract
-    
+
     this.router.navigateByUrl('/Management/CancelledContract')
   }
   download(url): void {
-    
+
     url.forEach(element => {
-      window.open(this.BaseFile+element, "_blank")
+      window.open(this.BaseFile + element, "_blank")
       // this._service
       // .download(this.BaseFile+element)
       // .subscribe(blob => {
@@ -1056,6 +1056,6 @@ export class ContractListComponent extends General implements OnInit {
       //   URL.revokeObjectURL(objectUrl);
       // })
     });
-   
+
   }
 }

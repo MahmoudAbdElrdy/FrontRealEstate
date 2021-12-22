@@ -15,9 +15,10 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { CustomerCardComponent } from './customer-card/customer-card.component';
 import { CustomerDataComponent } from './customer-data/customer-data.component';
 import { YearContrcatComponent } from './year-contrcat/year-contrcat.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
-  declarations: [ExtraContrcatComponent, CustomerCardComponent, CustomerDataComponent, YearContrcatComponent],
+  declarations: [ExtraContrcatComponent, CustomerCardComponent, CustomerDataComponent, YearContrcatComponent, AlertComponent],
   imports: [ ReactiveFormsModule, FormsModule ,
     ReportRoutingModule,  GridModule,DropDownListModule,SharedModule,ComboBoxModule,CommonModule,PagerModule,DateTimePickerModule,DatePickerModule,
   ],
