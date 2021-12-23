@@ -10,6 +10,7 @@ import { AlertComponent } from '../report/alert/alert.component';
 import { CustomerCardComponent } from '../report/customer-card/customer-card.component';
 import { CustomerDataComponent } from '../report/customer-data/customer-data.component';
 import { ExtraContrcatComponent } from '../report/extra-contrcat/extra-contrcat.component';
+import { OverdueComponent } from '../report/overdue/overdue.component';
 import { YearContrcatComponent } from '../report/year-contrcat/year-contrcat.component';
 import { CustomersSalesComponent } from '../sales/customers/customers.component';
 import { QestionsComponent } from '../sales/qestions/qestions.component';
@@ -213,6 +214,18 @@ const routes: Routes = [{
                 urls: [
                     { title: ' منبه الاقساط', url: '/Management' },
                     { title: ' منبه الاقساط', }
+                ]
+            }
+        }
+        ,
+        {
+            path: 'Overdue',
+            component: OverdueComponent,
+            data: {
+                title: ' الاقساط المتاخرة',
+                urls: [
+                    { title: ' الاقساط المتاخرة', url: '/Management' },
+                    { title: ' الاقساط المتاخرة', }
                 ]
             }
         }

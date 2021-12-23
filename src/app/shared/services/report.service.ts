@@ -47,4 +47,10 @@ export class ReportService {
     return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
     
   }
+  reportOverdue(model: any) {
+    
+    this.requestUrl = `${environment.urlReport}/Report/ReportOverdue?id=${model.projectID}`;
+    return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
+    
+  }
 }

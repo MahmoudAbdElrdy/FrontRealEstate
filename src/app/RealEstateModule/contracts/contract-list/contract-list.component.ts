@@ -1016,24 +1016,25 @@ export class ContractListComponent extends General implements OnInit {
 
   @ViewChild('InstallmentOverdue') installmentOverdue: ElementRef;
   openModalInstallmentOverdue() {
-    if (this.id)
-      this.modalService.open(this.installmentOverdue, { size: 'lg', backdrop: 'static' });
-    if (this.id) {
+    this.router.navigateByUrl('/Management/Overdue')
+    // if (this.id)
+    //   this.modalService.open(this.installmentOverdue, { size: 'lg', backdrop: 'static' });
+    // if (this.id) {
 
-      this._service.getAllInstallmentOverdue(this.id)
-        .subscribe(res => {
+    //   this._service.getAllInstallmentOverdue(this.id)
+    //     .subscribe(res => {
 
-          if (res.isSuccess) {
+    //       if (res.isSuccess) {
 
-            this.viewOverdueInstallments = res.data;
+    //         this.viewOverdueInstallments = res.data;
 
-          } else {
-            this.alert.error('حدثت مشكلة')
-          }
+    //       } else {
+    //         this.alert.error('حدثت مشكلة')
+    //       }
 
 
-        })
-    }
+    //     })
+    // }
 
   }
   openCancelledContract() {

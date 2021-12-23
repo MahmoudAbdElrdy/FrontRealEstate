@@ -4,11 +4,11 @@ import { ResponseData } from 'src/app/shared/models/ResponseData';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReportService } from 'src/app/shared/services/report.service';
 @Component({
-  selector: 'app-alert',
-  templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.css']
+  selector: 'app-overdue',
+  templateUrl: './overdue.component.html',
+  styleUrls: ['./overdue.component.css']
 })
-export class AlertComponent implements OnInit {
+export class OverdueComponent implements OnInit {
   dataDropDown: any;
   FieldsProject: Object = { text: 'name', value: 'id' };
   constructor(  private _service: ReportService,private _publicService: PublicService,
@@ -17,9 +17,7 @@ export class AlertComponent implements OnInit {
   ngOnInit(): void {
     this.getDropDownList();
     this.form = this.formBuilder.group({
-      projectID:  [null],
-      fromDate: [null, [Validators.required]],
-      toDate: [null, [Validators.required]],
+      projectID:  [null]
     });
   }
   getDropDownList() {
@@ -38,7 +36,7 @@ export class AlertComponent implements OnInit {
     
     this.form.markAllAsTouched();
     if(this.form.valid){
-       this._service.reportAlert(this.form.value).subscribe(res => {
+       this._service.reportOverdue(this.form.value).subscribe(res => {
       
       const fileURL = URL.createObjectURL(res);
       window.open(fileURL, '_blank');
