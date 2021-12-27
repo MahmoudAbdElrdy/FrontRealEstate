@@ -38,12 +38,29 @@ export class AlertComponent implements OnInit {
     
     this.form.markAllAsTouched();
     if(this.form.valid){
-       this._service.reportAlert(this.form.value).subscribe(res => {
-      
-      const fileURL = URL.createObjectURL(res);
-      window.open(fileURL, '_blank');
-    });
-    }
-   
- }
+     
+       
+        this._service.reportAlert(this.form.value).subscribe((data: Blob) => {
+            debugger;
+         
+            var fileType: any;
+            fileType = "application/pdf";
+            var blob = new Blob([data], { type: fileType })
+            const blob1: Blob = data;
+            const fileName1: string = "alert";
+            const objectUrl: string = URL.createObjectURL(blob);
+       
+            window.open(objectUrl, '_blank');
+            // const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+    
+            // a.href = objectUrl;
+            // a.download = fileName1;
+            // document.body.appendChild(a);
+            // a.click();
+    
+            // document.body.removeChild(a);
+            // URL.revokeObjectURL(objectUrl);
+        })
+        }}
+ 
 }

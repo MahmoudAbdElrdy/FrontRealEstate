@@ -562,10 +562,15 @@
           <i class="fas fa-trash-alt"></i>
           حذف
         </button>
+        <button type="button" class="btn btn-outline-danger mx-1" (click)="deleteAll()">
+          <i class="fas fa-trash-alt"></i>
+          حذف الكل
+        </button>
 
       </div>
       <br>
       <ejs-grid #grid [dataSource]='dataContractDetail' [enableRtl]='true' [allowFiltering]='false'
+      (queryCellInfo)='customiseCell($event)'
         [selectionSettings]='selectionsettings' gridLines='Both' [textWrapSettings]='wrapSettings'
         [resizeSettings]="resizeSettings" (rowSelected)='rowContractDateSelected($event)'>
         <e-columns>
@@ -673,7 +678,7 @@
         [selectionSettings]='selectionsettings' gridLines='Both' height='200'>
         <e-columns>
 
-          <e-column field='isExtra' [customAttributes]='customAttributes' headerText=' النوع' textAlign='Right' width=120>
+          <e-column field='isExtra' [customAttributes]='customAttributes' headerText=' النوع' textAlign='Right' width=90>
             <ng-template #template let-data>
               <span class="badge badge-light-success mr-2 ml-2" *ngIf="!data.isExtra"> اساسي</span>
               <span class="badge badge-light-danger" *ngIf="data.isExtra">  ملحق</span>
@@ -688,7 +693,7 @@
           <e-column field='amount' [customAttributes]='customAttributes' headerText=' القيمة' textAlign='Right'
            >
           </e-column>
-          <e-column field='number' [customAttributes]='customAttributes' headerText=' رقم الايصال' textAlign='Right'
+          <e-column field='number' [customAttributes]='customAttributes' headerText=' الايصال' textAlign='Right'
            >
           </e-column>
 
@@ -734,15 +739,15 @@
         <e-columns>
 
 
-          <e-column field='name' [customAttributes]='customAttributes' headerText=' القسط' textAlign='Right' width=120>
+          <e-column field='name' [customAttributes]='customAttributes' headerText=' القسط' textAlign='Right' width=150>
           </e-column>
           <e-column field='date' format='dd/MM/yyyy' type='date' [customAttributes]='customAttributes'
-            headerText='التاريخ' textAlign='Right' width=90></e-column>
+            headerText='التاريخ' textAlign='Right' width=120></e-column>
 
           <e-column field='amount' [customAttributes]='customAttributes' headerText=' القيمة' textAlign='Right'
             width=120>
           </e-column>
-          <e-column field='remainder' [customAttributes]='customAttributes' headerText=' الباقي' textAlign='Right'>
+          <e-column field='remainder' [customAttributes]='customAttributes' headerText=' الباقي' textAlign='Right'  width=120>
           </e-column>
         </e-columns>
       </ejs-grid>
@@ -883,7 +888,7 @@
         [selectionSettings]='selectionsettings' gridLines='Both' height='200'>
         <e-columns>
 
-          <e-column field='isExtra' [customAttributes]='customAttributes' headerText=' النوع' textAlign='Right' width=120>
+          <e-column field='isExtra' [customAttributes]='customAttributes' headerText=' النوع' textAlign='Right' width=90>
             <ng-template #template let-data>
               <span class="badge badge-light-success mr-2 ml-2" *ngIf="!data.isExtra"> اساسي</span>
               <span class="badge badge-light-danger" *ngIf="data.isExtra">  ملحق</span>
@@ -931,7 +936,7 @@
         [selectionSettings]='selectionsettings' gridLines='Both' height='200'>
         <e-columns>
 
-          <e-column field='isExtra' [customAttributes]='customAttributes' headerText=' النوع' textAlign='Right' width=120>
+          <e-column field='isExtra' [customAttributes]='customAttributes' headerText=' النوع' textAlign='Right' width=90>
             <ng-template #template let-data>
               <span class="badge badge-light-success mr-2 ml-2" *ngIf="!data.isExtra"> اساسي</span>
               <span class="badge badge-light-danger" *ngIf="data.isExtra">  ملحق</span>

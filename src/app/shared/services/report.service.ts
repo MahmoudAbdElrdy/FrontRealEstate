@@ -53,4 +53,9 @@ export class ReportService {
     return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
     
   }
+  
+
+getImage(imageUrl: string): Observable<Blob> {
+return this._httpClient.get(imageUrl, { responseType: 'blob' });
+}
 }

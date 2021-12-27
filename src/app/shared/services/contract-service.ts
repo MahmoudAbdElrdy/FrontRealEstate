@@ -81,6 +81,11 @@ export class ContractService {
     params = params.append('id', id);
     return this._httpClient.get<any>(environment.apiUrl + "/Contract/DeleteContractDetail", { params: params});
   } 
+  deleteAllContractDetail(id: any):Observable<any>{
+    let params = new HttpParams();
+    params = params.append('id', id);
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/DeleteAllContractDetail", { params: params});
+  } 
   getAllInstallmentAlert(model: any):Observable<ResponseData>{
     return this._httpClient.post<any>(environment.apiUrl + "/Contract/GetAllInstallmentAlert", model);
   } 

@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FilterService, GridComponent, PagerComponent, PageService, RowSelectEventArgs, SortService, TextWrapSettingsModel, ToolbarService } from '@syncfusion/ej2-angular-grids';
+import { FilterService, GridComponent, PagerComponent, PageService, QueryCellInfoEventArgs, RowSelectEventArgs, SortService, TextWrapSettingsModel, ToolbarService } from '@syncfusion/ej2-angular-grids';
 import { looseObject } from 'src/app/shared/models/looseObject';
 import Swal from 'sweetalert2';
 import { ResponseData } from 'src/app/shared/models/ResponseData';
@@ -649,6 +649,56 @@ export class ContractListComponent extends General implements OnInit {
 
     })
   }
+  deleteAll() {
+    if (this.id == 0) return;
+    Swal.fire({
+      title: 'الحذف',
+      text: "هل متاكد من الحذف؟",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'نعم',
+      cancelButtonText: "لا"
+    }).then((result) => {
+      if (result.value) {
+
+        this._service.deleteAllContractDetail(this.id).subscribe(res => {
+          if (res.isSuccess) {
+            this.getAllContractDetail()
+            this.alert.success(res.message);
+
+
+          }
+          else {
+            this.alert.error(res.message);
+          }
+        });
+      }
+
+    })
+  }
+  customiseCell(args: QueryCellInfoEventArgs) {
+    
+    if (this.contractDetail.totalItems > this.contractDetail.totalCost) {
+      if (args.data['isExtra'] == false) {
+        (args.cell as any).style.backgroundColor = "red";
+      }
+    }
+    else if (this.contractDetail.totalItems < this.contractDetail.totalCost) {
+      if (args.data['isExtra'] == false) {
+        (args.cell as any).style.backgroundColor = "red";
+      }
+    }
+    else if (this.contractDetail.totalItems == this.contractDetail.totalCost) {
+      if (args.data['isExtra'] == false) {
+        (args.cell as any).style.backgroundColor = "green";
+        // (args.cell as any).style.backgroundColor ="Gray" ;
+      }
+
+    }
+
+  }
   editModalInstallmentdate() {
     this.modalService.open(this.installmentdate, { size: 'lg', backdrop: 'static' });
 
@@ -672,7 +722,7 @@ export class ContractListComponent extends General implements OnInit {
     if (this.id != undefined || this.id > 0) {
 
       this.contractDetail.totalCost = this.model.totalCost
-      this.contractDetail.totalItems = this.model.totalCost
+      //  this.contractDetail.totalItems = this.model.totalCost
       this.getAllContractDetail()
       this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
 
@@ -774,8 +824,10 @@ export class ContractListComponent extends General implements OnInit {
         if (res.isSuccess) {
 
           this.dataContractDetail = res.data;
+          this.contractDetail.totalAccessories = 0
+          this.contractDetail.totalItems = 0
           this.contractDetail.totalAccessories = this.getTotal(this.dataContractDetail)
-          this.contractDetail.totalCost += this.getTotalNotExtra(this.dataContractDetail)
+          this.contractDetail.totalItems += this.getTotalNotExtra(this.dataContractDetail)
         } else {
           this.alert.error('حدثت مشكلة');
         }
