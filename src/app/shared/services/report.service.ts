@@ -29,9 +29,9 @@ export class ReportService {
     return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
     
   }
-  customerData(option) {
+  customerData(option,ProjectId) {
     
-    this.requestUrl = `${environment.urlReport}/Report/ReportCustomerData?option=${option}`;
+    this.requestUrl = `${environment.urlReport}/Report/ReportCustomerData?option=${option}&ProjectId=${ProjectId}`;
     return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
     
   }
@@ -54,7 +54,12 @@ export class ReportService {
     
   }
   
-
+  reportBill(contrcatId: any) {
+    
+    this.requestUrl = `${environment.urlReport}/Report/ReportBill?id=${contrcatId}`;
+    return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
+    
+  }
 getImage(imageUrl: string): Observable<Blob> {
 return this._httpClient.get(imageUrl, { responseType: 'blob' });
 }

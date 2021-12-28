@@ -15,6 +15,7 @@ import { UploadServicesService } from 'src/app/shared/services/UploadServices.se
 import { Globals } from 'src/app/shared/helper/constants';
 import { L10n, setCulture } from '@syncfusion/ej2-base';
 import { Locales } from 'src/app/shared/helper/constants';
+import { ReportService } from 'src/app/shared/services/report.service';
 setCulture('ar-AE');
 L10n.load(Locales.getLocaleObjects())
 @Component({
@@ -63,7 +64,7 @@ export class ContractListComponent extends General implements OnInit {
     private _serviceProject: ProjectService,
     private UploadServicesService: UploadServicesService,
     private cdRef: ChangeDetectorRef,
-    private alert: AlertifyService) {
+    private alert: AlertifyService,private _serviceReport: ReportService,) {
     super();
   }
   ngAfterViewChecked() {
@@ -1111,4 +1112,20 @@ export class ContractListComponent extends General implements OnInit {
     });
 
   }
+  printBill() {
+    
+  
+      if(this.id){
+            this._serviceReport.reportBill(this.id).subscribe((data: Blob) => {
+             var fileType: any;
+              fileType = "application/pdf";
+              var blob = new Blob([data], { type: fileType })
+              const blob1: Blob = data;
+              const fileName1: string = "alert";
+              const objectUrl: string = URL.createObjectURL(blob);
+         
+              window.open(objectUrl, '_blank');
+              ;
+          })
+          }}
 }

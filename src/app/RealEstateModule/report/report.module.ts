@@ -18,6 +18,7 @@ import { YearContrcatComponent } from './year-contrcat/year-contrcat.component';
 import { AlertComponent } from './alert/alert.component';
 import { OverdueComponent } from './overdue/overdue.component';
 
+
 @NgModule({
   declarations: [ExtraContrcatComponent, CustomerCardComponent, CustomerDataComponent, YearContrcatComponent, AlertComponent, OverdueComponent],
   imports: [ ReactiveFormsModule, FormsModule ,

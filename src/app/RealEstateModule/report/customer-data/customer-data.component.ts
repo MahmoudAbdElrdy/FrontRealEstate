@@ -16,6 +16,7 @@ export class CustomerDataComponent implements OnInit {
   radioTitle: string;
   radioItems: any;
   model = { option: 'الكل', value: 1 };
+  dataDropDown: any;
   constructor(private _service: ReportService,
     private _publicService: PublicService,
     private router: Router, private formBuilder: FormBuilder,
@@ -31,12 +32,24 @@ export class CustomerDataComponent implements OnInit {
       { option: ' العنوان فقط', value: 4 },
       { option: ' تاريخ التعاقد وملاحظات ونظام الدفع ', value: 5}
     ];
+    this.getDropDownList();
+  }
+  getDropDownList() {
+
+    this._publicService.get("Project/GetDropDownList")
+      .subscribe((res: ResponseData) => {
+        if (res.isSuccess == true) {
+
+          this.dataDropDown = res.data;
+
+        }
+      });
   }
   getFile() {
 
     {
       debugger
-      this._service.customerData(this.model.value).subscribe(res => {
+      this._service.customerData(this.model.value,this.projectID).subscribe(res => {
 
         const fileURL = URL.createObjectURL(res);
         window.open(fileURL, '_blank');
@@ -44,4 +57,6 @@ export class CustomerDataComponent implements OnInit {
     }
 
   }
+  projectID:any;
+  FieldsProject: Object = { text: 'name', value: 'id' };
 }

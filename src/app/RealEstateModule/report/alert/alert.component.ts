@@ -41,7 +41,7 @@ export class AlertComponent implements OnInit {
      
        
         this._service.reportAlert(this.form.value).subscribe((data: Blob) => {
-            debugger;
+         
          
             var fileType: any;
             fileType = "application/pdf";

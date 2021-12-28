@@ -7,6 +7,17 @@
   
     <label for="">  {{radiobutton.option}}</label>
 </div>
+<div class="form-group col-md-6">
+  <label for="projectID" style="display: block;" class="col-sm-2 col-form-label">المشروع</label>
+
+
+
+  <ejs-dropdownlist id="projectID" [(ngModel)]="projectID" [dataSource]='dataDropDown'
+      [changeOnBlur]='false' [allowFiltering]='true' [autofill]='true' [enableRtl]='true' width=290
+      placeholder="اختار" [fields]='FieldsProject' [showClearButton]="true">
+  </ejs-dropdownlist>
+  
+</div>
   <br>
 <button type="button" class="btn btn-outline-info mx-1 " (click)="getFile()">
     <i class="fas fa-plus"></i>
