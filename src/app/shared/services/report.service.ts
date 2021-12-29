@@ -63,4 +63,10 @@ export class ReportService {
 getImage(imageUrl: string): Observable<Blob> {
 return this._httpClient.get(imageUrl, { responseType: 'blob' });
 }
+reportCustomerWaiting(model: any) {
+    
+  this.requestUrl = `${environment.urlReport}/Report/ReportCustomerWaiting?region=${model.region}&from=${model.fromDate}&to=${model.toDate}`;
+  return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
+  
+}
 }

@@ -31,6 +31,10 @@
       <i class="fas fa-building-o"></i>
       التعاقد
     </button>
+    <button (click)="openCustomerWaiting()" type="button" class="btn btn-outline-secondary mx-1">
+      <i class="fas fa-building-o"></i>
+      طباعة قائمة الانتظار
+    </button>
   </div>
   <br>
   <ejs-grid [dataSource]='data' [filterSettings]="filterSettings"  #grid   [enableRtl]='true' [allowFiltering]='true' [allowResizing]='true'   [isResponsive]="true" [enableResponsiveRow]="true"
@@ -47,7 +51,7 @@
       <e-column field='referrer' [customAttributes]='customAttributes' headerText='من خلال' textAlign='Right' width=120>
       </e-column>
      
-      <e-column field='customerType' [customAttributes]='customAttributes' headerText='حالة العميل' textAlign='Right'
+      <e-column field='customerType' [customAttributes]='customAttributes' [disabled]="true" headerText='حالة العميل' textAlign='Right'
       width=120>
       <ng-template #template let-data>
         <span *ngIf="data.customerType==1">عميل جديد</span>

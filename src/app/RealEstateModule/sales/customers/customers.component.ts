@@ -220,6 +220,12 @@ export class CustomersSalesComponent extends General implements OnInit {
     if (department == "Sales")
       this.router.navigateByUrl('/Sales/Qestions?customerId=' + customerId)
   }
+  openCustomerWaiting() {
+
+  
+      this.router.navigateByUrl('/Management/CustomerWaiting')
+    
+  }
   openQestion() {
 
     if (this.id != undefined) {

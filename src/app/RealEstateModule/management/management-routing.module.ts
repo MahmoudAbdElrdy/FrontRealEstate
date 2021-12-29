@@ -9,6 +9,7 @@ import { ProjectVisitComponent } from '../customers-service/project-visit/projec
 import { AlertComponent } from '../report/alert/alert.component';
 import { CustomerCardComponent } from '../report/customer-card/customer-card.component';
 import { CustomerDataComponent } from '../report/customer-data/customer-data.component';
+import { CustomerWaitingComponent } from '../report/customer-waiting/customer-waiting.component';
 import { ExtraContrcatComponent } from '../report/extra-contrcat/extra-contrcat.component';
 import { OverdueComponent } from '../report/overdue/overdue.component';
 import { YearContrcatComponent } from '../report/year-contrcat/year-contrcat.component';
@@ -228,7 +229,18 @@ const routes: Routes = [{
                     { title: ' الاقساط المتاخرة', }
                 ]
             }
-        }
+        },
+        {
+            path: 'CustomerWaiting',
+            component: CustomerWaitingComponent,
+            data: {
+                title: ' قائمة الانتظار',
+                urls: [
+                    { title: ' قائمة الانتظار', url: '/Management' },
+                    { title: ' قائمة الانتظار', }
+                ]
+            }
+        },
     ]
 }];
 @NgModule({
