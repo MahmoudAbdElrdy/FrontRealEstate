@@ -50,6 +50,8 @@
 
       <e-column field='date' [customAttributes]='customAttributes' type='date' headerText='التاريخ' textAlign='Right'
         format='yMd' width=90></e-column>
+        <e-column field='region' [customAttributes]='customAttributes' headerText='المنطقة' textAlign='Right' width=120>
+        </e-column>
       <e-column field='customerType' [customAttributes]='customAttributes' headerText=' نوع العميل' textAlign='Right'
         width=120>
         <ng-template #template let-data>

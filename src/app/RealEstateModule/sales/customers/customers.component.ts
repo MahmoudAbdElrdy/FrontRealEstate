@@ -157,6 +157,7 @@ export class CustomersSalesComponent extends General implements OnInit {
       if (args.currentFilterObject.field === "referrer") {
         this.filter.referrer = args.currentFilterObject.value;
       }
+      
       this.filter.pageNumber = 1;
       this.getData(this.filter);
     }

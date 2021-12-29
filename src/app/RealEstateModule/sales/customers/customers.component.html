@@ -46,6 +46,16 @@
         width=90></e-column>
       <e-column field='referrer' [customAttributes]='customAttributes' headerText='من خلال' textAlign='Right' width=120>
       </e-column>
+     
+      <e-column field='customerType' [customAttributes]='customAttributes' headerText='حالة العميل' textAlign='Right'
+      width=120>
+      <ng-template #template let-data>
+        <span *ngIf="data.customerType==1">عميل جديد</span>
+        <span *ngIf="data.customerType==2"> تعاقد جديد</span>
+        <span *ngIf="data.customerType==3"> عميل انتظار</span>
+      </ng-template>
+
+    </e-column>
       <e-column [allowFiltering]='false' [allowSorting]='false' width='90' [disabled]="true" headerText='العمليات'
                 [customAttributes]='customAttributes'>
                 <ng-template #template let-data>
