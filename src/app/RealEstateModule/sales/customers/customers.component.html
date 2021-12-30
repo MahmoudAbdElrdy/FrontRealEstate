@@ -199,10 +199,14 @@
       <i class="fas fa-undo"></i>
       اغلاق
     </button>
-    <button type="button" class="btn btn-info mr-2"  (click)="openModalPayment()">
+    <button type="button" class="btn btn-info mr-2" [disabled]="isBookedValue==2||isBookedValue==3" (click)="openModalPayment()">
       <i class="far fa-save pr-1"></i>
       احجز
     </button>
+    <button type="button" class="btn btn-info mr-2" (click)="cancelReservation()">
+      <i class="far fa-save pr-1"></i>
+      الغاء الحجز
+  </button>
   </div>
 </ng-template>
 <!-- open Modal -->

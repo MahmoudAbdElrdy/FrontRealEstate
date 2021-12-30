@@ -281,7 +281,7 @@ export class CustomersSalesComponent extends General implements OnInit {
 
 
   openModalBuilding() {
-    if (this.id != undefined)
+  //  if (this.id != undefined)
       this.modalService.open(this.buildingId, { size: 'lg', backdrop: 'static' });
 
   }
@@ -302,7 +302,7 @@ export class CustomersSalesComponent extends General implements OnInit {
     this._serviceProject.getProjectUnitDescriptionsList(this.projectId)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-
+debugger
           this.reservationList = res.data;
           for (var r = 1; r <= floors; ++r) {
             let item = new FlatViewModel();
@@ -318,24 +318,28 @@ export class CustomersSalesComponent extends General implements OnInit {
               //  item.Area = 0;
               if (findItem) {
                 item.IsBooked = findItem.isBooked;
-                if (findItem.isBooked) {
-                  item.Color = '#FF0000'
-                  item.IsDisabled = true;
-
-                }
-                else {
-                  //#FF0000
+                if(item.IsBooked==1){
                   item.Color = '#04AA6D'
-                  item.IsDisabled = false;
+                }
+                if (item.IsBooked==2) {
+                  item.Color = '#FFA500'
+                 // item.IsDisabled = true;
 
                 }
-              
+                if (item.IsBooked==3) {
+                  //#FF0000
+                  //  item.Color = '#FFA500'
+                  item.Color = '#FF0000'
+                //  item.IsDisabled = false;
+
+                }
+               
                 let item2 = Object.assign({}, item)
                 Floors.push(item2)
               }
               else {
                 item.IsDisabled = true;
-                item.IsBooked = false;
+                item.IsBooked = 0;
                 item.Color = '#B2BABB'
                 let item2 = Object.assign({}, item)
                 Floors.push(item2)
@@ -349,7 +353,11 @@ export class CustomersSalesComponent extends General implements OnInit {
       });
   }
   viewBulding(event) {
-
+    this.buildingData= {
+      Floors: [//4 عدد الادوار*3 شقق
+      ]
+    };
+    this.reservationList=null
     this.count = 0;
     this.idFlat = 0;
     this.projectId = event?.itemData?.id;
@@ -357,6 +365,9 @@ export class CustomersSalesComponent extends General implements OnInit {
 
     console.log(this.buildingData)
 
+  }
+  get isBookedValue() {
+    return this.formDetails.controls['isBooked'].value;
   }
 
   saveReservation() {
@@ -390,13 +401,14 @@ export class CustomersSalesComponent extends General implements OnInit {
 
 
   }
+ 
   getProjectUnitById(id) {
 
     this.formDetails.reset();
     this._serviceProject.getProjectUnitDescriptionById(id, this.projectId)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-
+          this.modelReservation=res.data;
           this.formDetails.patchValue({
             id: res.data?.id,
             name: res.data?.name,
@@ -427,5 +439,27 @@ export class CustomersSalesComponent extends General implements OnInit {
   openModalPayment() {
     this.modalService.open(this.paymentId, { size: 'lg', backdrop: 'static' });
 
+  }
+  cancelReservation() {
+    if (this.modelReservation != null || this.modelReservation != undefined) {
+      this.modelReservation.isBooked = 1;
+      this._serviceProject.saveProjectUnitDescription(this.modelReservation)
+        .subscribe((res: ResponseData) => {
+
+          if (res.isSuccess == true) {
+
+            //  this.getData(this.filter);
+            this.alert.success("تم  الغاء الحجز");
+            this.modalService.dismissAll();
+          }
+          else {
+            this.alert.error(res.message)
+          }
+        },
+          (err) => {
+            console.log(err)
+            this.alert.error("مشكلة في الداتا بيز")
+          });
+    }
   }
 }

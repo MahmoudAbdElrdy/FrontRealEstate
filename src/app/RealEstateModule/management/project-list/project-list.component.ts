@@ -34,7 +34,7 @@ export class ProjectListComponent extends General implements OnInit {
   filter: looseObject = { pageNumber: 1, pageSize: 20, name: null, address: null, floors: 0 };
   selectedRowIndexes: any;
   id: any;
-  model: any={};
+  model: any = {};
   form: FormGroup;
   formDetails: FormGroup;
   employeeName: string;
@@ -44,14 +44,15 @@ export class ProjectListComponent extends General implements OnInit {
 
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private alert: AlertifyService
+    private alert: AlertifyService,
+    private _serviceProject: ProjectService
 
   ) {
     super();
   }
 
   public data: object[];
-  wrapSettings: TextWrapSettingsModel= { wrapMode: 'Content' };
+  wrapSettings: TextWrapSettingsModel = { wrapMode: 'Content' };
   ngOnInit(): void {
 
     this.customAttributes = { class: 'customcss' }; //use custom cs
@@ -86,9 +87,10 @@ export class ProjectListComponent extends General implements OnInit {
       room: [null, [Validators.required]],
       projectId: this.id,
       isBooked: false,
-      flatId:null,
-      floorNumber:0
+      flatId: null,
+      floorNumber: 0
     });
+
   }
 
   changePage(event) {
@@ -156,7 +158,7 @@ export class ProjectListComponent extends General implements OnInit {
     this._service.getById(this.id)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-          
+
           this.model = res.data;
           this.form.patchValue({
             id: res.data.id,
@@ -253,19 +255,22 @@ export class ProjectListComponent extends General implements OnInit {
   numberApartment = 0;
   objectData: any = {}
   openModalBuilding() {
-    this.buildingData={
+    this.buildingData = {
       Floors: []
     };
-    if (this.id != undefined)
+    if (this.id != undefined) {
       this.modalService.open(this.buildingId, { size: 'lg', backdrop: 'static' });
+      this.getProjectUnitList();
+    }
+
     // this.model
   }
-  openDetails(id){
+  openDetails(id) {
 
-  
-  
+
+
     this.modalService.open(this.buildingId, { size: 'lg', backdrop: 'static' });
-    this.id=id;
+    this.id = id;
     this.getById();
   }
   saveModalBuilding() {
@@ -289,7 +294,7 @@ export class ProjectListComponent extends General implements OnInit {
         });
   }
   viewBulding(Floor) {
-
+    
     this.count = 0;
     this.idFlat = 0;
 
@@ -300,12 +305,28 @@ export class ProjectListComponent extends General implements OnInit {
       //this.counterNumber
 
       for (var j = 1; j <= this.model.apartmentNumber; ++j) {
+        
+       
         item.Area = 0;
         item.Number = ++this.count;
         item.ID = ++this.idFlat;
-        item.IsBooked = false;
-        item.Color = '#04AA6D'
-        item.floorNumber=r;
+        var itemNew=this.reservationList.find(c=>c.flatID==item.ID);
+        if(itemNew){
+          item.IsBooked = itemNew.isBooked;
+          if(item.IsBooked==1){
+            item.Color = '#04AA6D'
+          }
+          else {
+            item.Color = '#FF0000'
+          }
+          
+        }
+        else{
+          item.IsBooked = 1;
+          item.Color = '#04AA6D'
+        }
+       
+        item.floorNumber = r;
         let item2 = Object.assign({}, item)
         Floors.push(item2)
       }
@@ -321,36 +342,36 @@ export class ProjectListComponent extends General implements OnInit {
       projectId: this.projectId,
       isBooked: false,
       flatId: this.FlatID,
-      floorNumber:this.floorNumber
+      floorNumber: this.floorNumber
     });
     this.formDetails.markAllAsTouched();
-    if(this.formDetails.valid){
+    if (this.formDetails.valid) {
       this._service.saveProjectUnitDescription(this.formDetails.getRawValue())
-      .subscribe((res: ResponseData) => {
+        .subscribe((res: ResponseData) => {
 
-        if (res.isSuccess == true) {
+          if (res.isSuccess == true) {
 
-          this.getData(this.filter);
-          this.alert.success(res.message);
-          this.modalService.dismissAll();
-        }
-        else {
-          this.alert.error(res.message)
-        }
-      },
-        (err) => {
-          console.log(err)
-          this.alert.error("مشكلة في الداتا بيز")
-        });
+            this.getData(this.filter);
+            this.alert.success(res.message);
+            this.modalService.dismissAll();
+          }
+          else {
+            this.alert.error(res.message)
+          }
+        },
+          (err) => {
+            console.log(err)
+            this.alert.error("مشكلة في الداتا بيز")
+          });
     }
-    
+
   }
   getProjectUnitById(id) {
     this.formDetails.reset();
-    this._service.getProjectUnitDescriptionById(id,this.projectId)
+    this._service.getProjectUnitDescriptionById(id, this.projectId)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-        
+          this.modelReservation = res.data;
           this.formDetails.patchValue({
             id: res.data?.id,
             name: res.data?.name,
@@ -360,7 +381,7 @@ export class ProjectListComponent extends General implements OnInit {
             room: res.data?.room,
             projectId: res.data?.projectId,
             isBooked: res.data?.isBooked,
-            flatId:res.data?.flatId
+            flatId: res.data?.flatId
           });
 
         }
@@ -368,13 +389,70 @@ export class ProjectListComponent extends General implements OnInit {
       });
 
   }
-  openModalDetails(id,flat) {
-    
+  openModalDetails(id, flat) {
+
     this.FlatID = id;
-    this.floorNumber=flat.floorNumber;
+    this.floorNumber = flat.floorNumber;
     this.modalService.open(this.modalDetailsId, { size: 'lg', backdrop: 'static' });
     if (id != undefined) {
       this.getProjectUnitById(id)
     }
   }
+  saveReservation() {
+    if (this.modelReservation != null || this.modelReservation != undefined) {
+      this.modelReservation.isBooked = 3;
+      
+      this._serviceProject.saveProjectUnitDescription(this.modelReservation)
+        .subscribe((res: ResponseData) => {
+
+          if (res.isSuccess == true) {
+
+            //  this.getData(this.filter);
+            this.alert.success("تم الحجز");
+            this.modalService.dismissAll();
+          }
+          else {
+            this.alert.error(res.message)
+          }
+        },
+          (err) => {
+            console.log(err)
+            this.alert.error("مشكلة في الداتا بيز")
+          });
+    }
+  }
+
+  cancelReservation() {
+    if (this.modelReservation != null || this.modelReservation != undefined) {
+      this.modelReservation.isBooked = 1;
+      this._serviceProject.saveProjectUnitDescription(this.modelReservation)
+        .subscribe((res: ResponseData) => {
+
+          if (res.isSuccess == true) {
+
+            //  this.getData(this.filter);
+            this.alert.success("تم  الغاء الحجز");
+            this.modalService.dismissAll();
+          }
+          else {
+            this.alert.error(res.message)
+          }
+        },
+          (err) => {
+            console.log(err)
+            this.alert.error("مشكلة في الداتا بيز")
+          });
+    }
+  }
+  getProjectUnitList() {
+
+    this._serviceProject.getProjectUnitDescriptionsList(this.id)
+      .subscribe((res: ResponseData) => {
+        if (res.isSuccess == true) {
+
+          this.reservationList = res.data;
+        }
+      });
+  }
+
 }

@@ -3,7 +3,7 @@ export class FlatViewModel {
     Number: number; //flat number in building
     Color: string; //to know if reserved or not 
     Area: number;
-    IsBooked:boolean;
+    IsBooked:any;
     IsDisabled:boolean;
     floorNumber:number;
 }
