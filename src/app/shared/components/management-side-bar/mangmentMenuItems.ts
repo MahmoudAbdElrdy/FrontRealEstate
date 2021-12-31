@@ -23,30 +23,40 @@ export const ROUTES: RouteInfo[] = [
 
 {
         path: '/Management/Contract',
-        title: 'التعاقدات',
+        title: 'الحاسابات الورداة',
         icon: 'fas',
         class: '',
         extralink: false,
         submenu: []
 },
-,
 
 {
-        path: '/Management/Supervisor',
-        title: 'المشرفيين',
-        icon: 'fas fa-user',
-        class: '',
+        path: '',
+        title: 'الحاسابات الصادرة',
+        icon: 'mdi mdi-format-color-fill',
+        class: 'has-arrow',
         extralink: false,
-        submenu: []
+        submenu: [
+                {
+                        path: '/Management/Supervisor',
+                        title: 'المشرفيين',
+                        icon: 'fas fa-user',
+                        class: '',
+                        extralink: false,
+                        submenu: []
+                },
+                {
+                        path: '/Management/DailyReport',
+                        title: 'التقرير اليومي',
+                        icon: 'fas fa-user',
+                        class: '',
+                        extralink: false,
+                        submenu: []
+                }
+        ]
 },
-{
-        path: '/Management/DailyReport',
-        title: 'التقرير اليومي',
-        icon: 'fas fa-user',
-        class: '',
-        extralink: false,
-        submenu: []
-},
+
+
 {
        
         title: 'خدمة العملاء',

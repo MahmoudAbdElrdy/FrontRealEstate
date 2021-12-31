@@ -221,9 +221,13 @@ export class CustomersSalesComponent extends General implements OnInit {
       this.router.navigateByUrl('/Sales/Qestions?customerId=' + customerId)
   }
   openCustomerWaiting() {
-
+    let department = localStorage.getItem("department");
+    if (department == "Administration")
+    this.router.navigateByUrl('/Management/CustomerWaiting')
+        if (department == "Sales")
+    this.router.navigateByUrl('/Sales/CustomerWaiting')
   
-      this.router.navigateByUrl('/Management/CustomerWaiting')
+     
     
   }
   openQestion() {

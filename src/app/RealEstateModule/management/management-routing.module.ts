@@ -35,17 +35,7 @@ const routes: Routes = [{
                 ]
             }
         },
-        {
-            path: 'Project',
-            component: ProjectListComponent,
-            data: {
-                title: ' العقارات',
-                urls: [
-                    { title: 'العقارات', url: '/Management' },
-                    { title: 'الادارة', }
-                ]
-            }
-        },
+    
         {
             path: 'Customer',
             component: CustomersComponent,
