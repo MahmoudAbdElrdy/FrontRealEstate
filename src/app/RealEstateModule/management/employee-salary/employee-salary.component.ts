@@ -67,16 +67,16 @@ export class EmployeeSalaryComponent extends General implements OnInit {
     this.form = this.formBuilder.group({
       id: [0],
       employeeId:  this.filter.employeeId,
-      fixed: [null],
-      productionIncentive: [null],
-      rewards: [null],
-      advancePayment: [null],
-      sanctions: [null],
-      delays: [null],
-      socialInsurance: [null],
-      holidays: [null],
-      buffet: [null],
-      commission: [null],
+      fixed: [0],
+      productionIncentive: [0],
+      rewards: [0],
+      advancePayment: [0],
+      sanctions: [0],
+      delays: [0],
+      socialInsurance: [0],
+      holidays: [0],
+      buffet: [0],
+      commission: [0],
       date: [Date.now()],
     });
   }
@@ -148,7 +148,9 @@ export class EmployeeSalaryComponent extends General implements OnInit {
     this._service.getById(this.id)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
+          debugger
           this.model = res.data;
+         this.total=res.data.total
           this.form.patchValue({
             id: res.data.id,
             employeeId: res.data.employeeId,
