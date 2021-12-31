@@ -65,6 +65,7 @@ export class CustomersComponent extends General implements OnInit {
       id: [0],
       name: ['', [Validators.required]],
       phone: [''],
+      notes: [null]
     });
 
   }
@@ -213,6 +214,7 @@ export class CustomersComponent extends General implements OnInit {
             id: res.data.id,
             name: res.data.name,
             phone: res.data.phone.replace("\r\n", "   "),
+            notes: res.data.notes,
           });
 
         }

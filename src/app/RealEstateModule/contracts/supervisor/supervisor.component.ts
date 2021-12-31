@@ -191,7 +191,7 @@ export class SupervisorComponent extends General implements OnInit {
     this._service.getById(this.id)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-          debugger
+          
           this.model = res.data;
           this.form.patchValue({
             id: res.data.id,
@@ -226,7 +226,7 @@ export class SupervisorComponent extends General implements OnInit {
     if (this.formDetail.valid) {
       this._service.saveSupervisorDetail(this.formDetail.getRawValue())
         .subscribe((res: ResponseData) => {
-          debugger
+          
           if (res.isSuccess == true) {
           
             this.getData(this.filter);
@@ -242,5 +242,10 @@ export class SupervisorComponent extends General implements OnInit {
             this.alert.error("مشكلة في الداتا بيز")
           });
     }
+  }
+  changeNet() {
+    
+    var net = this.formDetail.value.credit - this.formDetail.value.debt;
+    this.formDetail.patchValue({ net: net })
   }
 }
