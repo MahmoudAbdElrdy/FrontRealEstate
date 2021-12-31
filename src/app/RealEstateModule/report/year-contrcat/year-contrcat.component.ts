@@ -40,11 +40,15 @@ export class YearContrcatComponent implements OnInit {
    debugger
    this.form.markAllAsTouched();
    if(this.form.valid){
-      this._service.reportSalesYear(this.form.value.year).subscribe(res => {
-     
-     const fileURL = URL.createObjectURL(res);
-     window.open(fileURL, '_blank');
-   });
+      this._service.reportSalesYear(this.form.value.year).subscribe((data: Blob) => {
+        var fileType: any;
+      fileType = "application/pdf";
+      var blob = new Blob([data], { type: fileType });
+      const objectUrl: string = URL.createObjectURL(blob);
+ 
+      window.open(objectUrl, '_blank');
+   
+  })
    }
   
 }

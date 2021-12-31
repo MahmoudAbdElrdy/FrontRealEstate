@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AlertComponent } from './alert/alert.component';
 import { CustomerCardComponent } from './customer-card/customer-card.component';
 import { ExtraContrcatComponent } from './extra-contrcat/extra-contrcat.component';
+import { SupervisorReportComponent } from './supervisor-report/supervisor-report.component';
 
 
 const routes: Routes = [,
@@ -38,7 +39,20 @@ const routes: Routes = [,
             { title: ' منبه الاقساط', }
         ]
     }
-  }  ];
+  }  
+  ,
+  {
+    path: 'SupervisorReport',
+    component: SupervisorReportComponent,
+    data: {
+        title: ' تقرير',
+        urls: [
+            { title: ' تقرير', url: '/Report' },
+            { title: ' تقرير', }
+        ]
+    }
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

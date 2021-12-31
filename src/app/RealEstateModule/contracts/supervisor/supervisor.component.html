@@ -26,6 +26,10 @@
         <i class="fas fa-undo"></i>
         تفاصيل 
       </button>
+      <button type="button"  class="btn btn-outline-secondary mx-1" (click)="openReport()">
+        <i class="fa-save"></i>
+        تقرير 
+      </button>
     </div>
     <br>
     <ejs-grid [dataSource]='data'  #grid   [enableRtl]='true' [allowFiltering]='true' [allowResizing]='true'   [isResponsive]="true" [enableResponsiveRow]="true"

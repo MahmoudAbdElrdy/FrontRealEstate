@@ -49,11 +49,15 @@ export class CustomerDataComponent implements OnInit {
 
     {
       debugger
-      this._service.customerData(this.model.value,this.projectID).subscribe(res => {
-
-        const fileURL = URL.createObjectURL(res);
-        window.open(fileURL, '_blank');
-      });
+      this._service.customerData(this.model.value,this.projectID).subscribe((data: Blob) => {
+        var fileType: any;
+      fileType = "application/pdf";
+      var blob = new Blob([data], { type: fileType });
+      const objectUrl: string = URL.createObjectURL(blob);
+ 
+      window.open(objectUrl, '_blank');
+   
+  })
     }
 
   }

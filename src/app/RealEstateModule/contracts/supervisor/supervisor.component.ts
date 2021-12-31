@@ -248,4 +248,7 @@ export class SupervisorComponent extends General implements OnInit {
     var net = this.formDetail.value.credit - this.formDetail.value.debt;
     this.formDetail.patchValue({ net: net })
   }
+  openReport(){
+    this.router.navigateByUrl('/Management/SupervisorReport');
+  }
 }

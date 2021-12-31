@@ -69,4 +69,10 @@ reportCustomerWaiting(model: any) {
   return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
   
 }
+reportSupervisor(model: any) {
+    
+  this.requestUrl = `${environment.urlReport}/Report/ReportSupervisor?supervisorId=${model.supervisorId}&from=${model.fromDate}&to=${model.toDate}`;
+  return this._httpClient.get(this.requestUrl, { responseType: 'blob'});
+  
+}
 }

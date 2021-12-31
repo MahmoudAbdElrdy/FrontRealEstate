@@ -12,6 +12,7 @@ import { CustomerDataComponent } from '../report/customer-data/customer-data.com
 import { CustomerWaitingComponent } from '../report/customer-waiting/customer-waiting.component';
 import { ExtraContrcatComponent } from '../report/extra-contrcat/extra-contrcat.component';
 import { OverdueComponent } from '../report/overdue/overdue.component';
+import { SupervisorReportComponent } from '../report/supervisor-report/supervisor-report.component';
 import { YearContrcatComponent } from '../report/year-contrcat/year-contrcat.component';
 import { CustomersSalesComponent } from '../sales/customers/customers.component';
 import { QestionsComponent } from '../sales/qestions/qestions.component';
@@ -241,6 +242,17 @@ const routes: Routes = [{
                 ]
             }
         },
+        {
+          path: 'SupervisorReport',
+          component: SupervisorReportComponent,
+          data: {
+              title: ' تقرير',
+              urls: [
+                  { title: ' تقرير', url: '/Management' },
+                  { title: ' تقرير', }
+              ]
+          }
+        }
     ]
 }];
 @NgModule({

@@ -18,10 +18,11 @@ import { YearContrcatComponent } from './year-contrcat/year-contrcat.component';
 import { AlertComponent } from './alert/alert.component';
 import { OverdueComponent } from './overdue/overdue.component';
 import { CustomerWaitingComponent } from './customer-waiting/customer-waiting.component';
+import { SupervisorReportComponent } from './supervisor-report/supervisor-report.component';
 
 
 @NgModule({
-  declarations: [ExtraContrcatComponent, CustomerCardComponent, CustomerDataComponent, YearContrcatComponent, AlertComponent, OverdueComponent, CustomerWaitingComponent],
+  declarations: [ExtraContrcatComponent, CustomerCardComponent, CustomerDataComponent, YearContrcatComponent, AlertComponent, OverdueComponent, CustomerWaitingComponent, SupervisorReportComponent],
   imports: [ ReactiveFormsModule, FormsModule ,
     ReportRoutingModule,  GridModule,DropDownListModule,SharedModule,ComboBoxModule,CommonModule,PagerModule,DateTimePickerModule,DatePickerModule,
   ],
