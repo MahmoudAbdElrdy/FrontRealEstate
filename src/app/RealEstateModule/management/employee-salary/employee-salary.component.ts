@@ -13,6 +13,9 @@ import { AlertifyService } from 'src/app/shared/services/alertify.service';
 import { General } from 'src/app/shared/helper/general';
 import { EmployeeSalaryService } from 'src/app/shared/services/employee-salary-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 @Component({
   selector: 'app-employee-salary',
   templateUrl: './employee-salary.component.html',
@@ -30,6 +33,7 @@ export class EmployeeSalaryComponent extends General implements OnInit {
   @ViewChild('grid') gridObj: GridComponent;
   @ViewChild("pager") pager: PagerComponent;
   @ViewChild('ModalSalaryId') modalSalaryId: ElementRef;
+  @ViewChild('ModalSalaryPrintId') ModalSalaryPrintId: ElementRef;
   departmentDDL = [];
   //FieldsDDL:Object;
   FieldsDDL: Object = { text: 'text', value: 'value' };
@@ -38,14 +42,14 @@ export class EmployeeSalaryComponent extends General implements OnInit {
   id: any;
   model: any;
   form: FormGroup;
-  employeeName:string;
+  employeeName: string;
   constructor(private formBuilder: FormBuilder,
     public modalService: NgbModal,
     private _service: EmployeeSalaryService,
     private _empService: EmployeeService,
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private alert:AlertifyService
+    private alert: AlertifyService
 
   ) {
     super();
@@ -54,7 +58,7 @@ export class EmployeeSalaryComponent extends General implements OnInit {
   public data: object[];
 
   ngOnInit(): void {
-    
+
     this.customAttributes = { class: 'customcss' }; //use custom cs
     //  this.selectionsettings = { checkboxOnly: true };
     this.selectionsettings = { type: 'Single' };
@@ -62,11 +66,11 @@ export class EmployeeSalaryComponent extends General implements OnInit {
     this.filterSettings = {
       type: 'FilterBar', hierarchyMode: 'Parent', mode: 'Immediate',
     }
-    this.employeeName= localStorage.getItem("employeeName");
+    this.employeeName = localStorage.getItem("employeeName");
     this.getData(this.filter);
     this.form = this.formBuilder.group({
       id: [0],
-      employeeId:  this.filter.employeeId,
+      employeeId: this.filter.employeeId,
       fixed: [0],
       productionIncentive: [0],
       rewards: [0],
@@ -80,7 +84,22 @@ export class EmployeeSalaryComponent extends General implements OnInit {
       date: [Date.now()],
     });
   }
+  public exportHtmlToPDF() {
 
+    let data = document.getElementById('htmltable');
+
+    html2canvas(data).then(canvas => {
+
+      let docWidth = 208;
+      let docHeight = canvas.height * docWidth / canvas.width;
+      const contentDataURL = canvas.toDataURL('image/png')
+      let doc = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      doc.addImage(contentDataURL, 'PNG', 0, position, docWidth, docHeight)
+
+      doc.save(this.employeeName);
+    });
+  }
   changePage(event) {
 
     if (this.change) {
@@ -101,7 +120,7 @@ export class EmployeeSalaryComponent extends General implements OnInit {
 
           this.data = res.data;
           this.totalRecordsCount = res.totalRecordsCount;
-          this.pageCount = res.pageCount>5?5: res.pageCount;
+          this.pageCount = res.pageCount > 5 ? 5 : res.pageCount;
           this.pageSize = res.pageSize;
 
         } else {
@@ -118,10 +137,21 @@ export class EmployeeSalaryComponent extends General implements OnInit {
   }
   openModal() {
 
-    this.modalService.open(this.modalSalaryId, { size: 'lg', backdrop: 'static' });
+    this.modalService.open(this.ModalSalaryPrintId, { size: 'lg', backdrop: 'static' });
 
 
   }
+  openModalPrint() {
+
+
+
+    this.modalService.open(this.ModalSalaryPrintId, { size: 'lg', backdrop: 'static' });
+
+    this.getByIdSalary();
+    this.form.disable();
+
+  }
+
   openEditModal() {
 
 
@@ -148,9 +178,9 @@ export class EmployeeSalaryComponent extends General implements OnInit {
     this._service.getById(this.id)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-          debugger
+
           this.model = res.data;
-         this.total=res.data.total
+          this.total = res.data.total
           this.form.patchValue({
             id: res.data.id,
             employeeId: res.data.employeeId,
