@@ -1,0 +1,48 @@
+
+<div class="row nav-item navbar-nav" style="display: flex; flex-wrap: nowrap; background: rgb(167, 138, 58)">
+    <div
+        class="col-lg-4"
+        style="
+            color: #363e52;
+            font-weight: bold;
+            margin-left: 1%;
+            margin-top: 13px;
+            font-size: 1.3rem;
+        "
+    >
+     
+    </div>
+    <div
+        class="col-lg-4"
+        style="
+            color: #363e52;
+            font-weight: bold;
+            margin-left: 1%;
+            margin-top: 20px;
+            font-size: 1rem;
+            text-align: center;
+        "
+    >
+    <img id="main-logo" src="assets/images/logo.jpeg" height="60" width="100" alt="logo" class="logo">
+
+        {{ dateObj | date }} &nbsp; &nbsp; &nbsp;
+        {{ time | async | date: "hh:mm:ss a" }}
+    </div>
+    <div
+        class="col-lg-4"
+        style="
+            color: #363e52;
+            font-weight: bold;
+            margin-left: 1%;
+            margin-top: 20px;
+            font-size: 1rem;
+        "
+    >
+        <p
+            style="float: left;; margin-left: 10%; cursor: pointer"
+            (click)="Logout()"
+        >
+            تسجيل خروج
+        </p>
+    </div>
+</div>

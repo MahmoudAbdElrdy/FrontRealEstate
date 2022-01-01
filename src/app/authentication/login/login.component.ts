@@ -46,11 +46,9 @@ export class LoginComponent implements OnInit {
   
    this.IdentityServ.authenticate(this.AdminDto).subscribe(
     next => { 
-      
-      ; console.log(next);
+     console.log(next);
       this.Model=next;
       if(next){
-    ;
     let jwt = next.token;
     let jwtData = jwt.split('.')[1]
     let decodedJwtJsonData = window.atob(jwtData)
@@ -82,7 +80,17 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("UserName",this.UserName);
       localStorage.setItem("department",department);
       this.router.navigate(['/Sales/CustomerSales'])
-    } else if(department=="safe"||department=="Contracting-a"){
+    }
+    else if(department=="Supervisors"){
+      this.alertify.toastSuccess("تم الدخول بنجاح");
+      localStorage.setItem("userToken",next.token);
+      localStorage.setItem('isLoggedin', 'true');
+      localStorage.setItem("UserName",this.UserName);
+      localStorage.setItem("department",department);
+      this.router.navigate(['/Supervisors/Supervisor'])
+    }
+    
+    else if(department=="safe"||department=="Contracting-a"){
       this.alertify.toastSuccess("تم الدخول بنجاح");
       localStorage.setItem("userToken",next.token);
       localStorage.setItem('isLoggedin', 'true');

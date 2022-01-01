@@ -11,6 +11,8 @@ import { ContractComponent } from './layouts/contract/contract.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { AuthGuard } from './shared/helper/auth-guard';
 import { ExtraContrcatComponent } from './RealEstateModule/report/extra-contrcat/extra-contrcat.component';
+import { SupervisorComponent } from './RealEstateModule/contracts/supervisor/supervisor.component';
+import { SupervisorsComponent } from './layouts/supervisors/supervisors.component';
 
 export const Approutes: Routes = [
   
@@ -50,6 +52,19 @@ export const Approutes: Routes = [
             {
                 path: '',
                 loadChildren: () => import('./RealEstateModule/sales/sales.module').then(m => m.SalesModule)
+            }
+        ]
+    },
+    {
+        path: 'Supervisors',
+        canActivate: [AuthGuard],
+        data:{department:["Supervisors"]},
+        component: SupervisorsComponent,
+        children: [
+           { path: '', redirectTo: '/Supervisors/Supervisor', pathMatch: 'full' },
+            {
+                path: '',
+                loadChildren: () => import('./RealEstateModule/supervisors/supervisors.module').then(m => m.SupervisorsModule)
             }
         ]
     }

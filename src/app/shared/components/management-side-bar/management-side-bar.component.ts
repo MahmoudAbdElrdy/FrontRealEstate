@@ -31,7 +31,7 @@ export class ManagementSideBarComponent implements OnInit {
       window.scroll({
           top: 0,
           left: 0,
-          behavior: 'smooth'
+          behavior: 'auto'
       });
   }
 

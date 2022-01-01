@@ -44,6 +44,9 @@ import { ContractNavigationComponent } from './shared/components/contract-naviga
 import { ContractSideBarComponent } from './shared/components/contract-side-bar/contract-side-bar.component';
 import { AuthGuard } from './shared/helper/auth-guard';
 import { AuthInterceptor } from './shared/helper/auth-interceptor';
+import { SupervisorNavigationComponent } from './shared/components/supervisor-navigation/supervisor-navigation.component';
+import { SupervisorSideBarComponent } from './shared/components/supervisor-side-bar/supervisor-side-bar.component';
+import { SupervisorsComponent } from './layouts/supervisors/supervisors.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
     wheelSpeed: 1,
@@ -71,7 +74,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         SalesSideBarComponent,
         ContractComponent,
         ContractNavigationComponent,
-        ContractSideBarComponent
+        ContractSideBarComponent,
+        SupervisorNavigationComponent,
+        SupervisorSideBarComponent,
+        SupervisorsComponent
     ],
     imports: [
         CommonModule,

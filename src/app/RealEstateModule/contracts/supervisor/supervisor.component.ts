@@ -21,7 +21,7 @@ L10n.load(Locales.getLocaleObjects())
     SortService,
     FilterService,
     GroupService],
-   
+
 })
 export class SupervisorComponent extends General implements OnInit {
   customAttributes: object;
@@ -43,7 +43,7 @@ export class SupervisorComponent extends General implements OnInit {
   id: any;
   model: any;
   form: FormGroup;
-  formDetail:FormGroup;
+  formDetail: FormGroup;
   constructor(private alert: AlertifyService,
     private formBuilder: FormBuilder, private router: Router,
     private activeRoute: ActivatedRoute,
@@ -153,7 +153,7 @@ export class SupervisorComponent extends General implements OnInit {
   }
   openModalDetail() {
     if (this.id != undefined || this.id > 0)
-    this.modalService.open(this.modalDetailId, { size: 'lg', backdrop: 'static' });
+      this.modalService.open(this.modalDetailId, { size: 'lg', backdrop: 'static' });
   }
   openEditModal() {
 
@@ -177,7 +177,7 @@ export class SupervisorComponent extends General implements OnInit {
     }
 
   }
- 
+
 
   rowSelected(args: RowSelectEventArgs) {
 
@@ -185,19 +185,19 @@ export class SupervisorComponent extends General implements OnInit {
     this.id = data.id;
     this.model = data;
 
-  
+
   }
   getById() {
     this._service.getById(this.id)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-          
+
           this.model = res.data;
           this.form.patchValue({
             id: res.data.id,
             name: res.data.name.replace("\r\n", "   "),
             phone: res.data.phone.replace("\r\n", "   "),
-            job:res.data.job
+            job: res.data.job
           });
 
         }
@@ -226,9 +226,9 @@ export class SupervisorComponent extends General implements OnInit {
     if (this.formDetail.valid) {
       this._service.saveSupervisorDetail(this.formDetail.getRawValue())
         .subscribe((res: ResponseData) => {
-          
+
           if (res.isSuccess == true) {
-          
+
             this.getData(this.filter);
             this.alert.success(res.message);
             this.modalService.dismissAll();
@@ -244,11 +244,16 @@ export class SupervisorComponent extends General implements OnInit {
     }
   }
   changeNet() {
-    
+
     var net = this.formDetail.value.credit - this.formDetail.value.debt;
     this.formDetail.patchValue({ net: net })
   }
-  openReport(){
-    this.router.navigateByUrl('/Management/SupervisorReport');
+  openReport() {
+
+    let department = localStorage.getItem("department");
+    if (department == "Administration")
+      this.router.navigateByUrl('/Management/SupervisorReport');
+    if (department == "Supervisors")
+      this.router.navigateByUrl('/Supervisors/SupervisorReport');
   }
 }
