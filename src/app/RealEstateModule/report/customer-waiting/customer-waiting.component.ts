@@ -28,29 +28,35 @@ export class CustomerWaitingComponent implements OnInit {
     
     this.form.markAllAsTouched();
     if(this.form.valid){
-     
+      var ReportName = "CustomerWaiting";
+      //ASPX page URL to load report  
+      var src = 'http://localhost:4277/Reports/ReportForm/ReportPage.aspx?';
+      //We can add parameters here  
+      src = src + "ReportName=" + ReportName + "&region=" + this.form.value.region + "&fromDate=" +this.form.value.fromDate+ "&toDate=" +this.form.value.toDate ;
+ 
+      window.open(src, "_blank");
        
-        this._service.reportCustomerWaiting(this.form.value).subscribe((data: Blob) => {
+        // this._service.reportCustomerWaiting(this.form.value).subscribe((data: Blob) => {
          
          
-            var fileType: any;
-            fileType = "application/pdf";
-            var blob = new Blob([data], { type: fileType })
-            const blob1: Blob = data;
-            const fileName1: string = "CustomerWaiting";
-            const objectUrl: string = URL.createObjectURL(blob);
+        //     var fileType: any;
+        //     fileType = "application/pdf";
+        //     var blob = new Blob([data], { type: fileType })
+        //     const blob1: Blob = data;
+        //     const fileName1: string = "CustomerWaiting";
+        //     const objectUrl: string = URL.createObjectURL(blob);
        
-            window.open(objectUrl, '_blank');
-            // const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+        //     window.open(objectUrl, '_blank');
+        //     // const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
     
-            // a.href = objectUrl;
-            // a.download = fileName1;
-            // document.body.appendChild(a);
-            // a.click();
+        //     // a.href = objectUrl;
+        //     // a.download = fileName1;
+        //     // document.body.appendChild(a);
+        //     // a.click();
     
-            // document.body.removeChild(a);
-            // URL.revokeObjectURL(objectUrl);
-        })
+        //     // document.body.removeChild(a);
+        //     // URL.revokeObjectURL(objectUrl);
+        // })
         }}
  
 }

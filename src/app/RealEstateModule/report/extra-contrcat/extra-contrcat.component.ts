@@ -45,17 +45,27 @@ export class ExtraContrcatComponent implements OnInit {
       });
   }
   getFile() {
+    debugger
     this.form.markAllAsTouched();
     if(this.form.valid){
-         this._service.reportExtraContrcat(this.form.value).subscribe((data: Blob) => {
-          var fileType: any;
-        fileType = "application/pdf";
-        var blob = new Blob([data], { type: fileType });
-        const objectUrl: string = URL.createObjectURL(blob);
+      debugger
+    //      this._service.reportExtraContrcat(this.form.value).subscribe((data: Blob) => {
+    //       var fileType: any;
+    //     fileType = "application/pdf";
+    //     var blob = new Blob([data], { type: fileType });
+    //     const objectUrl: string = URL.createObjectURL(blob);
    
-        window.open(objectUrl, '_blank');
+    //     window.open(objectUrl, '_blank');
      
-    })
+    // })
+     // ReportName is the name of Fun in aspx 
+     var ReportName = "ExtraContrcat";
+     //ASPX page URL to load report  
+     var src = 'http://localhost:4277/Reports/ReportForm/ReportPage.aspx?';
+     //We can add parameters here  
+     src = src + "ReportName=" + ReportName + "&projectID=" + this.form.value.projectID + "&contractExtraName=" +this.form.value.contractExtraName ;
+
+     window.open(src, "_blank");
     }
  
 }

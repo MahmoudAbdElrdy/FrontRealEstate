@@ -17,7 +17,7 @@ export class AlertComponent implements OnInit {
   ngOnInit(): void {
     this.getDropDownList();
     this.form = this.formBuilder.group({
-      projectID:  [null],
+      projectID:  [0],
       fromDate: [null, [Validators.required]],
       toDate: [null, [Validators.required]],
     });
@@ -38,29 +38,29 @@ export class AlertComponent implements OnInit {
     
     this.form.markAllAsTouched();
     if(this.form.valid){
-     
+      var ReportName = "Alert";
+      //ASPX page URL to load report  
+      var src = 'http://localhost:4277/Reports/ReportForm/ReportPage.aspx?';
+      //We can add parameters here  
+      src = src + "ReportName=" + ReportName + "&projectID=" + this.form.value.projectID + "&fromDate=" +this.form.value.fromDate+ "&toDate=" +this.form.value.toDate ;
+ 
+      window.open(src, "_blank");
        
-        this._service.reportAlert(this.form.value).subscribe((data: Blob) => {
+        // this._service.reportAlert(this.form.value).subscribe((data: Blob) => {
          
          
-            var fileType: any;
-            fileType = "application/pdf";
-            var blob = new Blob([data], { type: fileType })
-            const blob1: Blob = data;
-            const fileName1: string = "alert";
-            const objectUrl: string = URL.createObjectURL(blob);
+        //     var fileType: any;
+        //     fileType = "application/pdf";
+        //     var blob = new Blob([data], { type: fileType })
+        //     const blob1: Blob = data;
+        //     const fileName1: string = "alert";
+        //     const objectUrl: string = URL.createObjectURL(blob);
        
-            window.open(objectUrl, '_blank');
-            // const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
-    
-            // a.href = objectUrl;
-            // a.download = fileName1;
-            // document.body.appendChild(a);
-            // a.click();
-    
-            // document.body.removeChild(a);
-            // URL.revokeObjectURL(objectUrl);
-        })
-        }}
+        //     window.open(objectUrl, '_blank');
+         
+        // })
+        //
+       }
+      }
  
 }

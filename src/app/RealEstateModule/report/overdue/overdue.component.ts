@@ -17,7 +17,7 @@ export class OverdueComponent implements OnInit {
   ngOnInit(): void {
     this.getDropDownList();
     this.form = this.formBuilder.group({
-      projectID:  [null]
+      projectID:  [0]
     });
   }
   getDropDownList() {
@@ -36,15 +36,22 @@ export class OverdueComponent implements OnInit {
     
     this.form.markAllAsTouched();
     if(this.form.valid){
-       this._service.reportOverdue(this.form.value).subscribe((data: Blob) => {
-        var fileType: any;
-      fileType = "application/pdf";
-      var blob = new Blob([data], { type: fileType });
-      const objectUrl: string = URL.createObjectURL(blob);
+  //      this._service.reportOverdue(this.form.value).subscribe((data: Blob) => {
+  //       var fileType: any;
+  //     fileType = "application/pdf";
+  //     var blob = new Blob([data], { type: fileType });
+  //     const objectUrl: string = URL.createObjectURL(blob);
  
-      window.open(objectUrl, '_blank');
+  //     window.open(objectUrl, '_blank');
    
-  })
+  // })
+  var ReportName = "Overdue";
+  //ASPX page URL to load report  
+  var src = 'http://localhost:4277/Reports/ReportForm/ReportPage.aspx?';
+  //We can add parameters here  
+  src = src + "ReportName=" + ReportName + "&projectID=" + this.form.value.projectID  ;
+
+  window.open(src, "_blank");
     }
    
  }

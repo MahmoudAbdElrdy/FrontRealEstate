@@ -248,13 +248,13 @@
 <!-- salary -->
 <ng-template #ModalSalaryPrintId let-modalSalaryPrint>
     
-    <div class="modal-body" id="htmltable" #htmltable>
+    <div class="modal-body" dir="rtl" id="htmltable" #htmltable>
        
         <form [formGroup]="form" >
             <div  class="form-group row">
                
                 <label for="" class="col-sm-2 col-form-label">الموظف</label>
-                <div class="col-sm-4">
+                <div class="col-sm-4" dir="rtl">
                     <input type="text" class="form-control" disabled id="employeeName" [ngModelOptions]="{standalone: true}" [(ngModel)]="employeeName">
 
                 </div>

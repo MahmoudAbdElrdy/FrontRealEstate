@@ -17,7 +17,7 @@ export class SupervisorReportComponent implements OnInit {
   ngOnInit(): void {
     this.getDropDownList();
     this.form = this.formBuilder.group({
-      supervisorId:  [null, [Validators.required]],
+      supervisorId:  [0, [Validators.required]],
       fromDate: [null],
       toDate: [null],
     });
@@ -38,17 +38,23 @@ export class SupervisorReportComponent implements OnInit {
     
     this.form.markAllAsTouched();
     if(this.form.valid){
-     
+      var ReportName = "Supervisor";
+      //ASPX page URL to load report  
+      var src = 'http://localhost:4277/Reports/ReportForm/ReportPage.aspx?';
+      //We can add parameters here  
+      src = src + "ReportName=" + ReportName + "&supervisorId=" + this.form.value.supervisorId + "&fromDate=" +this.form.value.fromDate+ "&toDate=" +this.form.value.toDate ;
+ 
+      window.open(src, "_blank");
        
-        this._service.reportSupervisor(this.form.value).subscribe((data: Blob) => {
-              var fileType: any;
-            fileType = "application/pdf";
-            var blob = new Blob([data], { type: fileType });
-            const objectUrl: string = URL.createObjectURL(blob);
+        // this._service.reportSupervisor(this.form.value).subscribe((data: Blob) => {
+        //       var fileType: any;
+        //     fileType = "application/pdf";
+        //     var blob = new Blob([data], { type: fileType });
+        //     const objectUrl: string = URL.createObjectURL(blob);
        
-            window.open(objectUrl, '_blank');
+        //     window.open(objectUrl, '_blank');
          
-        })
+        // })
         }}
  
 }

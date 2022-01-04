@@ -96,7 +96,7 @@ export class EmployeeSalaryComponent extends General implements OnInit {
       let doc = new jsPDF('p', 'mm', 'a4');
       let position = 0;
       doc.addImage(contentDataURL, 'PNG', 0, position, docWidth, docHeight)
-
+      doc.viewerPreferences({Direction: 'R2L'});
       doc.save(this.employeeName);
     });
   }
@@ -136,25 +136,26 @@ export class EmployeeSalaryComponent extends General implements OnInit {
     this.getData(this.filter);
   }
   openModal() {
-
-    this.modalService.open(this.ModalSalaryPrintId, { size: 'lg', backdrop: 'static' });
+    this.form.reset();
+    this.form.enable();
+    this.modalService.open(this.modalSalaryId, { size: 'lg', backdrop: 'static' });
 
 
   }
   openModalPrint() {
 
-
-
+    this.form.reset();
+    if (this.id != undefined || this.id > 0) {
     this.modalService.open(this.ModalSalaryPrintId, { size: 'lg', backdrop: 'static' });
 
     this.getByIdSalary();
     this.form.disable();
-
+    }
   }
 
   openEditModal() {
-
-
+    this.form.reset();
+    this.form.enable();
     if (this.id != undefined || this.id > 0) {
       this.modalService.open(this.modalSalaryId, { size: 'lg', backdrop: 'static' });
       this.getByIdSalary();
@@ -163,7 +164,8 @@ export class EmployeeSalaryComponent extends General implements OnInit {
   }
   openEdit(id) {
 
-
+    this.form.reset();
+    this.form.enable();
     if (id != undefined || id > 0) {
       this.modalService.open(this.modalSalaryId, { size: 'lg', backdrop: 'static' });
       this.id = id;
