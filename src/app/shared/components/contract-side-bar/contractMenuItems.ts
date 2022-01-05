@@ -12,7 +12,7 @@ export const ROUTES: RouteInfo[] = [
         },
         {
                 path: '/Contracts/Contract',
-                title: 'الحاسابات الورداة',
+                title: 'الحاسابات الواردة  ',
                 icon: 'fas fa-user',
                 class: '',
                 extralink: false,

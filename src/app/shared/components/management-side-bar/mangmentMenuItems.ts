@@ -23,7 +23,7 @@ export const ROUTES: RouteInfo[] = [
 
 {
         path: '/Management/Contract',
-        title: 'الحاسابات الورداة',
+        title: 'الحاسابات الواردة  ',
         icon: 'fas',
         class: '',
         extralink: false,

@@ -9,6 +9,29 @@ export const ROUTES: RouteInfo[] = [
                 extralink: false,
                 submenu: []
         },
+
+        {
+
+                title: 'التقارير',
+                path: '',
+                icon: 'mdi mdi-format-color-fill',
+                class: 'has-arrow',
+                extralink: false,
+                submenu: [
+
+                        {
+                                path: '/CustomerSales/CustomerData',
+                                title: 'بيانات العملاء',
+                                icon: '',
+                                class: '',
+                                extralink: false,
+                                submenu: []
+                        }
+
+
+
+                ]
+        },
         // {
         //         path: '/Sales/Qestions',
         //         title: 'الاستعلامات',
@@ -17,4 +40,4 @@ export const ROUTES: RouteInfo[] = [
         //         extralink: false,
         //         submenu: []
         // },
-        ];
+];

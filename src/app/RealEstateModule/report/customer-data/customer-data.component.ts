@@ -48,16 +48,25 @@ export class CustomerDataComponent implements OnInit {
   getFile() {
 
     {
-      debugger
-      this._service.customerData(this.model.value,this.projectID).subscribe((data: Blob) => {
-        var fileType: any;
-      fileType = "application/pdf";
-      var blob = new Blob([data], { type: fileType });
-      const objectUrl: string = URL.createObjectURL(blob);
+      
+     // this._service.customerData(this.model.value,this.projectID).subscribe((data: Blob) => {
+  //       var fileType: any;
+  //     fileType = "application/pdf";
+  //     var blob = new Blob([data], { type: fileType });
+  //     const objectUrl: string = URL.createObjectURL(blob);
  
-      window.open(objectUrl, '_blank');
+  //     window.open(objectUrl, '_blank');
    
-  })
+  // })
+  var ReportName = "CustomerData";
+  //ASPX page URL to load report  
+  var src = 'http://localhost:4277/Reports/ReportForm/ReportPage.aspx?';
+  //We can add parameters here  
+  if(this.projectID==undefined)
+  this.projectID=0;
+  src = src + "ReportName=" + ReportName + "&option=" +this.model.value+ "&ProjectId=" +this.projectID ;
+
+  window.open(src, "_blank");
     }
 
   }

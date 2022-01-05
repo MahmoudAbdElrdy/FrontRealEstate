@@ -48,7 +48,7 @@ export class CustomersSalesComponent extends General implements OnInit {
   id: any;
   form: FormGroup;
   formDetails: FormGroup;
-  dataDropDown = [{ id: 1, name: 'عميل جديد' }, { id: 2, name: 'تعاقد جديد' }, { id: 2, name: 'عميل انتظار' }, { id: 2, name: 'عميل جديد' }];
+  dataDropDown = [{ id: 1, name: 'عميل جديد' }, { id: 2, name: 'تعاقد جديد' }, { id: 3, name: 'عميل انتظار' }];
   filed = { value: "id", text: "name" }
   dataDropDownContract = [];
 
@@ -282,7 +282,10 @@ export class CustomersSalesComponent extends General implements OnInit {
     if (this.id != undefined)
       this.removeGeneral(this.id)
   }
-
+  onChangeType(e){
+    this.filter.customerType = e.value
+    this.getData(this.filter);
+  }
 
   openModalBuilding() {
   //  if (this.id != undefined)
@@ -306,14 +309,14 @@ export class CustomersSalesComponent extends General implements OnInit {
     this._serviceProject.getProjectUnitDescriptionsList(this.projectId)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-debugger
+
           this.reservationList = res.data;
           for (var r = 1; r <= floors; ++r) {
             let item = new FlatViewModel();
 
             let Floors = new Array<FlatViewModel>();
             //this.counterNumber
-
+            this.count=100*r
             for (var j = 1; j <= apartmentNumber; ++j) {
               item.Number = ++this.count;
               item.ID = ++this.idFlat;

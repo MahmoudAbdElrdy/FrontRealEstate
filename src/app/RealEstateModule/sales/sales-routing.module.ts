@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CustomerDataComponent } from '../report/customer-data/customer-data.component';
 import { CustomerWaitingComponent } from '../report/customer-waiting/customer-waiting.component';
 import { CustomersSalesComponent } from './customers/customers.component';
 import { QestionsComponent } from './qestions/qestions.component';
@@ -41,6 +42,17 @@ const routes: Routes = [ {
           ]
       }
   },
+  {
+    path: 'CustomerData',
+    component: CustomerDataComponent,
+    data: {
+        title: ' بيانات العملاء',
+        urls: [
+            { title: 'بيانات العملاء', url: '/Sales' },
+            { title: 'بيانات العملاء', }
+        ]
+    }
+}
   ]
 }];
 @NgModule({

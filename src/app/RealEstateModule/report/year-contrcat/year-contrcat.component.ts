@@ -40,15 +40,22 @@ export class YearContrcatComponent implements OnInit {
    debugger
    this.form.markAllAsTouched();
    if(this.form.valid){
-      this._service.reportSalesYear(this.form.value.year).subscribe((data: Blob) => {
-        var fileType: any;
-      fileType = "application/pdf";
-      var blob = new Blob([data], { type: fileType });
-      const objectUrl: string = URL.createObjectURL(blob);
+      // this._service.reportSalesYear(this.form.value.year).subscribe((data: Blob) => {
+      //   var fileType: any;
+      // fileType = "application/pdf";
+      // var blob = new Blob([data], { type: fileType });
+      // const objectUrl: string = URL.createObjectURL(blob);
  
-      window.open(objectUrl, '_blank');
+      // window.open(objectUrl, '_blank');
    
-  })
+  //})
+  var ReportName = "SalesYear";
+  //ASPX page URL to load report  
+  var src = 'http://localhost:4277/Reports/ReportForm/ReportPage.aspx?';
+  //We can add parameters here  
+  src = src + "ReportName=" + ReportName + "&year=" + this.form.value.year ;
+
+  window.open(src, "_blank");
    }
   
 }

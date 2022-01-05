@@ -303,7 +303,7 @@ export class ProjectListComponent extends General implements OnInit {
 
       let Floors = new Array<FlatViewModel>();
       //this.counterNumber
-
+      this.count=100*r
       for (var j = 1; j <= this.model.apartmentNumber; ++j) {
         
        

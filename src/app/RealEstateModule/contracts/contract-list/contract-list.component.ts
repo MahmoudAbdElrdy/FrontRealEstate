@@ -1116,16 +1116,23 @@ export class ContractListComponent extends General implements OnInit {
     
   
       if(this.id){
-            this._serviceReport.reportBill(this.id).subscribe((data: Blob) => {
-             var fileType: any;
-              fileType = "application/pdf";
-              var blob = new Blob([data], { type: fileType })
-              const blob1: Blob = data;
-              const fileName1: string = "alert";
-              const objectUrl: string = URL.createObjectURL(blob);
+          //   this._serviceReport.reportBill(this.id).subscribe((data: Blob) => {
+          //    var fileType: any;
+          //     fileType = "application/pdf";
+          //     var blob = new Blob([data], { type: fileType })
+          //     const blob1: Blob = data;
+          //     const fileName1: string = "alert";
+          //     const objectUrl: string = URL.createObjectURL(blob);
          
-              window.open(objectUrl, '_blank');
-              ;
-          })
+          //     window.open(objectUrl, '_blank');
+          //     ;
+          // })
+          var ReportName = "PrintBill";
+          //ASPX page URL to load report  
+          var src = 'http://localhost:4277/Reports/ReportForm/ReportPage.aspx?';
+          //We can add parameters here  
+          src = src + "ReportName=" + ReportName + "&id=" + this.id ;
+        
+          window.open(src, "_blank");
           }}
 }

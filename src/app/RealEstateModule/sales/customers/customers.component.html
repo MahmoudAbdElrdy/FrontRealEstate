@@ -58,7 +58,14 @@
         <span *ngIf="data.customerType==2"> تعاقد جديد</span>
         <span *ngIf="data.customerType==3"> عميل انتظار</span>
       </ng-template>
+      <ng-template #filterTemplate>
 
+        <ejs-dropdownlist  id="customerType" [dataSource]='dataDropDown' [changeOnBlur]='false' [allowFiltering]='true'
+          [autofill]='true'  width=300 placeholder="اختار" [fields]='filed'
+          (change)='onChangeType($event)' [showClearButton]="true">
+        </ejs-dropdownlist>
+      </ng-template>
+    
     </e-column>
       <e-column [allowFiltering]='false' [allowSorting]='false' width='90' [disabled]="true" headerText='العمليات'
                 [customAttributes]='customAttributes'>
