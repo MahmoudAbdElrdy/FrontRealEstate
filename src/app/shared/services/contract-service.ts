@@ -29,6 +29,11 @@ export class ContractService {
     params = params.append('id', id);
     return this._httpClient.get<any>(environment.apiUrl + "/Contract/GetById", { params: params});
   } 
+  getpaid(id:any):Observable<any>{
+    let params = new HttpParams();
+    params = params.append('contractId', id);
+    return this._httpClient.get<any>(environment.apiUrl + "/Contract/Getpaid", { params: params});
+  } 
 
   delete(id: any):Observable<any>{
     let params = new HttpParams();

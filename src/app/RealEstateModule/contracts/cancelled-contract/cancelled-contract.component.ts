@@ -1,10 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FilterService, GridComponent, PagerComponent, PageService, SortService, TextWrapSettingsModel, ToolbarService } from '@syncfusion/ej2-angular-grids';
 import { AlertifyService } from 'src/app/shared/services/alertify.service';
 import { General } from 'src/app/shared/helper/general';
 import { ContractService } from 'src/app/shared/services/contract-service';
 import { L10n, setCulture } from '@syncfusion/ej2-base';
-import { Locales } from 'src/app/shared/helper/constants';
+import { Globals, Locales } from 'src/app/shared/helper/constants';
+import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 setCulture('ar-AE');
 L10n.load(Locales.getLocaleObjects())
 @Component({
@@ -16,7 +18,7 @@ L10n.load(Locales.getLocaleObjects())
 })
 export class CancelledContractComponent extends General implements OnInit {
   wrapSettings: TextWrapSettingsModel;
-  constructor(  private _service: ContractService,  private cdRef: ChangeDetectorRef,
+  constructor(private _service: ContractService, private cdRef: ChangeDetectorRef,  public modalService: NgbModal,
     private alert: AlertifyService) {
     super();
   }
@@ -40,8 +42,8 @@ export class CancelledContractComponent extends General implements OnInit {
   pageCount: number;
   @ViewChild('grid') gridObj: GridComponent;
   @ViewChild("pager") pager: PagerComponent;
-  data:[];
-  filter: any = { pageNumber: 1, pageSize: 20, date: null, customer: null, project: null,paid:null,back:null };
+  data: [];
+  filter: any = { pageNumber: 1, pageSize: 20, date: null, customer: null, project: null, paid: null, back: null };
 
   getData() {
 
@@ -58,7 +60,7 @@ export class CancelledContractComponent extends General implements OnInit {
           this.alert.error('حدثت مشكلة');
         }
 
-      
+
       })
   }
   onChangeDateTime(args: any): void {
@@ -93,7 +95,7 @@ export class CancelledContractComponent extends General implements OnInit {
       if (args.currentFilterObject.field === "back") {
         this.filter.back = args.currentFilterObject.value;
       }
-     
+
       this.filter.pageNumber = 1;
       this.getData();
     }
@@ -114,7 +116,7 @@ export class CancelledContractComponent extends General implements OnInit {
         if (clearFilter.field === "back") {
           this.filter.back = null;
         }
-       
+
         this.filter.pageNumber = 1;
         this.getData();
       }
@@ -124,5 +126,36 @@ export class CancelledContractComponent extends General implements OnInit {
   remove(id) {
     if (id != undefined)
       this.removeGeneral(id)
+  }
+
+  //CancellContract
+  @ViewChild('cancellId') modalcancell: ElementRef;
+  cancell: any = { back: 0, date: Globals.formatDate(Date.now) };
+
+  openEdit(data) {
+   // this.cancell.contractId = data.contractId;
+    this.cancell = data;
+    this.cancell.date=Globals.formatDate(data.date)
+    this.modalService.open(this.modalcancell, { size: 'lg', backdrop: 'static' });
+
+  }
+  // cancelSlectSave() {
+  //   if (this.id != undefined)
+  //     this.cancel(this.id)
+  // }
+  cancelSlectSave() {
+   
+   
+    this._service.cancellContract(this.cancell).subscribe(res => {
+      if (res.isSuccess) {
+         this.getData();
+        this.modalService.dismissAll();
+        this.alert.success(res.message);
+
+      }
+      else {
+        this.alert.error(res.message);
+      }
+    });
   }
 }

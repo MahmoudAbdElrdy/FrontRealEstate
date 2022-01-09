@@ -16,6 +16,7 @@ import { Globals } from 'src/app/shared/helper/constants';
 import { L10n, setCulture } from '@syncfusion/ej2-base';
 import { Locales } from 'src/app/shared/helper/constants';
 import { ReportService } from 'src/app/shared/services/report.service';
+import { timeThursdays } from 'd3';
 setCulture('ar-AE');
 L10n.load(Locales.getLocaleObjects())
 @Component({
@@ -64,7 +65,7 @@ export class ContractListComponent extends General implements OnInit {
     private _serviceProject: ProjectService,
     private UploadServicesService: UploadServicesService,
     private cdRef: ChangeDetectorRef,
-    private alert: AlertifyService,private _serviceReport: ReportService,) {
+    private alert: AlertifyService, private _serviceReport: ReportService,) {
     super();
   }
   ngAfterViewChecked() {
@@ -127,6 +128,17 @@ export class ContractListComponent extends General implements OnInit {
 
           this.dataDropDown = res.data;
 
+        }
+      });
+  }
+  Getpaid() {
+
+    this._service.getpaid(this.id)
+      .subscribe((res: ResponseData) => {
+        if (res.isSuccess == true) {
+
+          this.paid = res.data;
+          this.cancell.paid = res.data;
         }
       });
   }
@@ -326,6 +338,12 @@ export class ContractListComponent extends General implements OnInit {
       if (args.currentFilterObject.field === "notes") {
         this.filter.notes = args.currentFilterObject.value;
       }
+      if (args.currentFilterObject.field === "numberFloor") {
+        this.filter.numberFloor = args.currentFilterObject.value;
+      }
+      if (args.currentFilterObject.field === "number") {
+        this.filter.number = args.currentFilterObject.value;
+      }
       this.filter.pageNumber = 1;
       this.getData(this.filter);
     }
@@ -351,6 +369,12 @@ export class ContractListComponent extends General implements OnInit {
         }
         if (clearFilter.field === "notes") {
           this.filter.notes = null;
+        }
+        if (clearFilter.field === "number") {
+          this.filter.number = null;
+        }
+        if (clearFilter.field === "numberFloor") {
+          this.filter.numberFloor = null;
         }
         this.filter.pageNumber = 1;
         this.getData(this.filter);
@@ -513,10 +537,10 @@ export class ContractListComponent extends General implements OnInit {
   }
   //CancellContract
   @ViewChild('cancellId') modalcancell: ElementRef;
-  cancell: any = { paid: 0, back: 0 };
+  cancell: any = { back: 0, date: Globals.formatDate(Date.now), paid: this.paid };
 
   cancelSlect() {
-
+    this.Getpaid();
     this.modalService.open(this.modalcancell, { size: 'lg', backdrop: 'static' });
 
   }
@@ -680,7 +704,7 @@ export class ContractListComponent extends General implements OnInit {
     })
   }
   customiseCell(args: QueryCellInfoEventArgs) {
-    
+
     if (this.contractDetail.totalItems > this.contractDetail.totalCost) {
       if (args.data['isExtra'] == false) {
         (args.cell as any).style.backgroundColor = "red";
@@ -740,6 +764,7 @@ export class ContractListComponent extends General implements OnInit {
   }
   data2 = [];
   installmentGeneratet(fromDate, toDate, numberInstallmen, numberMonth) {
+    
     this.data2 = []
     var start = fromDate.split('-');
     var end = toDate.split('-');
@@ -757,7 +782,12 @@ export class ContractListComponent extends General implements OnInit {
         var displayMonth = month < 10 ? '0' + month : month;
 
         let _temp: { [k: string]: any } = {};
-        let newDate = new Date([i, displayMonth, parseInt(start[2])].join('-'));
+        
+        let number2=parseInt(start[2]);
+        // if(number2<=9){
+        //   number2=number2+1
+        // }
+        let newDate = new Date([i, displayMonth,number2 ].join('-'));
         _temp.name = "قسط " + number++;
         _temp.amount = numberInstallmen;
         _temp.date = newDate;
@@ -1042,17 +1072,17 @@ export class ContractListComponent extends General implements OnInit {
   contractDetailDate = { contractId: 0, fromDate: null, toDate: null }
   @ViewChild('InstallmentAlert') installmentAlert: ElementRef;
   openModalInstallmentAlert() {
-    debugger
+    
     // if (this.id)
     //   this.modalService.open(this.installmentAlert, { size: 'lg', backdrop: 'static' });
-   
-    let department = localStorage.getItem("department");
-   
-    if (department == "Administration")
-    this.router.navigateByUrl('/Management/Alert')
-  else
 
-  this.router.navigateByUrl('/Contracts/Alert')
+    let department = localStorage.getItem("department");
+
+    if (department == "Administration")
+      this.router.navigateByUrl('/Management/Alert')
+    else
+
+      this.router.navigateByUrl('/Contracts/Alert')
   }
   openModalAlert() {
 
@@ -1076,14 +1106,14 @@ export class ContractListComponent extends General implements OnInit {
 
   @ViewChild('InstallmentOverdue') installmentOverdue: ElementRef;
   openModalInstallmentOverdue() {
-   
-    let department = localStorage.getItem("department");
-   
-    if (department == "Administration")
-    this.router.navigateByUrl('/Management/Overdue')
-  else
 
-  this.router.navigateByUrl('/Contracts/Overdue')
+    let department = localStorage.getItem("department");
+
+    if (department == "Administration")
+      this.router.navigateByUrl('/Management/Overdue')
+    else
+
+      this.router.navigateByUrl('/Contracts/Overdue')
     // if (this.id)
     //   this.modalService.open(this.installmentOverdue, { size: 'lg', backdrop: 'static' });
     // if (this.id) {
@@ -1107,11 +1137,11 @@ export class ContractListComponent extends General implements OnInit {
   openCancelledContract() {
     //CancelledContract
     let department = localStorage.getItem("department");
-   
+
     if (department == "Administration")
-    this.router.navigateByUrl('/Management/CancelledContract')
-  else
-  this.router.navigateByUrl('/Contracts/CancelledContract')
+      this.router.navigateByUrl('/Management/CancelledContract')
+    else
+      this.router.navigateByUrl('/Contracts/CancelledContract')
   }
   download(url): void {
 
@@ -1131,26 +1161,27 @@ export class ContractListComponent extends General implements OnInit {
 
   }
   printBill() {
-    
-  
-      if(this.id){
-          //   this._serviceReport.reportBill(this.id).subscribe((data: Blob) => {
-          //    var fileType: any;
-          //     fileType = "application/pdf";
-          //     var blob = new Blob([data], { type: fileType })
-          //     const blob1: Blob = data;
-          //     const fileName1: string = "alert";
-          //     const objectUrl: string = URL.createObjectURL(blob);
-         
-          //     window.open(objectUrl, '_blank');
-          //     ;
-          // })
-          var ReportName = "PrintBill";
-          //ASPX page URL to load report  
-          var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
-          //We can add parameters here  
-          src = src + "ReportName=" + ReportName + "&id=" + this.id ;
-        
-          window.open(src, "_blank");
-          }}
+
+
+    if (this.id) {
+      //   this._serviceReport.reportBill(this.id).subscribe((data: Blob) => {
+      //    var fileType: any;
+      //     fileType = "application/pdf";
+      //     var blob = new Blob([data], { type: fileType })
+      //     const blob1: Blob = data;
+      //     const fileName1: string = "alert";
+      //     const objectUrl: string = URL.createObjectURL(blob);
+
+      //     window.open(objectUrl, '_blank');
+      //     ;
+      // })
+      var ReportName = "PrintBill";
+      //ASPX page URL to load report  
+      var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
+      //We can add parameters here  
+      src = src + "ReportName=" + ReportName + "&id=" + this.id;
+
+      window.open(src, "_blank");
+    }
+  }
 }

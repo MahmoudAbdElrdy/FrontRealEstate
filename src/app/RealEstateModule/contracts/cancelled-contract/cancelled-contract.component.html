@@ -42,7 +42,10 @@
               (click)="remove(data.id)">
               <i class="far fa-trash-alt"></i>
             </button>
-          
+            <button class="btn btn-outline-info mx-1" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+            (click)="openEdit(data)">
+            <i class="far fa-edit"></i>
+          </button>
           </ng-template>
         </e-column>
   
@@ -52,3 +55,45 @@
       [totalRecordsCount]='totalRecordsCount' (click)="changePage($event)"></ejs-pager>
   
   </ng-container>
+  <ng-template #cancellId let-modalcancell>
+    <div class="modal-header">
+  
+      <button type="button" class="close" aria-label="Close" (click)="modalcancell.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+  
+  
+     <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label"> المدفوع </label>
+        <div class="col-sm-10">
+          <input type="number" [(ngModel)]="cancell.paid" class="form-control" id="Paid">
+        </div>
+      </div> 
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label"> التاريخ</label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" [(ngModel)]="cancell.date" id="date" name="date">
+        </div>
+      </div>
+  
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">المرتجع </label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" [(ngModel)]="cancell.back" id="back">
+        </div>
+      </div>
+  
+    </div>
+    <div class="modal-footer px-2 py-2">
+      <button type="button" (click)="modalcancell.close('Close click')" class="btn btn-outline-secondary mr-2">
+        <i class="fas fa-undo"></i>
+        اغلاق
+      </button>
+      <button type="button" class="btn btn-info mr-2" (click)="cancelSlectSave()">
+        <i class="far fa-save pr-1"></i>
+        الغاء العقد
+      </button>
+    </div>
+  </ng-template>
