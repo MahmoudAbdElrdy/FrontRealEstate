@@ -86,7 +86,7 @@ export class ProjectListComponent extends General implements OnInit {
       kitchen: [null, [Validators.required]],
       room: [null, [Validators.required]],
       projectId: this.id,
-      isBooked: false,
+      isBooked: 1,
       flatId: null,
       floorNumber: 0
     });
@@ -340,7 +340,7 @@ export class ProjectListComponent extends General implements OnInit {
 
     this.formDetails.patchValue({
       projectId: this.projectId,
-      isBooked: false,
+      isBooked: 1,
       flatId: this.FlatID,
       floorNumber: this.floorNumber
     });
@@ -367,10 +367,12 @@ export class ProjectListComponent extends General implements OnInit {
 
   }
   getProjectUnitById(id) {
+    debugger
     this.formDetails.reset();
     this._service.getProjectUnitDescriptionById(id, this.projectId)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
+          
           this.modelReservation = res.data;
           this.formDetails.patchValue({
             id: res.data?.id,
@@ -391,17 +393,18 @@ export class ProjectListComponent extends General implements OnInit {
   }
   openModalDetails(id, flat) {
 
-    this.FlatID = id;
+    this.FlatID = flat.Number;;
     this.floorNumber = flat.floorNumber;
     this.modalService.open(this.modalDetailsId, { size: 'lg', backdrop: 'static' });
     if (id != undefined) {
-      this.getProjectUnitById(id)
+      this.getProjectUnitById(this.FlatID)
     }
   }
   saveReservation() {
+    
     if (this.modelReservation != null || this.modelReservation != undefined) {
       this.modelReservation.isBooked = 3;
-      
+      this.modelReservation.flatID=this.FlatID;
       this._serviceProject.saveProjectUnitDescription(this.modelReservation)
         .subscribe((res: ResponseData) => {
 

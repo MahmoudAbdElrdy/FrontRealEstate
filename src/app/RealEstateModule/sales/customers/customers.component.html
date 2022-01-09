@@ -247,7 +247,7 @@
             <td *ngFor="let flat of floor">
               <ul class="floor">
                 <li class="header" [style.background-color]="flat?.Color">
-                  <button class="button" [disabled]="flat?.IsDisabled" (click)="openModalDetails(flat.ID)" [style.background-color]="flat?.Color">
+                  <button class="button" [disabled]="flat?.IsDisabled" (click)="openModalDetails(flat.ID,flat)" [style.background-color]="flat?.Color">
                     {{flat?.Number}}
                     <i class="fa fa-building-o" aria-hidden="true"></i>
                   </button>

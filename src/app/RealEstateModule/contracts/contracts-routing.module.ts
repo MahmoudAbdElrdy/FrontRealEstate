@@ -5,6 +5,7 @@ import { AlertComponent } from '../report/alert/alert.component';
 import { CustomerCardComponent } from '../report/customer-card/customer-card.component';
 import { CustomerDataComponent } from '../report/customer-data/customer-data.component';
 import { ExtraContrcatComponent } from '../report/extra-contrcat/extra-contrcat.component';
+import { OverdueComponent } from '../report/overdue/overdue.component';
 import { YearContrcatComponent } from '../report/year-contrcat/year-contrcat.component';
 import { CancelledContractComponent } from './cancelled-contract/cancelled-contract.component';
 import { ContractListComponent } from './contract-list/contract-list.component';
@@ -107,6 +108,19 @@ const routes: Routes = [ {
             ]
         }
     }
+    ,
+    {
+        path: 'Overdue',
+        component: OverdueComponent,
+        data: {
+            title: ' الاقساط المتاخرة',
+            urls: [
+                { title: ' الاقساط المتاخرة', url: '/Contracts' },
+                { title: ' الاقساط المتاخرة', }
+            ]
+        }
+    },
+
       // {
       //   path: 'Supervisor',
       //   component: SupervisorComponent,

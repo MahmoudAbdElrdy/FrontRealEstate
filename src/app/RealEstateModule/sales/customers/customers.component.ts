@@ -98,7 +98,7 @@ export class CustomersSalesComponent extends General implements OnInit {
       kitchen: [null],
       room: [null],
       projectId: [null],
-      isBooked: false,
+      isBooked: 0,
       flatId: [null]
     });
     this.program = this.formBuilder.group({
@@ -320,7 +320,7 @@ export class CustomersSalesComponent extends General implements OnInit {
             for (var j = 1; j <= apartmentNumber; ++j) {
               item.Number = ++this.count;
               item.ID = ++this.idFlat;
-              var findItem = res.data.find(x => x.flatID == item.ID);
+              var findItem = res.data.find(x => x.flatID == item.Number);
 
               //  item.Area = 0;
               if (findItem) {
@@ -433,12 +433,12 @@ export class CustomersSalesComponent extends General implements OnInit {
       });
 
   }
-  openModalDetails(id) {
-
+  openModalDetails(id,flat) {
+debugger
     this.FlatID = id;
     this.modalService.open(this.modalDetailsId, { size: 'lg', backdrop: 'static' });
     if (id != undefined) {
-      this.getProjectUnitById(id)
+      this.getProjectUnitById(flat.Number)
     }
   }
   //

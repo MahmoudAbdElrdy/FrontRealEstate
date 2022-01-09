@@ -443,7 +443,7 @@ export class ContractListComponent extends General implements OnInit {
   }
 
   //
-  BaseFile: string = "http://mahmoud2025-001-site1.btempurl.com/wwwroot/UploadFiles/";
+  BaseFile: string = "http://192.168.1.150:8060/wwwroot/UploadFiles/";
   ImageUrl = new Array;
   fileToUpload = null;
   @ViewChild('userPhoto') userPhoto: ElementRef;
@@ -1045,7 +1045,14 @@ export class ContractListComponent extends General implements OnInit {
     debugger
     // if (this.id)
     //   this.modalService.open(this.installmentAlert, { size: 'lg', backdrop: 'static' });
+   
+    let department = localStorage.getItem("department");
+   
+    if (department == "Administration")
     this.router.navigateByUrl('/Management/Alert')
+  else
+
+  this.router.navigateByUrl('/Contracts/Alert')
   }
   openModalAlert() {
 
@@ -1069,7 +1076,14 @@ export class ContractListComponent extends General implements OnInit {
 
   @ViewChild('InstallmentOverdue') installmentOverdue: ElementRef;
   openModalInstallmentOverdue() {
+   
+    let department = localStorage.getItem("department");
+   
+    if (department == "Administration")
     this.router.navigateByUrl('/Management/Overdue')
+  else
+
+  this.router.navigateByUrl('/Contracts/Overdue')
     // if (this.id)
     //   this.modalService.open(this.installmentOverdue, { size: 'lg', backdrop: 'static' });
     // if (this.id) {
@@ -1092,8 +1106,12 @@ export class ContractListComponent extends General implements OnInit {
   }
   openCancelledContract() {
     //CancelledContract
-
+    let department = localStorage.getItem("department");
+   
+    if (department == "Administration")
     this.router.navigateByUrl('/Management/CancelledContract')
+  else
+  this.router.navigateByUrl('/Contracts/CancelledContract')
   }
   download(url): void {
 
@@ -1129,7 +1147,7 @@ export class ContractListComponent extends General implements OnInit {
           // })
           var ReportName = "PrintBill";
           //ASPX page URL to load report  
-          var src = 'http://localhost:4277/Reports/ReportForm/ReportPage.aspx?';
+          var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
           //We can add parameters here  
           src = src + "ReportName=" + ReportName + "&id=" + this.id ;
         

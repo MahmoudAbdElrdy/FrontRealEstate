@@ -40,7 +40,7 @@ export class AlertComponent implements OnInit {
     if(this.form.valid){
       var ReportName = "Alert";
       //ASPX page URL to load report  
-      var src = 'http://localhost:4277/Reports/ReportForm/ReportPage.aspx?';
+      var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
       //We can add parameters here  
       src = src + "ReportName=" + ReportName + "&projectID=" + this.form.value.projectID + "&fromDate=" +this.form.value.fromDate+ "&toDate=" +this.form.value.toDate ;
  
