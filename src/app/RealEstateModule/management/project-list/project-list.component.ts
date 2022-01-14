@@ -293,12 +293,54 @@ export class ProjectListComponent extends General implements OnInit {
           this.alert.error("مشكلة في الداتا بيز")
         });
   }
+  pad(num:number, size:number): string {
+    let s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
+}
   viewBulding(Floor) {
     
-    this.count = 0;
-    this.idFlat = 0;
+    this.count1 = 0;
+    this.idFlat1 = 0;
+    for (var r = 0; r <1; ++r) {
+      debugger
+      let item = new FlatViewModel();
 
-    for (var r = 1; r <= Number(Floor); ++r) {
+      let Floors = new Array<FlatViewModel>();
+      //this.counterNumber
+      this.count1=0
+      for (var j = 1; j <= this.model.apartmentNumber; ++j) {
+        
+       debugger
+        item.Area = 0;
+        
+        item.Number = ++this.count1;
+        item.ID = ++this.idFlat1;
+        
+        var itemNew=this.reservationList.find(c=>c.flatID==item.ID);
+        if(itemNew){
+          item.IsBooked = itemNew.isBooked;
+          if(item.IsBooked==1){
+            item.Color = '#04AA6D'
+          }
+          else {
+            item.Color = '#FF0000'
+          }
+          
+        }
+        else{
+          item.IsBooked = 1;
+          item.Color = '#04AA6D'
+        }
+       
+        item.floorNumber = r;
+        let item2 = Object.assign({}, item)
+        Floors.push(item2)
+      }
+
+      this.buildingData.Floors[0] = Floors
+    }
+    for (var r = 1; r <= Number(Floor)-1; ++r) {
       let item = new FlatViewModel();
 
       let Floors = new Array<FlatViewModel>();

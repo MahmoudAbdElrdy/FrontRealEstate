@@ -161,7 +161,12 @@
               <ul class="floor">
                 <li class="header" [style.background-color]="flat?.Color">
                   <button class="button" (click)="openModalDetails(flat.ID,flat)" [style.background-color]="flat?.Color">
-                    {{flat?.Number}}
+                    <span *ngIf="flat?.ID<9">
+                      00{{flat?.Number}}
+                    </span>
+                    <span *ngIf="flat?.Number>9">
+                      {{flat?.Number}}
+                    </span>
                     <i class="fa fa-building-o" aria-hidden="true"></i>
                   </button>
                 </li>

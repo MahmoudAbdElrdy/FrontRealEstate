@@ -311,7 +311,57 @@ export class CustomersSalesComponent extends General implements OnInit {
         if (res.isSuccess == true) {
 
           this.reservationList = res.data;
-          for (var r = 1; r <= floors; ++r) {
+          this.count1 = 0;
+          this.idFlat1 = 0;
+          for (var r = 0; r <1; ++r) {
+            debugger
+            let item = new FlatViewModel();
+      
+            let Floors = new Array<FlatViewModel>();
+            //this.counterNumber
+            this.count1=0
+            for (var j = 1; j <= apartmentNumber; ++j) {
+              
+             debugger
+              item.Area = 0;
+              
+              item.Number = ++this.count1;
+              item.ID = ++this.idFlat1;
+              
+              var itemNew=this.reservationList.find(c=>c.flatID==item.ID);
+              if(itemNew){
+                item.IsBooked = itemNew.isBooked;
+                if(item.IsBooked==1){
+                  item.Color = '#04AA6D'
+                }
+                if (item.IsBooked==2) {
+                  item.Color = '#FFA500'
+                 // item.IsDisabled = true;
+
+                }
+                if (item.IsBooked==3) {
+                  //#FF0000
+                  //  item.Color = '#FFA500'
+                  item.Color = '#FF0000'
+                //  item.IsDisabled = false;
+
+                }
+                
+              }
+              else{
+                item.IsDisabled = true;
+                item.IsBooked = 0;
+                item.Color = '#B2BABB'
+              }
+             
+              item.floorNumber = 0;
+              let item2 = Object.assign({}, item)
+              Floors.push(item2)
+            }
+      
+            this.buildingData.Floors[0] = Floors
+          }
+          for (var r = 1; r <= floors-1; ++r) {
             let item = new FlatViewModel();
 
             let Floors = new Array<FlatViewModel>();

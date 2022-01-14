@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FilterService, GridComponent, PagerComponent, PageService, QueryCellInfoEventArgs, RowSelectEventArgs, SortService, TextWrapSettingsModel, ToolbarService } from '@syncfusion/ej2-angular-grids';
+import { FilterService, GridComponent, InfiniteScrollService, PagerComponent, PageService, QueryCellInfoEventArgs, RowSelectEventArgs, SortService, TextWrapSettingsModel, ToolbarService } from '@syncfusion/ej2-angular-grids';
 import { looseObject } from 'src/app/shared/models/looseObject';
 import Swal from 'sweetalert2';
 import { ResponseData } from 'src/app/shared/models/ResponseData';
@@ -17,6 +17,8 @@ import { L10n, setCulture } from '@syncfusion/ej2-base';
 import { Locales } from 'src/app/shared/helper/constants';
 import { ReportService } from 'src/app/shared/services/report.service';
 import { timeThursdays } from 'd3';
+import { PageSettingsModel, InfiniteScrollSettingsModel } from '@syncfusion/ej2-angular-grids';
+
 setCulture('ar-AE');
 L10n.load(Locales.getLocaleObjects())
 @Component({
@@ -24,7 +26,7 @@ L10n.load(Locales.getLocaleObjects())
   templateUrl: './contract-list.component.html',
   styleUrls: ['./contract-list.component.css'],
   encapsulation: ViewEncapsulation.None,
-  providers: [PageService, SortService, FilterService, ToolbarService]
+  providers: [PageService, SortService, FilterService, ToolbarService,InfiniteScrollService]
 })
 export class ContractListComponent extends General implements OnInit {
   customAttributes: object;
@@ -36,6 +38,7 @@ export class ContractListComponent extends General implements OnInit {
   @ViewChild('grid') gridObj: GridComponent;
   @ViewChild("pager") pager: PagerComponent;
   @ViewChild('ModalId') modalId: ElementRef;
+  public infiniteOptions: InfiniteScrollSettingsModel;
   //#cancellId let-modalcancell
   wrapSettings: TextWrapSettingsModel;
   departmentDDL = [];
@@ -77,7 +80,7 @@ export class ContractListComponent extends General implements OnInit {
     this.customAttributes = { class: 'customcss' }; //use custom cs
     //  this.selectionsettings = { checkboxOnly: true };
     this.selectionsettings = { type: 'Single' };
-
+    this.infiniteOptions = { initialBlocks: 5 };
     this.filterSettings = {
       type: 'FilterBar', hierarchyMode: 'Parent', mode: 'Immediate',
     }
@@ -191,6 +194,9 @@ export class ContractListComponent extends General implements OnInit {
   }
   openModal() {
     this.form.reset();
+    this.values = [];
+    this.values = [];
+    this.valuesNational = [];
     this.values.push({ value: "" });
     this.valuesPhone.push({ value: "" });
     this.valuesNational.push({ value: "" });
@@ -275,7 +281,12 @@ export class ContractListComponent extends General implements OnInit {
           });
           this.ImageUrl = res.data?.contractFile;
           this.unitListDLL = res.data?.unitListDLL;
-          this.unitDescriptionsDLL = res.data?.unitDescriptionsDLL;
+          let numberFloor=this.unitListDLL.find(c=>c.numberFloor==numberFloor)
+         let floorNumber=numberFloor?.floorNumber
+          //this.unitDescriptionsDLL = res.data?.unitDescriptionsDLL;
+          this.unitDescriptionsDLL =  res.data?.unitDescriptionsDLL.map((val) => {
+            return { id: val.id, number: val.number<=9&&floorNumber==0?"00"+ val.number:val.number }
+          });
           this.changeIsStock();
         }
 
@@ -456,12 +467,17 @@ export class ContractListComponent extends General implements OnInit {
       });
   }
   onChangeUnti(e) {
-
+    
+let numberFloor=e.itemData.floorNumber;
     // this.unitDescriptionsDLL= this.unitListDLL?.find(x=>x.floorNumber==e.value)
     this._serviceProject.getUnitDescriptionsByUnti(e.value, this.projectId)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-          this.unitDescriptionsDLL = res.data;
+          
+        //  this.unitDescriptionsDLL = res.data;
+          this.unitDescriptionsDLL = res.data.map((val) => {
+            return { id: val.id, number: val.number<=9&&numberFloor==0?"00"+ val.number:val.number }
+          });
         }
       });
   }

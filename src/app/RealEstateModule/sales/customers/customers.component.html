@@ -232,7 +232,7 @@
     <div class="form-group row">
       <label for="" class="col-sm-2 col-form-label"> العقار</label>
       <div class="col-sm-10">
-            <ejs-dropdownlist id='projectID'[dataSource]='dataDropDownContract' (change)="viewBulding($event)"  [fields]="filed" #typeContract ></ejs-dropdownlist>
+            <ejs-dropdownlist id='projectID'[dataSource]='dataDropDownContract' [allowFiltering]='true' (change)="viewBulding($event)"  [fields]="filed" #typeContract ></ejs-dropdownlist>
 
       </div>
 
@@ -248,7 +248,12 @@
               <ul class="floor">
                 <li class="header" [style.background-color]="flat?.Color">
                   <button class="button" [disabled]="flat?.IsDisabled" (click)="openModalDetails(flat.ID,flat)" [style.background-color]="flat?.Color">
-                    {{flat?.Number}}
+                    <span *ngIf="flat?.Number<9">
+                      00{{flat?.Number}}
+                    </span>
+                    <span *ngIf="flat?.Number>9">
+                      {{flat?.Number}}
+                    </span>
                     <i class="fa fa-building-o" aria-hidden="true"></i>
                   </button>
                 </li>

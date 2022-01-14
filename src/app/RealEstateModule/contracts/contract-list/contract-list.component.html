@@ -1,6 +1,6 @@
 <ng-container>
 
-  <div class="pt-3 clearfix">
+  <div class="pt-3 clearfix" >
 
     <!-- new -->
 
@@ -54,7 +54,7 @@
     </button>
   </div>
   <br>
-  <ejs-grid [dataSource]='data' #grid  [enableRtl]='true'  width='100%' (actionBegin)='begin($event)'
+  <ejs-grid [dataSource]='data' enableInfiniteScrolling='true' height=400 width=400 [infiniteScrollSettings]='infiniteOptions' #grid  [enableRtl]='true'  width='100%' (actionBegin)='begin($event)'
     [allowFiltering]='true' allowTextWrap='true' [textWrapSettings]='wrapSettings' [filterSettings]="filterSettings"
     [selectionSettings]='selectionsettings' gridLines='Both'  (dataBound)='dataBound()'
     (rowSelected)='rowSelected($event)'>
@@ -63,11 +63,11 @@
                 [customAttributes]='customAttributes' width='60'></e-column> -->
 
       <e-column field='projectName' [customAttributes]='customAttributes' headerText='العقار ' textAlign='Right'
-        width=300>
+        width=250>
         <ng-template #filterTemplate>
 
           <ejs-dropdownlist  id="project" [dataSource]='dataDropDown' [changeOnBlur]='false' [allowFiltering]='true'
-            [autofill]='true'  width=300 placeholder="اختار" [fields]='FieldsProject'
+            [autofill]='true'  width=250 placeholder="اختار" [fields]='FieldsProject'
             (change)='onChangeProject($event)' [showClearButton]="true">
           </ejs-dropdownlist>
         </ng-template>
@@ -143,10 +143,10 @@
             (click)="remove(data.id)">
             <i class="far fa-trash-alt"></i>
           </button>
-          <button class="btn btn-outline-secondary" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+          <!-- <button class="btn btn-outline-secondary" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
             title="Delete">
             <i class="fas fa-undo"></i>
-          </button>
+          </button> -->
         </ng-template>
       </e-column>
 
