@@ -314,7 +314,27 @@ export class ContractListComponent extends General implements OnInit {
     return [year, month, day].join('-');
   }
 
+  getFile(customerName) {
+   
+      var ReportName = "CustomerCardStock";
+      //ASPX page URL to load report  
+      var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
+      //We can add parameters here  
+      src = src + "ReportName=" + ReportName + "&customerName=" + customerName;
 
+      window.open(src, "_blank");
+      //      this._service.customerCard(this.form.value).subscribe((data: Blob) => {
+      //       var fileType: any;
+      //     fileType = "application/pdf";
+      //     var blob = new Blob([data], { type: fileType });
+      //     const objectUrl: string = URL.createObjectURL(blob);
+
+      //     window.open(objectUrl, '_blank');
+
+      // })
+    
+
+  }
 
   remove(id) {
     if (id != undefined)
@@ -952,6 +972,7 @@ let numberFloor=e.itemData.floorNumber;
       contractDetailId: this.contractDetailId,
       date: Globals.formatDate(Date.now),
       paid: [null, [Validators.required]],
+      amountPaid:[null]
     });
   }
   //
@@ -966,6 +987,7 @@ let numberFloor=e.itemData.floorNumber;
       contractDetailId: this.contractDetailId,
       date: Globals.formatDate(Date.now),
       paid: [null, [Validators.required]],
+      amountPaid:[null]
     });
 
   }
@@ -991,6 +1013,7 @@ let numberFloor=e.itemData.floorNumber;
                 contractDetailId: this.contractDetailId,
                 date: Globals.formatDate(Date.parse(data.date)),
                 paid: data.paid,
+                amountPaid:data.amountPaid
               });
             }
           } else {
@@ -1004,6 +1027,7 @@ let numberFloor=e.itemData.floorNumber;
 
   }
   safeAddEditClick() {
+    debugger
     this.formcontractDetailBill.patchValue({
       contractDetailId: this.contractDetailId,
     });

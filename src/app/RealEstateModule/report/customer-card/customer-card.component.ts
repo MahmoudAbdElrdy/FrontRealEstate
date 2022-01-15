@@ -13,22 +13,22 @@ import { ReportService } from 'src/app/shared/services/report.service';
   styleUrls: ['./customer-card.component.css']
 })
 export class CustomerCardComponent implements OnInit {
-   dataDropDown: any;
+  dataDropDown: any;
   form: FormGroup;
   FieldsDDL: Object = { text: 'text', value: 'value' };
   FieldsProject: Object = { text: 'name', value: 'name' };
-  constructor(  private _service: ReportService,
+  constructor(private _service: ReportService,
     private _publicService: PublicService,
-    private router: Router,  private formBuilder: FormBuilder,
+    private router: Router, private formBuilder: FormBuilder,
     private activeRoute: ActivatedRoute,
     private _serviceProject: ProjectService,) { }
 
   ngOnInit(): void {
     this.getDropDownList()
     this.form = this.formBuilder.group({
-     
-      
-      customerName:  [null, [Validators.required]],
+
+
+      customerName: [null, [Validators.required]],
     });
   }
   getDropDownList() {
@@ -44,24 +44,24 @@ export class CustomerCardComponent implements OnInit {
   }
   getFile() {
     this.form.markAllAsTouched();
-    if(this.form.valid){
+    if (this.form.valid) {
       var ReportName = "CustomerCardStock";
       //ASPX page URL to load report  
       var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
       //We can add parameters here  
-      src = src + "ReportName=" + ReportName + "&customerName=" + this.form.value.customerName ;
- 
+      src = src + "ReportName=" + ReportName + "&customerName=" + this.form.value.customerName;
+
       window.open(src, "_blank");
-  //      this._service.customerCard(this.form.value).subscribe((data: Blob) => {
-  //       var fileType: any;
-  //     fileType = "application/pdf";
-  //     var blob = new Blob([data], { type: fileType });
-  //     const objectUrl: string = URL.createObjectURL(blob);
- 
-  //     window.open(objectUrl, '_blank');
-   
-  // })
+      //      this._service.customerCard(this.form.value).subscribe((data: Blob) => {
+      //       var fileType: any;
+      //     fileType = "application/pdf";
+      //     var blob = new Blob([data], { type: fileType });
+      //     const objectUrl: string = URL.createObjectURL(blob);
+
+      //     window.open(objectUrl, '_blank');
+
+      // })
     }
-   
-}
+
+  }
 }
