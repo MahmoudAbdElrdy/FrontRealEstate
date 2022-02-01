@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://localhost:7652/api',
-  urlReport:'http://localhost:7652'
+  apiUrl:'http://192.168.1.150:8082/api',
+  urlReport:'http://192.168.1.150:8082'
 };
 
 /* apiUrl:'http://mahmoud2025-001-site1.btempurl.com/api',

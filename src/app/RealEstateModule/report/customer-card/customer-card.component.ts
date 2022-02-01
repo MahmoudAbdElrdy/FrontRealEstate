@@ -16,7 +16,7 @@ export class CustomerCardComponent implements OnInit {
   dataDropDown: any;
   form: FormGroup;
   FieldsDDL: Object = { text: 'text', value: 'value' };
-  FieldsProject: Object = { text: 'name', value: 'name' };
+  FieldsProject: Object = { text: 'name', value: 'id' };
   constructor(private _service: ReportService,
     private _publicService: PublicService,
     private router: Router, private formBuilder: FormBuilder,

@@ -18,6 +18,7 @@ import { Locales } from 'src/app/shared/helper/constants';
 import { ReportService } from 'src/app/shared/services/report.service';
 import { timeThursdays } from 'd3';
 import { PageSettingsModel, InfiniteScrollSettingsModel } from '@syncfusion/ej2-angular-grids';
+import * as moment from 'moment';
 
 setCulture('ar-AE');
 L10n.load(Locales.getLocaleObjects())
@@ -26,7 +27,7 @@ L10n.load(Locales.getLocaleObjects())
   templateUrl: './contract-list.component.html',
   styleUrls: ['./contract-list.component.css'],
   encapsulation: ViewEncapsulation.None,
-  providers: [PageService, SortService, FilterService, ToolbarService,InfiniteScrollService]
+  providers: [PageService, SortService, FilterService, ToolbarService, InfiniteScrollService]
 })
 export class ContractListComponent extends General implements OnInit {
   customAttributes: object;
@@ -281,11 +282,11 @@ export class ContractListComponent extends General implements OnInit {
           });
           this.ImageUrl = res.data?.contractFile;
           this.unitListDLL = res.data?.unitListDLL;
-          let numberFloor=this.unitListDLL.find(c=>c.numberFloor==numberFloor)
-         let floorNumber=numberFloor?.floorNumber
+          let numberFloor = this.unitListDLL.find(c => c.numberFloor == numberFloor)
+          let floorNumber = numberFloor?.floorNumber
           //this.unitDescriptionsDLL = res.data?.unitDescriptionsDLL;
-          this.unitDescriptionsDLL =  res.data?.unitDescriptionsDLL.map((val) => {
-            return { id: val.id, number: val.number<=9&&floorNumber==0?"00"+ val.number:val.number }
+          this.unitDescriptionsDLL = res.data?.unitDescriptionsDLL.map((val) => {
+            return { id: val.id, number: val.number <= 9 && floorNumber == 0 ? "00" + val.number : val.number }
           });
           this.changeIsStock();
         }
@@ -315,24 +316,24 @@ export class ContractListComponent extends General implements OnInit {
   }
 
   getFile(customerName) {
-   
-      var ReportName = "CustomerCardStock";
-      //ASPX page URL to load report  
-      var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
-      //We can add parameters here  
-      src = src + "ReportName=" + ReportName + "&customerName=" + customerName;
 
-      window.open(src, "_blank");
-      //      this._service.customerCard(this.form.value).subscribe((data: Blob) => {
-      //       var fileType: any;
-      //     fileType = "application/pdf";
-      //     var blob = new Blob([data], { type: fileType });
-      //     const objectUrl: string = URL.createObjectURL(blob);
+    var ReportName = "CustomerCardStock";
+    //ASPX page URL to load report  
+    var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
+    //We can add parameters here  
+    src = src + "ReportName=" + ReportName + "&customerName=" + customerName;
 
-      //     window.open(objectUrl, '_blank');
+    window.open(src, "_blank");
+    //      this._service.customerCard(this.form.value).subscribe((data: Blob) => {
+    //       var fileType: any;
+    //     fileType = "application/pdf";
+    //     var blob = new Blob([data], { type: fileType });
+    //     const objectUrl: string = URL.createObjectURL(blob);
 
-      // })
-    
+    //     window.open(objectUrl, '_blank');
+
+    // })
+
 
   }
 
@@ -487,16 +488,16 @@ export class ContractListComponent extends General implements OnInit {
       });
   }
   onChangeUnti(e) {
-    
-let numberFloor=e.itemData.floorNumber;
+
+    let numberFloor = e.itemData.floorNumber;
     // this.unitDescriptionsDLL= this.unitListDLL?.find(x=>x.floorNumber==e.value)
     this._serviceProject.getUnitDescriptionsByUnti(e.value, this.projectId)
       .subscribe((res: ResponseData) => {
         if (res.isSuccess == true) {
-          
-        //  this.unitDescriptionsDLL = res.data;
+
+          //  this.unitDescriptionsDLL = res.data;
           this.unitDescriptionsDLL = res.data.map((val) => {
-            return { id: val.id, number: val.number<=9&&numberFloor==0?"00"+ val.number:val.number }
+            return { id: val.id, number: val.number <= 9 && numberFloor == 0 ? "00" + val.number : val.number }
           });
         }
       });
@@ -799,42 +800,65 @@ let numberFloor=e.itemData.floorNumber;
 
   }
   data2 = [];
+  installmentDisbled=false;
   installmentGeneratet(fromDate, toDate, numberInstallmen, numberMonth) {
-    
-    this.data2 = []
-    var start = fromDate.split('-');
-    var end = toDate.split('-');
-    var startYear = parseInt(start[0]);
-    var endYear = parseInt(end[0]);
+    this.installmentDisbled=true;
+    var startDate = moment(fromDate);
+    var endDate = moment(toDate);
+
     var dates = [];
+    //endDate.subtract(1, "month"); //Substract one month to exclude endDate itself
     let number = 1;
-    for (var i = startYear; i <= endYear; i++) {
-      var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
-      var startMon = i === startYear ? parseInt(start[1]) - 1 : 0;
+    var month = moment(startDate); //clone the startDate
+    while (month <= endDate) {
+      let _temp: { [k: string]: any } = {};
 
-      for (var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : (Number(j) + Number(numberMonth))) {
-
-        var month = j + 1;
-        var displayMonth = month < 10 ? '0' + month : month;
-
-        let _temp: { [k: string]: any } = {};
-        
-        let number2=parseInt(start[2]);
-        // if(number2<=9){
-        //   number2=number2+1
-        // }
-        let newDate = new Date([i, displayMonth,number2 ].join('-'));
+      dates.push(month.format('YYYY/MM/DD'));
+    debugger
+      let newDate = new Date(month.format('YYYY/MM/DD'));
         _temp.name = "قسط " + number++;
         _temp.amount = numberInstallmen;
         _temp.date = newDate;
         _temp.isExtra = false;
         _temp.contractID = this.id;
         this.data2.push(_temp)
-        console.log(dates);
-        console.log(this.data2);
-      }
-
+        month.add( Number(numberMonth), "month");
     }
+   // this.data2 = []
+   // var start = fromDate.split('-');
+   // var end = toDate.split('-');
+   // var startYear = parseInt(start[0]);
+   // var endYear = parseInt(end[0]);
+    // var dates = [];
+    // let number = 1;
+    // for (var i = startYear; i <= endYear; i++) {
+    //   debugger
+    //   var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
+    //   var startMon = i === startYear ? parseInt(start[1]) - 1 : 0;
+
+    //   for (var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : (Number(j) + Number(numberMonth))) {
+    //     debugger
+    //     var month = j + 1;
+    //     var displayMonth = month < 10 ? '0' + month : month;
+
+    //     let _temp: { [k: string]: any } = {};
+
+    //     let number2 = parseInt(start[2]);
+    //     // if(number2<=9){
+    //     //   number2=number2+1
+    //     // }
+    //     let newDate = new Date([i, displayMonth, number2].join('-'));
+    //     _temp.name = "قسط " + number++;
+    //     _temp.amount = numberInstallmen;
+    //     _temp.date = newDate;
+    //     _temp.isExtra = false;
+    //     _temp.contractID = this.id;
+    //     this.data2.push(_temp)
+    //     console.log(dates);
+    //     console.log(this.data2);
+    //   }
+
+    // }
 
     let contractDetailDtos: any = { ContractDetailDtoList: null }
     contractDetailDtos.contractDetailDtos = this.data2;
@@ -845,6 +869,7 @@ let numberFloor=e.itemData.floorNumber;
         this.getAllContractDetail();
         this.modalService2.dismissAll("InstallmentGenerate");
         this.modalService.open(this.installmentdateList, { size: 'lg', backdrop: 'static' });
+        this.installmentDisbled=false;
       }
       else {
         this.alert.error(res.message);
@@ -972,7 +997,7 @@ let numberFloor=e.itemData.floorNumber;
       contractDetailId: this.contractDetailId,
       date: Globals.formatDate(Date.now),
       paid: [null, [Validators.required]],
-      amountPaid:[null]
+      amountPaid: [null]
     });
   }
   //
@@ -987,7 +1012,7 @@ let numberFloor=e.itemData.floorNumber;
       contractDetailId: this.contractDetailId,
       date: Globals.formatDate(Date.now),
       paid: [null, [Validators.required]],
-      amountPaid:[null]
+      amountPaid: [null]
     });
 
   }
@@ -1013,7 +1038,7 @@ let numberFloor=e.itemData.floorNumber;
                 contractDetailId: this.contractDetailId,
                 date: Globals.formatDate(Date.parse(data.date)),
                 paid: data.paid,
-                amountPaid:data.amountPaid
+                amountPaid: data.amountPaid
               });
             }
           } else {
@@ -1027,7 +1052,7 @@ let numberFloor=e.itemData.floorNumber;
 
   }
   safeAddEditClick() {
-    debugger
+
     this.formcontractDetailBill.patchValue({
       contractDetailId: this.contractDetailId,
     });
@@ -1112,7 +1137,7 @@ let numberFloor=e.itemData.floorNumber;
   contractDetailDate = { contractId: 0, fromDate: null, toDate: null }
   @ViewChild('InstallmentAlert') installmentAlert: ElementRef;
   openModalInstallmentAlert() {
-    
+
     // if (this.id)
     //   this.modalService.open(this.installmentAlert, { size: 'lg', backdrop: 'static' });
 
