@@ -61,7 +61,7 @@ export class ExtraContrcatComponent implements OnInit {
      // ReportName is the name of Fun in aspx 
      var ReportName = "ExtraContrcat";
      //ASPX page URL to load report  
-     var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
+     var src = 'http://10.10.10.24:4277/Reports/ReportForm/ReportPage.aspx?';
      //We can add parameters here  
      src = src + "ReportName=" + ReportName + "&projectID=" + this.form.value.projectID + "&contractExtraName=" +this.form.value.contractExtraName ;
 

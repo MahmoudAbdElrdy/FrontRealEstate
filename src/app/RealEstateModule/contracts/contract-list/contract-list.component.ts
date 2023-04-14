@@ -121,6 +121,7 @@ export class ContractListComponent extends General implements OnInit {
 
   }
   changeMeterCost() {
+    debugger
     var meterCost = this.form.value.totalCost / this.form.value.metersNumer;
     this.form.patchValue({ meterCost: meterCost })
   }
@@ -319,7 +320,7 @@ export class ContractListComponent extends General implements OnInit {
 
     var ReportName = "CustomerCardStock";
     //ASPX page URL to load report  
-    var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
+    var src = 'http://10.10.10.244:4277/Reports/ReportForm/ReportPage.aspx?';
     //We can add parameters here  
     src = src + "ReportName=" + ReportName + "&customerName=" + customerName;
 
@@ -504,7 +505,7 @@ export class ContractListComponent extends General implements OnInit {
   }
 
   //
-  BaseFile: string = "http://192.168.1.150:8060/wwwroot/UploadFiles/";
+  BaseFile: string = "http://10.10.10.244:8060/wwwroot/UploadFiles/";
   ImageUrl = new Array;
   fileToUpload = null;
   @ViewChild('userPhoto') userPhoto: ElementRef;

@@ -30,7 +30,7 @@ export class CustomerWaitingComponent implements OnInit {
     if(this.form.valid){
       var ReportName = "CustomerWaiting";
       //ASPX page URL to load report  
-      var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
+      var src = 'http://10.10.10.24:4277/Reports/ReportForm/ReportPage.aspx?';
       //We can add parameters here  
       src = src + "ReportName=" + ReportName + "&region=" + this.form.value.region + "&fromDate=" +this.form.value.fromDate+ "&toDate=" +this.form.value.toDate ;
  

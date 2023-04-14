@@ -51,7 +51,7 @@ export class YearContrcatComponent implements OnInit {
   //})
   var ReportName = "SalesYear";
   //ASPX page URL to load report  
-  var src = 'http://192.168.1.150:4277/Reports/ReportForm/ReportPage.aspx?';
+  var src = 'http://10.10.10.24:4277/Reports/ReportForm/ReportPage.aspx?';
   //We can add parameters here  
   src = src + "ReportName=" + ReportName + "&year=" + this.form.value.year ;
 
