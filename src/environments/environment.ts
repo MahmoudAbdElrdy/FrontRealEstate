@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://10.10.10.244:8082/api',
-  urlReport:'http://10.10.10.244:8082'
+  apiUrl:'http://10.10.10.24:8082/api',
+  urlReport:'http://10.10.10.24:8082'
 };
 
 /* apiUrl:'http://mahmoud2025-001-site1.btempurl.com/api',

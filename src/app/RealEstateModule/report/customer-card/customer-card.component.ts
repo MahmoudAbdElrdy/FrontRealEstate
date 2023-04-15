@@ -47,7 +47,7 @@ export class CustomerCardComponent implements OnInit {
     if (this.form.valid) {
       var ReportName = "CustomerCardStock";
       //ASPX page URL to load report  
-      var src = 'http://10.10.10.244:4277/Reports/ReportForm/ReportPage.aspx?';
+      var src = 'http://10.10.10.24:4277/Reports/ReportForm/ReportPage.aspx?';
       //We can add parameters here  
       src = src + "ReportName=" + ReportName + "&customerName=" + this.form.value.customerName;
 
